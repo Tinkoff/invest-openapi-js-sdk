@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "./build",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "outDir": "./build/",
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "sourceMap": true,
+    "strict": true,
+    "module": "esnext",
+    "target": "es5",
+    "rootDir": "src",
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "esModuleInterop": true
+  },
+  "include": [
+    "./src/"
+  ],
+  "exclude": [
+    "**/__test__/*.ts",
+    "**/__mock__/*.ts",
+    "node_modules"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "useCache": true,
+    "forceIsolatedModules": true,
+    "reportFiles": [
+      "src/**/*.{ts,tsx}"
+    ]
+  }
+}
