@@ -1,17 +1,18 @@
 import 'isomorphic-fetch';
 import { EventEmitter } from 'events';
 import {
-  LimitOrderRequest, LimitOrderResponse,
+  LimitOrderResponse,
   MarketInstrument,
   MarketInstrumentList,
   Operations,
+  OperationType,
   Order,
   Portfolio,
   SandboxSetCurrencyBalanceRequest,
   SandboxSetPositionBalanceRequest,
 } from './domain';
 const WebSocket = require('ws');
-
+type OperationsInterval = '1day' | '7days' | '14days' | '30days';
 type Interval =
   | '1min'
   | '2min'
@@ -35,6 +36,7 @@ type OrderbookStreaming = {
   depth: Depth;
   bids: Array<[number, number]>;
 };
+type InstrumentId = { ticker: string } | { figi: string };
 type CandleStreaming = {
   o: number;
   c: number;
@@ -54,12 +56,40 @@ function getQueryString(params: { [x: string]: string | number }) {
   return s ? '?' + s : '';
 }
 
+type LimitOrderParams = {
+  figi: string;
+  lots: number;
+  operation: OperationType;
+  price: number;
+};
+
+function once<P extends Array<any>, R>(fn: (...args: P) => R): (...args: P) => R {
+  let result: { value: R };
+  return (...args: P) => {
+    if (!result) {
+      result = { value: fn(...args) };
+    }
+    return result.value;
+  };
+}
+
+/**
+ * @noInheritDoc
+ */
 export default class OpenAPI extends EventEmitter {
-  _ws: any = null;
-  apiURL: string;
-  socketURL: string;
-  secretToken: string;
-  authHeaders: any;
+  private _ws: any = null;
+  private readonly apiURL: string;
+  private readonly socketURL: string;
+  private readonly secretToken: string;
+  private readonly authHeaders: any;
+
+  /**
+   *
+   * @param apiURL REST api url см [документацию](https://tinkoffcreditsystems.github.io/invest-openapi/env/)
+   * @param socketURL Streaming api url см [документацию](https://tinkoffcreditsystems.github.io/invest-openapi/env/)
+   * @param secretToken токен доступа см [получение токена доступа](https://tinkoffcreditsystems.github.io/invest-openapi/auth/)
+   *
+   */
   constructor({
     apiURL,
     socketURL,
@@ -80,7 +110,7 @@ export default class OpenAPI extends EventEmitter {
     };
   }
 
-  ws() {
+  private ws() {
     if (!this._ws) {
       this._ws = new Promise((resolve) => {
         const ws = new WebSocket(this.socketURL, {
@@ -92,7 +122,7 @@ export default class OpenAPI extends EventEmitter {
         });
         ws.on('message', (m: any) => {
           const { event: type, payload } = JSON.parse(m);
-          this.emit(this._getEventName(type, payload), payload);
+          this.emit(this.getEventName(type, payload), payload);
         });
       });
     }
@@ -100,7 +130,7 @@ export default class OpenAPI extends EventEmitter {
     return this._ws;
   }
 
-  makeRequest<P extends {}>(
+  private makeRequest<P extends {}>(
     url: string,
     { method = 'get', params }: { method?: HttpMethod; params?: P } = {}
   ) {
@@ -123,86 +153,7 @@ export default class OpenAPI extends EventEmitter {
       });
   }
 
-  portfolio(): Promise<Portfolio> {
-    return this.makeRequest('/portfolio');
-  }
-
-  sandboxRegister(): Promise<any> {
-    return this.makeRequest('/sandbox/register', { method: 'post' });
-  }
-  sandboxClear(): Promise<any> {
-    return this.makeRequest('/sandbox/clear', { method: 'post' });
-  }
-
-  setPositionBalance(params: SandboxSetPositionBalanceRequest): Promise<any> {
-    return this.makeRequest('/sandbox/positions/balance', { method: 'post', params });
-  }
-
-  setCurrenciesBalance(params: SandboxSetCurrencyBalanceRequest): Promise<any> {
-    return this.makeRequest('/sandbox/currencies/balance', { method: 'post', params });
-  }
-
-  limitOrder(params: LimitOrderRequest & { figi: string }): Promise<LimitOrderResponse> {
-    return this.makeRequest(`/orders/limit-order?figi=${params.figi}`, { method: 'post', params });
-  }
-
-  cancelOrder(params: { figi: string }): Promise<LimitOrderResponse> {
-    return this.makeRequest('/orders/cancel', { params });
-  }
-
-  orders(): Promise<Order[]> {
-    return this.makeRequest('/orders');
-  }
-
-  currencies(): Promise<MarketInstrumentList> {
-    return this.makeRequest('/market/currencies');
-  }
-
-  etfs(): Promise<MarketInstrumentList> {
-    return this.makeRequest('/market/etfs');
-  }
-
-  bonds(): Promise<MarketInstrumentList> {
-    return this.makeRequest('/market/bonds');
-  }
-
-  stocks(): Promise<MarketInstrumentList> {
-    return this.makeRequest('/market/stocks');
-  }
-
-  operations({
-    from,
-    interval,
-    figi,
-  }: {
-    from: string;
-    interval: Interval;
-    figi: string;
-  }): Promise<Operations> {
-    return this.makeRequest('/operations', {
-      params: { from, interval, figi },
-    });
-  }
-
-  search(params: { ticker: string } | { figi: string }): Promise<MarketInstrumentList> {
-    if ('figi' in params) {
-      return this.makeRequest('/market/search/by-figi', {
-        params: { figi: params.figi },
-      });
-    }
-    if ('ticker' in params) {
-      return this.makeRequest('/market/search/by-ticker', {
-        params: { ticker: params.ticker },
-      });
-    }
-    throw new Error('should specify figi or ticker');
-  }
-
-  searchOne(params: { ticker: string } | { figi: string }): Promise<MarketInstrument | null> {
-    return this.search(params).then((x) => x.instruments[0] || null);
-  }
-
-  _getEventName(type: SocketEventType, params: Dict<string>) {
+  private getEventName(type: SocketEventType, params: Dict<string>) {
     if (type === 'orderbook') {
       return `${type}-${params.figi}-${params.depth}`;
     }
@@ -215,7 +166,7 @@ export default class OpenAPI extends EventEmitter {
     throw new Error(`Unknown type: ${type}`);
   }
 
-  _subscribeToSocket({ type, ...params }: any, cb: Function) {
+  private subscribeToSocket({ type, ...params }: any, cb: Function) {
     this.ws().then((ws: any) => {
       return ws.send(
         JSON.stringify({
@@ -225,7 +176,7 @@ export default class OpenAPI extends EventEmitter {
       );
     });
     const handler = (x: any) => cb(x);
-    let eventName = this._getEventName(type, params);
+    let eventName = this.getEventName(type, params);
     this.on(eventName, handler);
 
     const unsubscribe = () => {
@@ -244,21 +195,194 @@ export default class OpenAPI extends EventEmitter {
     return unsubscribe;
   }
 
+  private sandboxRegister = once(() => this.makeRequest('/sandbox/register', { method: 'post' }));
+
+  /**
+   * Метод для очистки песочницы
+   */
+  async sandboxClear(): Promise<any> {
+    await this.sandboxRegister();
+    return this.makeRequest('/sandbox/clear', { method: 'post' });
+  }
+
+  /**
+   * Метод для задания баланса по бумагам
+   * @param params см. описание типа
+   */
+  async setPositionBalance(params: SandboxSetPositionBalanceRequest): Promise<void> {
+    await this.sandboxRegister();
+    return this.makeRequest('/sandbox/positions/balance', { method: 'post', params });
+  }
+
+  /**
+   * Метод для задания баланса по валютам
+   * @param params см. описание типа
+   */
+  async setCurrenciesBalance(params: SandboxSetCurrencyBalanceRequest): Promise<void> {
+    await this.sandboxRegister();
+    return this.makeRequest('/sandbox/currencies/balance', { method: 'post', params });
+  }
+
+  /**
+   * Метод для получение портфеля цб
+   */
+  portfolio(): Promise<Portfolio> {
+    return this.makeRequest('/portfolio');
+  }
+
+  /**
+   * Метод для выставления заявки
+   * @param figi идентификатор инструмента
+   * @param lots количество лотов для заявки
+   * @param operation тип заявки
+   * @param price цена лимитной заявки
+   */
+  limitOrder({ figi, lots, operation, price }: LimitOrderParams): Promise<LimitOrderResponse> {
+    return this.makeRequest(`/orders/limit-order?figi=${figi}`, {
+      method: 'post',
+      params: {
+        lots,
+        operation,
+        price,
+      },
+    });
+  }
+
+  //todo протестить
+  /**
+   * Метод для отмены активных заявок
+   * @param orderId идентифткатор заявки
+   */
+  cancelOrder({ orderId }: { orderId: string }): Promise<LimitOrderResponse> {
+    return this.makeRequest(`/orders/cancel?orderId=${orderId}`, { method: 'post' });
+  }
+
+  /**
+   * Метод для получения всех активных заявок
+   */
+  orders(): Promise<Order[]> {
+    return this.makeRequest('/orders');
+  }
+
+  /**
+   * Метод для получения всех доступных валютных инструментов
+   */
+  currencies(): Promise<MarketInstrumentList> {
+    return this.makeRequest('/market/currencies');
+  }
+
+  /**
+   * Метод для получения всех доступных валютных ETF
+   */
+  etfs(): Promise<MarketInstrumentList> {
+    return this.makeRequest('/market/etfs');
+  }
+
+  /**
+   * Метод для получения всех доступных облигаций
+   */
+  bonds(): Promise<MarketInstrumentList> {
+    return this.makeRequest('/market/bonds');
+  }
+
+  /**
+   * Метод для получения всех доступных акций
+   */
+  stocks(): Promise<MarketInstrumentList> {
+    return this.makeRequest('/market/stocks');
+  }
+
+  //todo:
+  /**
+   * Метод для получения операций по цб по инструменту
+   * @param from Дата, с которой необходимо получить операции в формате ???
+   * @param interval Интервал, за который необходимы операции
+   * @param figi Идентификатор инструмента
+   */
+  operations({
+    from,
+    interval,
+    figi,
+  }: {
+    from: string;
+    interval: OperationsInterval;
+    figi: string;
+  }): Promise<Operations> {
+    return this.makeRequest('/operations', {
+      params: { from, interval, figi },
+    });
+  }
+
+  /**
+   * Метод для поиска инструментов по figi или ticker
+   * @param params { figi или ticker }
+   */
+  search(params: InstrumentId): Promise<MarketInstrumentList> {
+    if ('figi' in params) {
+      return this.makeRequest('/market/search/by-figi', {
+        params: { figi: params.figi },
+      });
+    }
+    if ('ticker' in params) {
+      return this.makeRequest('/market/search/by-ticker', {
+        params: { ticker: params.ticker },
+      });
+    }
+    throw new Error('should specify figi or ticker');
+  }
+
+  /**
+   * Метод для поиска инструмента по figi или ticker
+   * @param params { figi или ticker }
+   */
+  searchOne(params: InstrumentId): Promise<MarketInstrument | null> {
+    return this.search(params).then((x) => x.instruments[0] || null);
+  }
+
+  /**
+   * Метод для подписки на данные по стакану инструмента
+   * @example
+   * ```typescript
+   * const { figi } = await api.searchOne({ ticker: 'AAPL' });
+   * const unsubFromAAPL = api.orderbook({ figi }, (ob) => { console.log(ob.bids) });
+   * // ... подписка больше не нужна
+   * unsubFromAAPL();
+   * ```
+   * @param figi идентификатор инструмента
+   * @param depth
+   * @param cb функция для обработки новых данных по стакану
+   * @return функция для отмены подписки
+   */
   orderbook(
     { figi, depth = 3 }: { figi: string; depth?: Depth },
     cb: (x: OrderbookStreaming) => any = console.log
   ) {
-    return this._subscribeToSocket({ type: 'orderbook', figi, depth }, cb);
+    return this.subscribeToSocket({ type: 'orderbook', figi, depth }, cb);
   }
 
+  /**
+   * Метод для подписки на данные по свечному графику инструмента
+   * @example см. метод orderbook
+   * @param figi идентификатор инструмента
+   * @param interval интервал для свечи
+   * @param cb функция для обработки новых данных по свечи
+   * @return функция для отмены подписки
+   */
   candle(
     { figi, interval = '1min' }: { figi: string; interval?: Interval },
     cb: (x: CandleStreaming) => any = console.log
   ) {
-    return this._subscribeToSocket({ type: 'candle', figi, interval }, cb);
+    return this.subscribeToSocket({ type: 'candle', figi, interval }, cb);
   }
 
+  /**
+   * Метод для подписки на данные по инструменту
+   * @example см. метод orderbook
+   * @param figi идентификатор инструмента
+   * @param cb функция для обработки новых данных по инструменту
+   * @return функция для отмены подписки
+   */
   instrumentInfo({ figi }: { figi: string }, cb = console.log) {
-    return this._subscribeToSocket({ type: 'instrument_info', figi }, cb);
+    return this.subscribeToSocket({ type: 'instrument_info', figi }, cb);
   }
 }

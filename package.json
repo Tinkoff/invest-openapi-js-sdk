@@ -9,7 +9,7 @@
   "scripts": {
     "build": "rollup --config ./rollup.config.js",
     "watch": "rollup --config ./rollup.config.js -w -m",
-    "docs": " typedoc --plugin typedoc-plugin-markdown  --includeDeclarations --mode file --out ./doc/ ./src/"
+    "docs": " rm -rf ./doc && typedoc"
   },
   "keywords": [
     "trading",
@@ -28,6 +28,7 @@
     "tslib": "^1.10.0",
     "typedoc": "^0.15.0",
     "typedoc-plugin-markdown": "^2.2.10",
+    "typedoc-plugin-no-inherit": "^1.1.10",
     "typescript": "^3.6.3"
   },
   "dependencies": {
