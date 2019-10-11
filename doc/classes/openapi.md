@@ -1,4 +1,4 @@
-[tading-open-api](../README.md) › [Globals](../globals.md) › [OpenAPI](openapi.md)
+[invest-openapi-js-sdk](../README.md) › [Globals](../globals.md) › [OpenAPI](openapi.md)
 
 # Class: OpenAPI
 

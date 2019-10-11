@@ -1,4 +1,4 @@
-const OpenAPI = require('tading-open-api');
+const OpenAPI = require('invest-openapi-js-sdk');
 
 const apiURL = 'https://api-invest.tinkoff.ru/openapi';
 const sandboxApiURL = 'https://api-invest.tinkoff.ru/openapi/sandbox/';

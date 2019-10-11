@@ -1,6 +1,6 @@
-[tading-open-api](README.md) › [Globals](globals.md)
+[invest-openapi-js-sdk](README.md) › [Globals](globals.md)
 
-# tading-open-api
+# invest-openapi-js-sdk
 
 ## Index
 

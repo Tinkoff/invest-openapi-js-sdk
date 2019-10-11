@@ -1,5 +1,5 @@
 {
-  "name": "tading-open-api",
+  "name": "invest-openapi-js-sdk",
   "version": "1.0.0",
   "description": "Tinkoff Invet OpenAPI Client",
   "main": "index.js",
