@@ -1,18 +1,16 @@
-[tading-open-api](README.md) › [Globals](globals.md)
-
-# tading-open-api
-
 # Trading Open API - JS SDK
 
 SDK для работы с OpenAPI Тинькофф Инвестиции, который можно использовать для создания торговых роботов.
 
 `npm i tading-open-api --save`
 
+
 ## Документация
 
 Доступна по [ссылке](./doc/classes/openapi.md)
 
 [Swagger](https://tinkoffcreditsystems.github.io/invest-openapi/swagger-ui/)
+
 
 ## Авторизация
 

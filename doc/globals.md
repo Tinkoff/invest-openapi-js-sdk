@@ -1,4 +1,4 @@
-[tading-open-api](globals.md)
+[tading-open-api](README.md) › [Globals](globals.md)
 
 # tading-open-api
 
@@ -70,7 +70,7 @@
 
 Ƭ **CandleStreaming**: *object*
 
-Defined in OpenAPI.ts:40
+Defined in OpenAPI.ts:39
 
 #### Type declaration:
 
@@ -134,7 +134,7 @@ ___
 
 Ƭ **Depth**: *1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10*
 
-Defined in OpenAPI.ts:30
+Defined in OpenAPI.ts:29
 
 ___
 
@@ -142,7 +142,7 @@ ___
 
 Ƭ **Dict**: *object*
 
-Defined in OpenAPI.ts:33
+Defined in OpenAPI.ts:32
 
 #### Type declaration:
 
@@ -200,7 +200,7 @@ ___
 
 Ƭ **HttpMethod**: *"get" | "post"*
 
-Defined in OpenAPI.ts:31
+Defined in OpenAPI.ts:30
 
 ___
 
@@ -208,7 +208,7 @@ ___
 
 Ƭ **InstrumentId**: *object | object*
 
-Defined in OpenAPI.ts:39
+Defined in OpenAPI.ts:38
 
 ___
 
@@ -226,7 +226,7 @@ ___
 
 Ƭ **Interval**: *"1min" | "2min" | "3min" | "5min" | "10min" | "15min" | "30min" | "hour" | "2hour" | "4hour" | "day" | "week" | "month"*
 
-Defined in OpenAPI.ts:16
+Defined in OpenAPI.ts:15
 
 ___
 
@@ -234,7 +234,7 @@ ___
 
 Ƭ **LimitOrderParams**: *object*
 
-Defined in OpenAPI.ts:59
+Defined in OpenAPI.ts:58
 
 #### Type declaration:
 
@@ -470,7 +470,7 @@ ___
 
 Ƭ **OperationsInterval**: *"1day" | "7days" | "14days" | "30days"*
 
-Defined in OpenAPI.ts:15
+Defined in OpenAPI.ts:14
 
 ___
 
@@ -540,7 +540,7 @@ ___
 
 Ƭ **OrderbookStreaming**: *object*
 
-Defined in OpenAPI.ts:34
+Defined in OpenAPI.ts:33
 
 #### Type declaration:
 
@@ -704,7 +704,7 @@ ___
 
 Ƭ **SocketEventType**: *"orderbook" | "candle" | "instrument_info"*
 
-Defined in OpenAPI.ts:32
+Defined in OpenAPI.ts:31
 
 ## Variables
 
@@ -712,7 +712,7 @@ Defined in OpenAPI.ts:32
 
 • **WebSocket**: *any* =  require('ws')
 
-Defined in OpenAPI.ts:14
+Defined in OpenAPI.ts:13
 
 ## Functions
 
@@ -720,7 +720,7 @@ Defined in OpenAPI.ts:14
 
 ▸ **getQueryString**(`params`: object): *string*
 
-Defined in OpenAPI.ts:51
+Defined in OpenAPI.ts:50
 
 **Parameters:**
 
@@ -736,7 +736,7 @@ ___
 
 ▸ **once**<**P**, **R**>(`fn`: function): *function*
 
-Defined in OpenAPI.ts:66
+Defined in OpenAPI.ts:65
 
 **Type parameters:**
 

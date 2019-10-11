@@ -1,12 +1,11 @@
 import 'isomorphic-fetch';
 import { EventEmitter } from 'events';
 import {
-  LimitOrderResponse,
   MarketInstrument,
   MarketInstrumentList,
   Operations,
   OperationType,
-  Order,
+  Order, PlacedLimitOrder,
   Portfolio, PortfolioPosition,
   SandboxSetCurrencyBalanceRequest,
   SandboxSetPositionBalanceRequest,
@@ -254,7 +253,7 @@ export default class OpenAPI extends EventEmitter {
    * @param operation тип заявки
    * @param price цена лимитной заявки
    */
-  limitOrder({ figi, lots, operation, price }: LimitOrderParams): Promise<LimitOrderResponse> {
+  limitOrder({ figi, lots, operation, price }: LimitOrderParams): Promise<PlacedLimitOrder> {
     return this.makeRequest(`/orders/limit-order?figi=${figi}`, {
       method: 'post',
       params: {
@@ -270,7 +269,7 @@ export default class OpenAPI extends EventEmitter {
    * Метод для отмены активных заявок
    * @param orderId идентифткатор заявки
    */
-  cancelOrder({ orderId }: { orderId: string }): Promise<LimitOrderResponse> {
+  cancelOrder({ orderId }: { orderId: string }): Promise<void> {
     return this.makeRequest(`/orders/cancel?orderId=${orderId}`, { method: 'post' });
   }
 
