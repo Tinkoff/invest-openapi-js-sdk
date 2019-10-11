@@ -7,7 +7,7 @@ import {
   Operations,
   OperationType,
   Order,
-  Portfolio,
+  Portfolio, PortfolioPosition,
   SandboxSetCurrencyBalanceRequest,
   SandboxSetPositionBalanceRequest,
 } from './domain';
@@ -130,10 +130,10 @@ export default class OpenAPI extends EventEmitter {
     return this._ws;
   }
 
-  private makeRequest<P extends {}>(
+  private makeRequest<P, R>(
     url: string,
     { method = 'get', params }: { method?: HttpMethod; params?: P } = {}
-  ) {
+  ): Promise<R> {
     return (method === 'get'
       ? fetch(this.apiURL + url + getQueryString(params || {}), {
           method,
@@ -228,6 +228,23 @@ export default class OpenAPI extends EventEmitter {
    */
   portfolio(): Promise<Portfolio> {
     return this.makeRequest('/portfolio');
+  }
+
+  /**
+   * Метод для получение данных по инструменту в портфеле
+   */
+  instrumentPortfolio(params: InstrumentId): Promise<PortfolioPosition | null> {
+    return this.portfolio().then(x => {
+      return x.positions.find(position => {
+        if ('figi' in params) {
+          return position.figi === params.figi
+        }
+        if ('ticker' in params) {
+          return position.ticker === params.ticker;
+        }
+
+      }) || null;
+    });
   }
 
   /**

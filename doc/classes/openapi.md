@@ -22,6 +22,7 @@
 * [currencies](openapi.md#markdown-header-currencies)
 * [etfs](openapi.md#markdown-header-etfs)
 * [instrumentInfo](openapi.md#markdown-header-instrumentinfo)
+* [instrumentPortfolio](openapi.md#markdown-header-instrumentportfolio)
 * [limitOrder](openapi.md#markdown-header-limitorder)
 * [operations](openapi.md#markdown-header-operations)
 * [orderbook](openapi.md#markdown-header-orderbook)
@@ -60,7 +61,7 @@ Name | Type | Description |
 
 ▸ **bonds**(): *Promise‹[MarketInstrumentList](../globals.md#markdown-header-marketinstrumentlist)›*
 
-Defined in OpenAPI.ts:284
+Defined in OpenAPI.ts:301
 
 Метод для получения всех доступных облигаций
 
@@ -72,7 +73,7 @@ ___
 
 ▸ **cancelOrder**(`__namedParameters`: object): *Promise‹[LimitOrderResponse](../globals.md#markdown-header-limitorderresponse)›*
 
-Defined in OpenAPI.ts:256
+Defined in OpenAPI.ts:273
 
 Метод для отмены активных заявок
 
@@ -92,7 +93,7 @@ ___
 
 ▸ **candle**(`__namedParameters`: object, `cb`: function): *unsubscribe*
 
-Defined in OpenAPI.ts:371
+Defined in OpenAPI.ts:388
 
 Метод для подписки на данные по свечному графику инструмента
 
@@ -129,7 +130,7 @@ ___
 
 ▸ **currencies**(): *Promise‹[MarketInstrumentList](../globals.md#markdown-header-marketinstrumentlist)›*
 
-Defined in OpenAPI.ts:270
+Defined in OpenAPI.ts:287
 
 Метод для получения всех доступных валютных инструментов
 
@@ -141,7 +142,7 @@ ___
 
 ▸ **etfs**(): *Promise‹[MarketInstrumentList](../globals.md#markdown-header-marketinstrumentlist)›*
 
-Defined in OpenAPI.ts:277
+Defined in OpenAPI.ts:294
 
 Метод для получения всех доступных валютных ETF
 
@@ -153,7 +154,7 @@ ___
 
 ▸ **instrumentInfo**(`__namedParameters`: object, `cb`: log): *unsubscribe*
 
-Defined in OpenAPI.ts:385
+Defined in OpenAPI.ts:402
 
 Метод для подписки на данные по инструменту
 
@@ -177,11 +178,29 @@ Name | Type | Description |
 
 ___
 
+###  instrumentPortfolio
+
+▸ **instrumentPortfolio**(`params`: [InstrumentId](../globals.md#markdown-header-instrumentid)): *Promise‹[PortfolioPosition](../globals.md#markdown-header-portfolioposition) | null›*
+
+Defined in OpenAPI.ts:236
+
+Метод для получение данных по инструменту в портфеле
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`params` | [InstrumentId](../globals.md#markdown-header-instrumentid) |
+
+**Returns:** *Promise‹[PortfolioPosition](../globals.md#markdown-header-portfolioposition) | null›*
+
+___
+
 ###  limitOrder
 
 ▸ **limitOrder**(`__namedParameters`: object): *Promise‹[LimitOrderResponse](../globals.md#markdown-header-limitorderresponse)›*
 
-Defined in OpenAPI.ts:240
+Defined in OpenAPI.ts:257
 
 Метод для выставления заявки
 
@@ -204,7 +223,7 @@ ___
 
 ▸ **operations**(`__namedParameters`: object): *Promise‹[Operations](../globals.md#markdown-header-operations)›*
 
-Defined in OpenAPI.ts:302
+Defined in OpenAPI.ts:319
 
 Метод для получения операций по цб по инструменту
 
@@ -226,7 +245,7 @@ ___
 
 ▸ **orderbook**(`__namedParameters`: object, `cb`: function): *unsubscribe*
 
-Defined in OpenAPI.ts:356
+Defined in OpenAPI.ts:373
 
 Метод для подписки на данные по стакану инструмента
 
@@ -269,7 +288,7 @@ ___
 
 ▸ **orders**(): *Promise‹[Order](../globals.md#markdown-header-order)[]›*
 
-Defined in OpenAPI.ts:263
+Defined in OpenAPI.ts:280
 
 Метод для получения всех активных заявок
 
@@ -305,7 +324,7 @@ ___
 
 ▸ **search**(`params`: [InstrumentId](../globals.md#markdown-header-instrumentid)): *Promise‹[MarketInstrumentList](../globals.md#markdown-header-marketinstrumentlist)›*
 
-Defined in OpenAPI.ts:320
+Defined in OpenAPI.ts:337
 
 Метод для поиска инструментов по figi или ticker
 
@@ -323,7 +342,7 @@ ___
 
 ▸ **searchOne**(`params`: [InstrumentId](../globals.md#markdown-header-instrumentid)): *Promise‹[MarketInstrument](../globals.md#markdown-header-marketinstrument) | null›*
 
-Defined in OpenAPI.ts:338
+Defined in OpenAPI.ts:355
 
 Метод для поиска инструмента по figi или ticker
 
@@ -377,7 +396,7 @@ ___
 
 ▸ **stocks**(): *Promise‹[MarketInstrumentList](../globals.md#markdown-header-marketinstrumentlist)›*
 
-Defined in OpenAPI.ts:291
+Defined in OpenAPI.ts:308
 
 Метод для получения всех доступных акций
 
