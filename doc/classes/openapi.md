@@ -12,28 +12,28 @@
 
 ### Constructors
 
-* [constructor](openapi.md#markdown-header-constructor)
+* [constructor](openapi.md#constructor)
 
 ### Methods
 
-* [bonds](openapi.md#markdown-header-bonds)
-* [cancelOrder](openapi.md#markdown-header-cancelorder)
-* [candle](openapi.md#markdown-header-candle)
-* [currencies](openapi.md#markdown-header-currencies)
-* [etfs](openapi.md#markdown-header-etfs)
-* [instrumentInfo](openapi.md#markdown-header-instrumentinfo)
-* [instrumentPortfolio](openapi.md#markdown-header-instrumentportfolio)
-* [limitOrder](openapi.md#markdown-header-limitorder)
-* [operations](openapi.md#markdown-header-operations)
-* [orderbook](openapi.md#markdown-header-orderbook)
-* [orders](openapi.md#markdown-header-orders)
-* [portfolio](openapi.md#markdown-header-portfolio)
-* [sandboxClear](openapi.md#markdown-header-sandboxclear)
-* [search](openapi.md#markdown-header-search)
-* [searchOne](openapi.md#markdown-header-searchone)
-* [setCurrenciesBalance](openapi.md#markdown-header-setcurrenciesbalance)
-* [setPositionBalance](openapi.md#markdown-header-setpositionbalance)
-* [stocks](openapi.md#markdown-header-stocks)
+* [bonds](openapi.md#bonds)
+* [cancelOrder](openapi.md#cancelorder)
+* [candle](openapi.md#candle)
+* [currencies](openapi.md#currencies)
+* [etfs](openapi.md#etfs)
+* [instrumentInfo](openapi.md#instrumentinfo)
+* [instrumentPortfolio](openapi.md#instrumentportfolio)
+* [limitOrder](openapi.md#limitorder)
+* [operations](openapi.md#operations)
+* [orderbook](openapi.md#orderbook)
+* [orders](openapi.md#orders)
+* [portfolio](openapi.md#portfolio)
+* [sandboxClear](openapi.md#sandboxclear)
+* [search](openapi.md#search)
+* [searchOne](openapi.md#searchone)
+* [setCurrenciesBalance](openapi.md#setcurrenciesbalance)
+* [setPositionBalance](openapi.md#setpositionbalance)
+* [stocks](openapi.md#stocks)
 
 ## Constructors
 
@@ -59,19 +59,19 @@ Name | Type | Description |
 
 ###  bonds
 
-▸ **bonds**(): *Promise‹[MarketInstrumentList](../globals.md#markdown-header-marketinstrumentlist)›*
+▸ **bonds**(): *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
 Defined in OpenAPI.ts:301
 
 Метод для получения всех доступных облигаций
 
-**Returns:** *Promise‹[MarketInstrumentList](../globals.md#markdown-header-marketinstrumentlist)›*
+**Returns:** *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
 ___
 
 ###  cancelOrder
 
-▸ **cancelOrder**(`__namedParameters`: object): *Promise‹[LimitOrderResponse](../globals.md#markdown-header-limitorderresponse)›*
+▸ **cancelOrder**(`__namedParameters`: object): *Promise‹[LimitOrderResponse](../globals.md#limitorderresponse)›*
 
 Defined in OpenAPI.ts:273
 
@@ -85,7 +85,7 @@ Name | Type | Description |
 ------ | ------ | ------ |
 `orderId` | string | идентифткатор заявки  |
 
-**Returns:** *Promise‹[LimitOrderResponse](../globals.md#markdown-header-limitorderresponse)›*
+**Returns:** *Promise‹[LimitOrderResponse](../globals.md#limitorderresponse)›*
 
 ___
 
@@ -112,13 +112,13 @@ Name | Type | Default | Description |
 
 функция для обработки новых данных по свечи
 
-▸ (`x`: [CandleStreaming](../globals.md#markdown-header-candlestreaming)): *any*
+▸ (`x`: [CandleStreaming](../globals.md#candlestreaming)): *any*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`x` | [CandleStreaming](../globals.md#markdown-header-candlestreaming) |
+`x` | [CandleStreaming](../globals.md#candlestreaming) |
 
 **Returns:** *unsubscribe*
 
@@ -128,25 +128,25 @@ ___
 
 ###  currencies
 
-▸ **currencies**(): *Promise‹[MarketInstrumentList](../globals.md#markdown-header-marketinstrumentlist)›*
+▸ **currencies**(): *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
 Defined in OpenAPI.ts:287
 
 Метод для получения всех доступных валютных инструментов
 
-**Returns:** *Promise‹[MarketInstrumentList](../globals.md#markdown-header-marketinstrumentlist)›*
+**Returns:** *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
 ___
 
 ###  etfs
 
-▸ **etfs**(): *Promise‹[MarketInstrumentList](../globals.md#markdown-header-marketinstrumentlist)›*
+▸ **etfs**(): *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
 Defined in OpenAPI.ts:294
 
 Метод для получения всех доступных валютных ETF
 
-**Returns:** *Promise‹[MarketInstrumentList](../globals.md#markdown-header-marketinstrumentlist)›*
+**Returns:** *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
 ___
 
@@ -180,7 +180,7 @@ ___
 
 ###  instrumentPortfolio
 
-▸ **instrumentPortfolio**(`params`: [InstrumentId](../globals.md#markdown-header-instrumentid)): *Promise‹[PortfolioPosition](../globals.md#markdown-header-portfolioposition) | null›*
+▸ **instrumentPortfolio**(`params`: [InstrumentId](../globals.md#instrumentid)): *Promise‹[PortfolioPosition](../globals.md#portfolioposition) | null›*
 
 Defined in OpenAPI.ts:236
 
@@ -190,15 +190,15 @@ Defined in OpenAPI.ts:236
 
 Name | Type |
 ------ | ------ |
-`params` | [InstrumentId](../globals.md#markdown-header-instrumentid) |
+`params` | [InstrumentId](../globals.md#instrumentid) |
 
-**Returns:** *Promise‹[PortfolioPosition](../globals.md#markdown-header-portfolioposition) | null›*
+**Returns:** *Promise‹[PortfolioPosition](../globals.md#portfolioposition) | null›*
 
 ___
 
 ###  limitOrder
 
-▸ **limitOrder**(`__namedParameters`: object): *Promise‹[LimitOrderResponse](../globals.md#markdown-header-limitorderresponse)›*
+▸ **limitOrder**(`__namedParameters`: object): *Promise‹[LimitOrderResponse](../globals.md#limitorderresponse)›*
 
 Defined in OpenAPI.ts:257
 
@@ -215,13 +215,13 @@ Name | Type | Description |
 `operation` | "Buy" &#124; "Sell" | тип заявки |
 `price` | number | цена лимитной заявки  |
 
-**Returns:** *Promise‹[LimitOrderResponse](../globals.md#markdown-header-limitorderresponse)›*
+**Returns:** *Promise‹[LimitOrderResponse](../globals.md#limitorderresponse)›*
 
 ___
 
 ###  operations
 
-▸ **operations**(`__namedParameters`: object): *Promise‹[Operations](../globals.md#markdown-header-operations)›*
+▸ **operations**(`__namedParameters`: object): *Promise‹[Operations](../globals.md#operations)›*
 
 Defined in OpenAPI.ts:319
 
@@ -237,7 +237,7 @@ Name | Type | Description |
 `from` | string | Дата, с которой необходимо получить операции в формате ??? |
 `interval` | "1day" &#124; "7days" &#124; "14days" &#124; "30days" | Интервал, за который необходимы операции |
 
-**Returns:** *Promise‹[Operations](../globals.md#markdown-header-operations)›*
+**Returns:** *Promise‹[Operations](../globals.md#operations)›*
 
 ___
 
@@ -270,13 +270,13 @@ Name | Type | Default | Description |
 
 функция для обработки новых данных по стакану
 
-▸ (`x`: [OrderbookStreaming](../globals.md#markdown-header-orderbookstreaming)): *any*
+▸ (`x`: [OrderbookStreaming](../globals.md#orderbookstreaming)): *any*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`x` | [OrderbookStreaming](../globals.md#markdown-header-orderbookstreaming) |
+`x` | [OrderbookStreaming](../globals.md#orderbookstreaming) |
 
 **Returns:** *unsubscribe*
 
@@ -286,25 +286,25 @@ ___
 
 ###  orders
 
-▸ **orders**(): *Promise‹[Order](../globals.md#markdown-header-order)[]›*
+▸ **orders**(): *Promise‹[Order](../globals.md#order)[]›*
 
 Defined in OpenAPI.ts:280
 
 Метод для получения всех активных заявок
 
-**Returns:** *Promise‹[Order](../globals.md#markdown-header-order)[]›*
+**Returns:** *Promise‹[Order](../globals.md#order)[]›*
 
 ___
 
 ###  portfolio
 
-▸ **portfolio**(): *Promise‹[Portfolio](../globals.md#markdown-header-portfolio)›*
+▸ **portfolio**(): *Promise‹[Portfolio](../globals.md#portfolio)›*
 
 Defined in OpenAPI.ts:229
 
 Метод для получение портфеля цб
 
-**Returns:** *Promise‹[Portfolio](../globals.md#markdown-header-portfolio)›*
+**Returns:** *Promise‹[Portfolio](../globals.md#portfolio)›*
 
 ___
 
@@ -322,7 +322,7 @@ ___
 
 ###  search
 
-▸ **search**(`params`: [InstrumentId](../globals.md#markdown-header-instrumentid)): *Promise‹[MarketInstrumentList](../globals.md#markdown-header-marketinstrumentlist)›*
+▸ **search**(`params`: [InstrumentId](../globals.md#instrumentid)): *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
 Defined in OpenAPI.ts:337
 
@@ -332,15 +332,15 @@ Defined in OpenAPI.ts:337
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`params` | [InstrumentId](../globals.md#markdown-header-instrumentid) |   |
+`params` | [InstrumentId](../globals.md#instrumentid) |   |
 
-**Returns:** *Promise‹[MarketInstrumentList](../globals.md#markdown-header-marketinstrumentlist)›*
+**Returns:** *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
 ___
 
 ###  searchOne
 
-▸ **searchOne**(`params`: [InstrumentId](../globals.md#markdown-header-instrumentid)): *Promise‹[MarketInstrument](../globals.md#markdown-header-marketinstrument) | null›*
+▸ **searchOne**(`params`: [InstrumentId](../globals.md#instrumentid)): *Promise‹[MarketInstrument](../globals.md#marketinstrument) | null›*
 
 Defined in OpenAPI.ts:355
 
@@ -350,15 +350,15 @@ Defined in OpenAPI.ts:355
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`params` | [InstrumentId](../globals.md#markdown-header-instrumentid) |   |
+`params` | [InstrumentId](../globals.md#instrumentid) |   |
 
-**Returns:** *Promise‹[MarketInstrument](../globals.md#markdown-header-marketinstrument) | null›*
+**Returns:** *Promise‹[MarketInstrument](../globals.md#marketinstrument) | null›*
 
 ___
 
 ###  setCurrenciesBalance
 
-▸ **setCurrenciesBalance**(`params`: [SandboxSetCurrencyBalanceRequest](../globals.md#markdown-header-sandboxsetcurrencybalancerequest)): *Promise‹void›*
+▸ **setCurrenciesBalance**(`params`: [SandboxSetCurrencyBalanceRequest](../globals.md#sandboxsetcurrencybalancerequest)): *Promise‹void›*
 
 Defined in OpenAPI.ts:221
 
@@ -368,7 +368,7 @@ Defined in OpenAPI.ts:221
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`params` | [SandboxSetCurrencyBalanceRequest](../globals.md#markdown-header-sandboxsetcurrencybalancerequest) | см. описание типа  |
+`params` | [SandboxSetCurrencyBalanceRequest](../globals.md#sandboxsetcurrencybalancerequest) | см. описание типа  |
 
 **Returns:** *Promise‹void›*
 
@@ -376,7 +376,7 @@ ___
 
 ###  setPositionBalance
 
-▸ **setPositionBalance**(`params`: [SandboxSetPositionBalanceRequest](../globals.md#markdown-header-sandboxsetpositionbalancerequest)): *Promise‹void›*
+▸ **setPositionBalance**(`params`: [SandboxSetPositionBalanceRequest](../globals.md#sandboxsetpositionbalancerequest)): *Promise‹void›*
 
 Defined in OpenAPI.ts:212
 
@@ -386,7 +386,7 @@ Defined in OpenAPI.ts:212
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`params` | [SandboxSetPositionBalanceRequest](../globals.md#markdown-header-sandboxsetpositionbalancerequest) | см. описание типа  |
+`params` | [SandboxSetPositionBalanceRequest](../globals.md#sandboxsetpositionbalancerequest) | см. описание типа  |
 
 **Returns:** *Promise‹void›*
 
@@ -394,10 +394,10 @@ ___
 
 ###  stocks
 
-▸ **stocks**(): *Promise‹[MarketInstrumentList](../globals.md#markdown-header-marketinstrumentlist)›*
+▸ **stocks**(): *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
 Defined in OpenAPI.ts:308
 
 Метод для получения всех доступных акций
 
-**Returns:** *Promise‹[MarketInstrumentList](../globals.md#markdown-header-marketinstrumentlist)›*
+**Returns:** *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*

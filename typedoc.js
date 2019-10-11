@@ -6,6 +6,5 @@ module.exports = {
   json: './doc/j.json',
   excludePrivate: true,
   includeDeclarations: true,
-  theme: 'bitbucket',
   plugin: [ 'typedoc-plugin-markdown','typedoc-plugin-no-inherit']
 };

@@ -10,59 +10,59 @@
 
 ### Type aliases
 
-* [CandleStreaming](globals.md#markdown-header-candlestreaming)
-* [Currencies](globals.md#markdown-header-currencies)
-* [Currency](globals.md#markdown-header-currency)
-* [CurrencyPosition](globals.md#markdown-header-currencyposition)
-* [Depth](globals.md#markdown-header-depth)
-* [Dict](globals.md#markdown-header-dict)
-* [Empty](globals.md#markdown-header-empty)
-* [Error](globals.md#markdown-header-error)
-* [ErrorPayload](globals.md#markdown-header-errorpayload)
-* [HttpMethod](globals.md#markdown-header-httpmethod)
-* [InstrumentId](globals.md#markdown-header-instrumentid)
-* [InstrumentType](globals.md#markdown-header-instrumenttype)
-* [Interval](globals.md#markdown-header-interval)
-* [LimitOrderParams](globals.md#markdown-header-limitorderparams)
-* [LimitOrderRequest](globals.md#markdown-header-limitorderrequest)
-* [LimitOrderResponse](globals.md#markdown-header-limitorderresponse)
-* [MarketInstrument](globals.md#markdown-header-marketinstrument)
-* [MarketInstrumentList](globals.md#markdown-header-marketinstrumentlist)
-* [MarketInstrumentListResponse](globals.md#markdown-header-marketinstrumentlistresponse)
-* [MarketInstrumentResponse](globals.md#markdown-header-marketinstrumentresponse)
-* [MoneyAmount](globals.md#markdown-header-moneyamount)
-* [Operation](globals.md#markdown-header-operation)
-* [OperationInterval](globals.md#markdown-header-operationinterval)
-* [OperationStatus](globals.md#markdown-header-operationstatus)
-* [OperationTrade](globals.md#markdown-header-operationtrade)
-* [OperationType](globals.md#markdown-header-operationtype)
-* [OperationTypeWithCommission](globals.md#markdown-header-operationtypewithcommission)
-* [Operations](globals.md#markdown-header-operations)
-* [OperationsInterval](globals.md#markdown-header-operationsinterval)
-* [OperationsResponse](globals.md#markdown-header-operationsresponse)
-* [Order](globals.md#markdown-header-order)
-* [OrderStatus](globals.md#markdown-header-orderstatus)
-* [OrderType](globals.md#markdown-header-ordertype)
-* [OrderbookStreaming](globals.md#markdown-header-orderbookstreaming)
-* [OrdersResponse](globals.md#markdown-header-ordersresponse)
-* [PlacedLimitOrder](globals.md#markdown-header-placedlimitorder)
-* [Portfolio](globals.md#markdown-header-portfolio)
-* [PortfolioCurrenciesResponse](globals.md#markdown-header-portfoliocurrenciesresponse)
-* [PortfolioPosition](globals.md#markdown-header-portfolioposition)
-* [PortfolioResponse](globals.md#markdown-header-portfolioresponse)
-* [SandboxCurrency](globals.md#markdown-header-sandboxcurrency)
-* [SandboxSetCurrencyBalanceRequest](globals.md#markdown-header-sandboxsetcurrencybalancerequest)
-* [SandboxSetPositionBalanceRequest](globals.md#markdown-header-sandboxsetpositionbalancerequest)
-* [SocketEventType](globals.md#markdown-header-socketeventtype)
+* [CandleStreaming](globals.md#candlestreaming)
+* [Currencies](globals.md#currencies)
+* [Currency](globals.md#currency)
+* [CurrencyPosition](globals.md#currencyposition)
+* [Depth](globals.md#depth)
+* [Dict](globals.md#dict)
+* [Empty](globals.md#empty)
+* [Error](globals.md#error)
+* [ErrorPayload](globals.md#errorpayload)
+* [HttpMethod](globals.md#httpmethod)
+* [InstrumentId](globals.md#instrumentid)
+* [InstrumentType](globals.md#instrumenttype)
+* [Interval](globals.md#interval)
+* [LimitOrderParams](globals.md#limitorderparams)
+* [LimitOrderRequest](globals.md#limitorderrequest)
+* [LimitOrderResponse](globals.md#limitorderresponse)
+* [MarketInstrument](globals.md#marketinstrument)
+* [MarketInstrumentList](globals.md#marketinstrumentlist)
+* [MarketInstrumentListResponse](globals.md#marketinstrumentlistresponse)
+* [MarketInstrumentResponse](globals.md#marketinstrumentresponse)
+* [MoneyAmount](globals.md#moneyamount)
+* [Operation](globals.md#operation)
+* [OperationInterval](globals.md#operationinterval)
+* [OperationStatus](globals.md#operationstatus)
+* [OperationTrade](globals.md#operationtrade)
+* [OperationType](globals.md#operationtype)
+* [OperationTypeWithCommission](globals.md#operationtypewithcommission)
+* [Operations](globals.md#operations)
+* [OperationsInterval](globals.md#operationsinterval)
+* [OperationsResponse](globals.md#operationsresponse)
+* [Order](globals.md#order)
+* [OrderStatus](globals.md#orderstatus)
+* [OrderType](globals.md#ordertype)
+* [OrderbookStreaming](globals.md#orderbookstreaming)
+* [OrdersResponse](globals.md#ordersresponse)
+* [PlacedLimitOrder](globals.md#placedlimitorder)
+* [Portfolio](globals.md#portfolio)
+* [PortfolioCurrenciesResponse](globals.md#portfoliocurrenciesresponse)
+* [PortfolioPosition](globals.md#portfolioposition)
+* [PortfolioResponse](globals.md#portfolioresponse)
+* [SandboxCurrency](globals.md#sandboxcurrency)
+* [SandboxSetCurrencyBalanceRequest](globals.md#sandboxsetcurrencybalancerequest)
+* [SandboxSetPositionBalanceRequest](globals.md#sandboxsetpositionbalancerequest)
+* [SocketEventType](globals.md#socketeventtype)
 
 ### Variables
 
-* [WebSocket](globals.md#markdown-header-const-websocket)
+* [WebSocket](globals.md#const-websocket)
 
 ### Functions
 
-* [getQueryString](globals.md#markdown-header-getquerystring)
-* [once](globals.md#markdown-header-once)
+* [getQueryString](globals.md#getquerystring)
+* [once](globals.md#once)
 
 ## Type aliases
 
@@ -80,7 +80,7 @@ Defined in OpenAPI.ts:40
 
 * **h**: *number*
 
-* **interval**: *[Interval](globals.md#markdown-header-interval)*
+* **interval**: *[Interval](globals.md#interval)*
 
 * **l**: *number*
 
@@ -100,7 +100,7 @@ Defined in domain.d.ts:29
 
 #### Type declaration:
 
-* **currencies**: *[CurrencyPosition](globals.md#markdown-header-currencyposition)[]*
+* **currencies**: *[CurrencyPosition](globals.md#currencyposition)[]*
 
 ___
 
@@ -126,7 +126,7 @@ Defined in domain.d.ts:33
 
 * **blocked**? : *undefined | number*
 
-* **currency**: *[Currency](globals.md#markdown-header-currency)*
+* **currency**: *[Currency](globals.md#currency)*
 
 ___
 
@@ -174,7 +174,7 @@ Defined in domain.d.ts:7
 
 #### Type declaration:
 
-* **payload**: *[ErrorPayload](globals.md#markdown-header-errorpayload)*
+* **payload**: *[ErrorPayload](globals.md#errorpayload)*
 
 * **status**: *string*
 
@@ -242,7 +242,7 @@ Defined in OpenAPI.ts:59
 
 * **lots**: *number*
 
-* **operation**: *[OperationType](globals.md#markdown-header-operationtype)*
+* **operation**: *[OperationType](globals.md#operationtype)*
 
 * **price**: *number*
 
@@ -258,7 +258,7 @@ Defined in domain.d.ts:105
 
 * **lots**: *number*
 
-* **operation**: *[OperationType](globals.md#markdown-header-operationtype)*
+* **operation**: *[OperationType](globals.md#operationtype)*
 
 * **price**: *number*
 
@@ -272,7 +272,7 @@ Defined in domain.d.ts:111
 
 #### Type declaration:
 
-* **payload**: *[PlacedLimitOrder](globals.md#markdown-header-placedlimitorder)*
+* **payload**: *[PlacedLimitOrder](globals.md#placedlimitorder)*
 
 * **status**: *string*
 
@@ -288,7 +288,7 @@ Defined in domain.d.ts:164
 
 #### Type declaration:
 
-* **currency**? : *[Currency](globals.md#markdown-header-currency)*
+* **currency**? : *[Currency](globals.md#currency)*
 
 * **figi**: *string*
 
@@ -310,7 +310,7 @@ Defined in domain.d.ts:153
 
 #### Type declaration:
 
-* **instruments**: *[MarketInstrument](globals.md#markdown-header-marketinstrument)[]*
+* **instruments**: *[MarketInstrument](globals.md#marketinstrument)[]*
 
 * **total**: *number*
 
@@ -324,7 +324,7 @@ Defined in domain.d.ts:147
 
 #### Type declaration:
 
-* **payload**: *[MarketInstrumentList](globals.md#markdown-header-marketinstrumentlist)*
+* **payload**: *[MarketInstrumentList](globals.md#marketinstrumentlist)*
 
 * **status**: *string*
 
@@ -340,7 +340,7 @@ Defined in domain.d.ts:158
 
 #### Type declaration:
 
-* **payload**: *[MarketInstrument](globals.md#markdown-header-marketinstrument)*
+* **payload**: *[MarketInstrument](globals.md#marketinstrument)*
 
 * **status**: *string*
 
@@ -356,7 +356,7 @@ Defined in domain.d.ts:50
 
 #### Type declaration:
 
-* **currency**: *[Currency](globals.md#markdown-header-currency)*
+* **currency**: *[Currency](globals.md#currency)*
 
 * **value**: *number*
 
@@ -370,9 +370,9 @@ Defined in domain.d.ts:72
 
 #### Type declaration:
 
-* **commission**? : *[MoneyAmount](globals.md#markdown-header-moneyamount)*
+* **commission**? : *[MoneyAmount](globals.md#moneyamount)*
 
-* **currency**: *[Currency](globals.md#markdown-header-currency)*
+* **currency**: *[Currency](globals.md#currency)*
 
 * **date**: *string*
 
@@ -380,11 +380,11 @@ Defined in domain.d.ts:72
 
 * **id**: *string*
 
-* **instrumentType**? : *[InstrumentType](globals.md#markdown-header-instrumenttype)*
+* **instrumentType**? : *[InstrumentType](globals.md#instrumenttype)*
 
 * **isMarginCall**: *boolean*
 
-* **operationType**? : *[OperationTypeWithCommission](globals.md#markdown-header-operationtypewithcommission)*
+* **operationType**? : *[OperationTypeWithCommission](globals.md#operationtypewithcommission)*
 
 * **payment**: *number*
 
@@ -392,9 +392,9 @@ Defined in domain.d.ts:72
 
 * **quantity**? : *undefined | number*
 
-* **status**: *[OperationStatus](globals.md#markdown-header-operationstatus)*
+* **status**: *[OperationStatus](globals.md#operationstatus)*
 
-* **trades**? : *[OperationTrade](globals.md#markdown-header-operationtrade)[]*
+* **trades**? : *[OperationTrade](globals.md#operationtrade)[]*
 
 ___
 
@@ -462,7 +462,7 @@ Defined in domain.d.ts:61
 
 #### Type declaration:
 
-* **operations**: *[Operation](globals.md#markdown-header-operation)[]*
+* **operations**: *[Operation](globals.md#operation)[]*
 
 ___
 
@@ -482,7 +482,7 @@ Defined in domain.d.ts:55
 
 #### Type declaration:
 
-* **payload**: *[Operations](globals.md#markdown-header-operations)*
+* **payload**: *[Operations](globals.md#operations)*
 
 * **status**: *string*
 
@@ -502,7 +502,7 @@ Defined in domain.d.ts:94
 
 * **figi**: *string*
 
-* **operation**: *[OperationType](globals.md#markdown-header-operationtype)*
+* **operation**: *[OperationType](globals.md#operationtype)*
 
 * **orderId**: *string*
 
@@ -510,9 +510,9 @@ Defined in domain.d.ts:94
 
 * **requestedLots**: *number*
 
-* **status**: *[OrderStatus](globals.md#markdown-header-orderstatus)*
+* **status**: *[OrderStatus](globals.md#orderstatus)*
 
-* **type**: *[OrderType](globals.md#markdown-header-ordertype)*
+* **type**: *[OrderType](globals.md#ordertype)*
 
 ___
 
@@ -546,7 +546,7 @@ Defined in OpenAPI.ts:34
 
 * **bids**: *Array‹[number, number]›*
 
-* **depth**: *[Depth](globals.md#markdown-header-depth)*
+* **depth**: *[Depth](globals.md#depth)*
 
 * **figi**: *string*
 
@@ -560,7 +560,7 @@ Defined in domain.d.ts:88
 
 #### Type declaration:
 
-* **payload**: *[Order](globals.md#markdown-header-order)[]*
+* **payload**: *[Order](globals.md#order)[]*
 
 * **status**: *string*
 
@@ -576,11 +576,11 @@ Defined in domain.d.ts:117
 
 #### Type declaration:
 
-* **commission**? : *[MoneyAmount](globals.md#markdown-header-moneyamount)*
+* **commission**? : *[MoneyAmount](globals.md#moneyamount)*
 
 * **executedLots**: *number*
 
-* **operation**: *[OperationType](globals.md#markdown-header-operationtype)*
+* **operation**: *[OperationType](globals.md#operationtype)*
 
 * **orderId**: *string*
 
@@ -588,7 +588,7 @@ Defined in domain.d.ts:117
 
 * **requestedLots**: *number*
 
-* **status**: *[OrderStatus](globals.md#markdown-header-orderstatus)*
+* **status**: *[OrderStatus](globals.md#orderstatus)*
 
 ___
 
@@ -600,7 +600,7 @@ Defined in domain.d.ts:19
 
 #### Type declaration:
 
-* **positions**: *[PortfolioPosition](globals.md#markdown-header-portfolioposition)[]*
+* **positions**: *[PortfolioPosition](globals.md#portfolioposition)[]*
 
 ___
 
@@ -612,7 +612,7 @@ Defined in domain.d.ts:23
 
 #### Type declaration:
 
-* **payload**: *[Currencies](globals.md#markdown-header-currencies)*
+* **payload**: *[Currencies](globals.md#currencies)*
 
 * **status**: *string*
 
@@ -632,11 +632,11 @@ Defined in domain.d.ts:39
 
 * **blocked**? : *undefined | number*
 
-* **expectedYield**? : *[MoneyAmount](globals.md#markdown-header-moneyamount)*
+* **expectedYield**? : *[MoneyAmount](globals.md#moneyamount)*
 
 * **figi**: *string*
 
-* **instrumentType**: *[InstrumentType](globals.md#markdown-header-instrumenttype)*
+* **instrumentType**: *[InstrumentType](globals.md#instrumenttype)*
 
 * **isin**? : *undefined | string*
 
@@ -654,7 +654,7 @@ Defined in domain.d.ts:13
 
 #### Type declaration:
 
-* **payload**: *[Portfolio](globals.md#markdown-header-portfolio)*
+* **payload**: *[Portfolio](globals.md#portfolio)*
 
 * **status**: *string*
 
@@ -682,7 +682,7 @@ Defined in domain.d.ts:137
 
 * **balance**: *number*
 
-* **currency**: *[SandboxCurrency](globals.md#markdown-header-sandboxcurrency)*
+* **currency**: *[SandboxCurrency](globals.md#sandboxcurrency)*
 
 ___
 
