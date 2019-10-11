@@ -97,7 +97,7 @@ Defined in OpenAPI.ts:388
 
 Метод для подписки на данные по свечному графику инструмента
 
-**`example`** см. метод orderbook
+**`example`** см. метод [orderbook](openapi.md#orderbook)
 
 **Parameters:**
 
@@ -158,7 +158,7 @@ Defined in OpenAPI.ts:402
 
 Метод для подписки на данные по инструменту
 
-**`example`** см. метод orderbook
+**`example`** см. метод [orderbook](openapi.md#orderbook)
 
 **Parameters:**
 

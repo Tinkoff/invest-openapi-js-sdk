@@ -379,7 +379,7 @@ export default class OpenAPI extends EventEmitter {
 
   /**
    * Метод для подписки на данные по свечному графику инструмента
-   * @example см. метод orderbook
+   * @example см. метод [[orderbook]]
    * @param figi идентификатор инструмента
    * @param interval интервал для свечи
    * @param cb функция для обработки новых данных по свечи
@@ -394,7 +394,7 @@ export default class OpenAPI extends EventEmitter {
 
   /**
    * Метод для подписки на данные по инструменту
-   * @example см. метод orderbook
+   * @example см. метод [[orderbook]]
    * @param figi идентификатор инструмента
    * @param cb функция для обработки новых данных по инструменту
    * @return функция для отмены подписки
