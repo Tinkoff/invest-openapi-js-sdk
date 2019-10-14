@@ -145,6 +145,9 @@ export default class OpenAPI extends EventEmitter {
         })
     )
       .then((x) => {
+        if (!x.ok) {
+          return x.json().then(x => Promise.reject(x.payload));
+        }
         return x.json();
       })
       .then((x) => {
@@ -335,9 +338,9 @@ export default class OpenAPI extends EventEmitter {
    */
   search(params: InstrumentId): Promise<MarketInstrumentList> {
     if ('figi' in params) {
-      return this.makeRequest('/market/search/by-figi', {
+      return this.makeRequest<any, MarketInstrument>('/market/search/by-figi', {
         params: { figi: params.figi },
-      });
+      }).then( x => x ? ({total: 1, instruments: [x]}): {total: 0, instruments: []});
     }
     if ('ticker' in params) {
       return this.makeRequest('/market/search/by-ticker', {
