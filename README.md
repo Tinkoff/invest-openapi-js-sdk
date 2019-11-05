@@ -29,7 +29,7 @@ SDK для работы с OpenAPI Тинькофф Инвестиции, кот
 см. более сложный пример в [example](./example)
 
 ```typescript
-import OpenAPI from 'invest-openapi-js-sdk';
+import OpenAPI from '@tinkoff/invest-openapi-js-sdk';
 
 const apiURL = 'https://api-invest.tinkoff.ru/openapi';
 const socketURL = 'wss://api-invest.tinkoff.ru/openapi/md/v1/md-openapi/ws';
