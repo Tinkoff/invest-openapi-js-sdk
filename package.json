@@ -1,12 +1,13 @@
 {
-  "name": "invest-openapi-js-sdk",
-  "version": "1.0.0",
-  "description": "Tinkoff Invet OpenAPI Client",
+  "name": "@tinkoff/invest-openapi-js-sdk",
+  "version": "1.0.5",
+  "description": "Tinkoff Invest OpenAPI Client",
   "main": "index.js",
   "directories": {
     "example": "example"
   },
   "scripts": {
+    "prepare": "npm run build",
     "build": "rollup --config ./rollup.config.js",
     "watch": "rollup --config ./rollup.config.js -w -m",
     "docs": " rm -rf ./doc && typedoc"

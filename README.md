@@ -2,7 +2,7 @@
 
 SDK для работы с OpenAPI Тинькофф Инвестиции, который можно использовать для создания торговых роботов.
 
-`npm i invest-openapi-js-sdk --save`
+`npm i @tinkoff/invest-openapi-js-sdk --save`
 
 
 ## Документация

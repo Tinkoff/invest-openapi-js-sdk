@@ -1,0 +1,11 @@
+.idea
+node_modules
+package-lock.json
+.prettierrc
+rollup.config.js
+tsconfig.json
+typedoc.js
+tools
+src
+example
+doc
