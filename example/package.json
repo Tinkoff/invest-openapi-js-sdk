@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@tinkoff/invest-openapi-js-sdk": "^1.0.4"
+    "@tinkoff/invest-openapi-js-sdk": "^1.0.7"
   }
 }

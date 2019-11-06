@@ -1,6 +1,6 @@
 {
   "name": "@tinkoff/invest-openapi-js-sdk",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "Tinkoff Invest OpenAPI Client",
   "main": "index.js",
   "directories": {
@@ -23,6 +23,7 @@
     "fsevents": "^2.0.7",
     "prettier": "1.18.2",
     "rollup": "^1.21.3",
+    "rollup-plugin-dts": "^1.1.11",
     "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-typescript2": "^0.24.3",
     "tslib": "^1.10.0",
