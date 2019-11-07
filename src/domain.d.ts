@@ -43,14 +43,65 @@ export type PortfolioPosition = {
   instrumentType: InstrumentType;
   balance: number;
   blocked?: number;
-  expectedYield?: MoneyAmount;
   lots: number;
+  expectedYield?: MoneyAmount;
+  averagePositionPrice?: MoneyAmount;
+  averagePositionPriceNoNkd?: MoneyAmount;
 };
 
 export type MoneyAmount = {
   currency: Currency;
   value: number;
 };
+
+export type OrderbookResponse = {
+  trackingId: string;
+  status: string;
+  payload: Orderbook;
+};
+
+export type Orderbook = {
+  figi: string;
+  depth: number;
+  bids: OrderResponse[];
+  asks: OrderResponse[];
+  tradeStatus: TradeStatus;
+  minPriceIncrement: number;
+  lastPrice?: number;
+  closePrice?: number;
+  limitUp?: number;
+  limitDown?: number;
+};
+
+export type OrderResponse = {
+  price: number;
+  quantity: number;
+};
+
+export type CandlesResponse = {
+  trackingId: string;
+  status: string;
+  payload: Candles;
+};
+
+export type Candles = {
+  figi: string;
+  interval: CandleResolution;
+  candles: Candle[];
+};
+
+export type Candle = {
+  figi: string;
+  interval: CandleResolution;
+  o: number;
+  c: number;
+  h: number;
+  l: number;
+  v: number;
+  time: string;
+};
+
+export type CandleResolution = {};
 
 export type OperationsResponse = {
   trackingId: string;
@@ -124,7 +175,9 @@ export type PlacedLimitOrder = {
   commission?: MoneyAmount;
 };
 
-export type OperationType = 'Buy' | 'Sell';
+export type TradeStatus = {};
+
+export type OperationType = {};
 
 export type OperationTypeWithCommission = {};
 
@@ -168,13 +221,12 @@ export type MarketInstrument = {
   minPriceIncrement?: number;
   lot: number;
   currency?: Currency;
+  name: string;
 };
 
 export type SandboxCurrency = {};
 
 export type Currency = {};
-
-export type OperationInterval = {};
 
 export type InstrumentType = {};
 

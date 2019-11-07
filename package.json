@@ -1,6 +1,6 @@
 {
   "name": "@tinkoff/invest-openapi-js-sdk",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Tinkoff Invest OpenAPI Client",
   "main": "index.js",
   "directories": {
