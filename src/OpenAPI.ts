@@ -11,7 +11,6 @@ import {
   SandboxSetPositionBalanceRequest,
 } from './domain';
 const WebSocket = require('ws');
-type OperationsInterval = '1day' | '7days' | '14days' | '30days';
 type Interval =
   | '1min'
   | '2min'
@@ -314,21 +313,21 @@ export default class OpenAPI extends EventEmitter {
   //todo:
   /**
    * Метод для получения операций по цб по инструменту
-   * @param from Дата, с которой необходимо получить операции в формате ???
-   * @param interval Интервал, за который необходимы операции
-   * @param figi Идентификатор инструмента
+   * @param from Начало временного промежутка в формате ISO 8601
+   * @param to Конец временного промежутка в формате ISO 8601
+   * @param figi Figi-идентификатор инструмента
    */
   operations({
     from,
-    interval,
+    to,
     figi,
   }: {
     from: string;
-    interval: OperationsInterval;
+    to: string;
     figi: string;
   }): Promise<Operations> {
     return this.makeRequest('/operations', {
-      params: { from, interval, figi },
+      params: { from, to, figi },
     });
   }
 
