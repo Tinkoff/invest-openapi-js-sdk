@@ -310,7 +310,6 @@ export default class OpenAPI extends EventEmitter {
     return this.makeRequest('/market/stocks');
   }
 
-  //todo:
   /**
    * Метод для получения операций по цб по инструменту
    * @param from Начало временного промежутка в формате ISO 8601
