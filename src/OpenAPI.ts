@@ -1,12 +1,16 @@
 import 'isomorphic-fetch';
 import { EventEmitter } from 'events';
 import {
+  Candles,
   MarketInstrument,
   MarketInstrumentList,
   Operations,
   OperationType,
-  Order, PlacedLimitOrder,
-  Portfolio, PortfolioPosition,
+  Order,
+  Orderbook,
+  PlacedLimitOrder,
+  Portfolio,
+  PortfolioPosition,
   SandboxSetCurrencyBalanceRequest,
   SandboxSetPositionBalanceRequest,
 } from './domain';
@@ -145,7 +149,7 @@ export default class OpenAPI extends EventEmitter {
     )
       .then((x) => {
         if (!x.ok) {
-          return x.json().then(x => Promise.reject(x.payload));
+          return x.json().then((x) => Promise.reject(x.payload));
         }
         return x.json();
       })
@@ -235,16 +239,17 @@ export default class OpenAPI extends EventEmitter {
    * Метод для получение данных по инструменту в портфеле
    */
   instrumentPortfolio(params: InstrumentId): Promise<PortfolioPosition | null> {
-    return this.portfolio().then(x => {
-      return x.positions.find(position => {
-        if ('figi' in params) {
-          return position.figi === params.figi
-        }
-        if ('ticker' in params) {
-          return position.ticker === params.ticker;
-        }
-
-      }) || null;
+    return this.portfolio().then((x) => {
+      return (
+        x.positions.find((position) => {
+          if ('figi' in params) {
+            return position.figi === params.figi;
+          }
+          if ('ticker' in params) {
+            return position.ticker === params.ticker;
+          }
+        }) || null
+      );
     });
   }
 
@@ -316,20 +321,45 @@ export default class OpenAPI extends EventEmitter {
    * @param to Конец временного промежутка в формате ISO 8601
    * @param figi Figi-идентификатор инструмента
    */
-  operations({
-    from,
-    to,
-    figi,
-  }: {
-    from: string;
-    to: string;
-    figi: string;
-  }): Promise<Operations> {
+  operations({ from, to, figi }: { from: string; to: string; figi: string }): Promise<Operations> {
     return this.makeRequest('/operations', {
       params: { from, to, figi },
     });
   }
 
+  /**
+   * Метод для получения исторических свечей по FIGI
+   * @param from Начало временного промежутка в формате ISO 8601
+   * @param to Конец временного промежутка в формате ISO 8601
+   * @param figi Figi-идентификатор инструмента
+   * @param interval интервал для свечи
+   */
+  candlesGet({
+    from,
+    to,
+    figi,
+    interval = '1min',
+  }: {
+    from: string;
+    to: string;
+    figi: string;
+    interval?: Interval;
+  }): Promise<Candles> {
+    return this.makeRequest('/market/candles', {
+      params: { from, to, figi, interval },
+    });
+  }
+
+  /**
+   * Метод для получение стакана
+   * @param figi Figi-идентификатор инструмента
+   * @param depth
+   */
+  orderbookGet({ figi, depth = 3 }: { figi: string; depth?: Depth }): Promise<Orderbook> {
+    return this.makeRequest('/market/orderbook', {
+      params: { figi, depth },
+    });
+  }
   /**
    * Метод для поиска инструментов по figi или ticker
    * @param params { figi или ticker }
@@ -338,7 +368,7 @@ export default class OpenAPI extends EventEmitter {
     if ('figi' in params) {
       return this.makeRequest<any, MarketInstrument>('/market/search/by-figi', {
         params: { figi: params.figi },
-      }).then( x => x ? ({total: 1, instruments: [x]}): {total: 0, instruments: []});
+      }).then((x) => (x ? { total: 1, instruments: [x] } : { total: 0, instruments: [] }));
     }
     if ('ticker' in params) {
       return this.makeRequest('/market/search/by-ticker', {

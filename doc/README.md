@@ -1,12 +1,12 @@
-[invest-openapi-js-sdk](README.md) › [Globals](globals.md)
+[@tinkoff/invest-openapi-js-sdk](README.md) › [Globals](globals.md)
 
-# invest-openapi-js-sdk
+# @tinkoff/invest-openapi-js-sdk
 
 # Trading Open API - JS SDK
 
 SDK для работы с OpenAPI Тинькофф Инвестиции, который можно использовать для создания торговых роботов.
 
-`npm i invest-openapi-js-sdk --save`
+`npm i @tinkoff/invest-openapi-js-sdk --save`
 
 ## Документация
 
@@ -31,7 +31,7 @@ SDK для работы с OpenAPI Тинькофф Инвестиции, кот
 см. более сложный пример в [example](./example)
 
 ```typescript
-import OpenAPI from 'invest-openapi-js-sdk';
+import OpenAPI from '@tinkoff/invest-openapi-js-sdk';
 
 const apiURL = 'https://api-invest.tinkoff.ru/openapi';
 const socketURL = 'wss://api-invest.tinkoff.ru/openapi/md/v1/md-openapi/ws';

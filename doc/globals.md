@@ -1,6 +1,6 @@
-[invest-openapi-js-sdk](README.md) › [Globals](globals.md)
+[@tinkoff/invest-openapi-js-sdk](README.md) › [Globals](globals.md)
 
-# invest-openapi-js-sdk
+# @tinkoff/invest-openapi-js-sdk
 
 ## Index
 
@@ -10,7 +10,11 @@
 
 ### Type aliases
 
+* [Candle](globals.md#candle)
+* [CandleResolution](globals.md#candleresolution)
 * [CandleStreaming](globals.md#candlestreaming)
+* [Candles](globals.md#candles)
+* [CandlesResponse](globals.md#candlesresponse)
 * [Currencies](globals.md#currencies)
 * [Currency](globals.md#currency)
 * [CurrencyPosition](globals.md#currencyposition)
@@ -32,17 +36,18 @@
 * [MarketInstrumentResponse](globals.md#marketinstrumentresponse)
 * [MoneyAmount](globals.md#moneyamount)
 * [Operation](globals.md#operation)
-* [OperationInterval](globals.md#operationinterval)
 * [OperationStatus](globals.md#operationstatus)
 * [OperationTrade](globals.md#operationtrade)
 * [OperationType](globals.md#operationtype)
 * [OperationTypeWithCommission](globals.md#operationtypewithcommission)
 * [Operations](globals.md#operations)
-* [OperationsInterval](globals.md#operationsinterval)
 * [OperationsResponse](globals.md#operationsresponse)
 * [Order](globals.md#order)
+* [OrderResponse](globals.md#orderresponse)
 * [OrderStatus](globals.md#orderstatus)
 * [OrderType](globals.md#ordertype)
+* [Orderbook](globals.md#orderbook)
+* [OrderbookResponse](globals.md#orderbookresponse)
 * [OrderbookStreaming](globals.md#orderbookstreaming)
 * [OrdersResponse](globals.md#ordersresponse)
 * [PlacedLimitOrder](globals.md#placedlimitorder)
@@ -54,6 +59,7 @@
 * [SandboxSetCurrencyBalanceRequest](globals.md#sandboxsetcurrencybalancerequest)
 * [SandboxSetPositionBalanceRequest](globals.md#sandboxsetpositionbalancerequest)
 * [SocketEventType](globals.md#socketeventtype)
+* [TradeStatus](globals.md#tradestatus)
 
 ### Variables
 
@@ -66,11 +72,47 @@
 
 ## Type aliases
 
+###  Candle
+
+Ƭ **Candle**: *object*
+
+Defined in domain.d.ts:93
+
+#### Type declaration:
+
+* **c**: *number*
+
+* **figi**: *string*
+
+* **h**: *number*
+
+* **interval**: *[CandleResolution](globals.md#candleresolution)*
+
+* **l**: *number*
+
+* **o**: *number*
+
+* **time**: *string*
+
+* **v**: *number*
+
+___
+
+###  CandleResolution
+
+Ƭ **CandleResolution**: *object*
+
+Defined in domain.d.ts:104
+
+#### Type declaration:
+
+___
+
 ###  CandleStreaming
 
 Ƭ **CandleStreaming**: *object*
 
-Defined in OpenAPI.ts:39
+Defined in OpenAPI.ts:42
 
 #### Type declaration:
 
@@ -92,6 +134,38 @@ Defined in OpenAPI.ts:39
 
 ___
 
+###  Candles
+
+Ƭ **Candles**: *object*
+
+Defined in domain.d.ts:87
+
+#### Type declaration:
+
+* **candles**: *[Candle](globals.md#candle)[]*
+
+* **figi**: *string*
+
+* **interval**: *[CandleResolution](globals.md#candleresolution)*
+
+___
+
+###  CandlesResponse
+
+Ƭ **CandlesResponse**: *object*
+
+Defined in domain.d.ts:81
+
+#### Type declaration:
+
+* **payload**: *[Candles](globals.md#candles)*
+
+* **status**: *string*
+
+* **trackingId**: *string*
+
+___
+
 ###  Currencies
 
 Ƭ **Currencies**: *object*
@@ -108,7 +182,7 @@ ___
 
 Ƭ **Currency**: *object*
 
-Defined in domain.d.ts:175
+Defined in domain.d.ts:229
 
 #### Type declaration:
 
@@ -134,7 +208,7 @@ ___
 
 Ƭ **Depth**: *1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10*
 
-Defined in OpenAPI.ts:29
+Defined in OpenAPI.ts:32
 
 ___
 
@@ -142,7 +216,7 @@ ___
 
 Ƭ **Dict**: *object*
 
-Defined in OpenAPI.ts:32
+Defined in OpenAPI.ts:35
 
 #### Type declaration:
 
@@ -186,7 +260,7 @@ ___
 
 Ƭ **ErrorPayload**: *object*
 
-Defined in domain.d.ts:181
+Defined in domain.d.ts:233
 
 #### Type declaration:
 
@@ -200,7 +274,7 @@ ___
 
 Ƭ **HttpMethod**: *"get" | "post"*
 
-Defined in OpenAPI.ts:30
+Defined in OpenAPI.ts:33
 
 ___
 
@@ -208,7 +282,7 @@ ___
 
 Ƭ **InstrumentId**: *object | object*
 
-Defined in OpenAPI.ts:38
+Defined in OpenAPI.ts:41
 
 ___
 
@@ -216,7 +290,7 @@ ___
 
 Ƭ **InstrumentType**: *object*
 
-Defined in domain.d.ts:179
+Defined in domain.d.ts:231
 
 #### Type declaration:
 
@@ -226,7 +300,7 @@ ___
 
 Ƭ **Interval**: *"1min" | "2min" | "3min" | "5min" | "10min" | "15min" | "30min" | "hour" | "2hour" | "4hour" | "day" | "week" | "month"*
 
-Defined in OpenAPI.ts:15
+Defined in OpenAPI.ts:18
 
 ___
 
@@ -234,7 +308,7 @@ ___
 
 Ƭ **LimitOrderParams**: *object*
 
-Defined in OpenAPI.ts:58
+Defined in OpenAPI.ts:61
 
 #### Type declaration:
 
@@ -252,7 +326,7 @@ ___
 
 Ƭ **LimitOrderRequest**: *object*
 
-Defined in domain.d.ts:105
+Defined in domain.d.ts:156
 
 #### Type declaration:
 
@@ -268,7 +342,7 @@ ___
 
 Ƭ **LimitOrderResponse**: *object*
 
-Defined in domain.d.ts:111
+Defined in domain.d.ts:162
 
 #### Type declaration:
 
@@ -284,7 +358,7 @@ ___
 
 Ƭ **MarketInstrument**: *object*
 
-Defined in domain.d.ts:164
+Defined in domain.d.ts:217
 
 #### Type declaration:
 
@@ -298,6 +372,8 @@ Defined in domain.d.ts:164
 
 * **minPriceIncrement**? : *undefined | number*
 
+* **name**: *string*
+
 * **ticker**: *string*
 
 ___
@@ -306,7 +382,7 @@ ___
 
 Ƭ **MarketInstrumentList**: *object*
 
-Defined in domain.d.ts:153
+Defined in domain.d.ts:206
 
 #### Type declaration:
 
@@ -320,7 +396,7 @@ ___
 
 Ƭ **MarketInstrumentListResponse**: *object*
 
-Defined in domain.d.ts:147
+Defined in domain.d.ts:200
 
 #### Type declaration:
 
@@ -336,7 +412,7 @@ ___
 
 Ƭ **MarketInstrumentResponse**: *object*
 
-Defined in domain.d.ts:158
+Defined in domain.d.ts:211
 
 #### Type declaration:
 
@@ -352,7 +428,7 @@ ___
 
 Ƭ **MoneyAmount**: *object*
 
-Defined in domain.d.ts:50
+Defined in domain.d.ts:52
 
 #### Type declaration:
 
@@ -366,7 +442,7 @@ ___
 
 Ƭ **Operation**: *object*
 
-Defined in domain.d.ts:72
+Defined in domain.d.ts:123
 
 #### Type declaration:
 
@@ -398,21 +474,11 @@ Defined in domain.d.ts:72
 
 ___
 
-###  OperationInterval
-
-Ƭ **OperationInterval**: *object*
-
-Defined in domain.d.ts:177
-
-#### Type declaration:
-
-___
-
 ###  OperationStatus
 
 Ƭ **OperationStatus**: *object*
 
-Defined in domain.d.ts:131
+Defined in domain.d.ts:184
 
 #### Type declaration:
 
@@ -422,7 +488,7 @@ ___
 
 Ƭ **OperationTrade**: *object*
 
-Defined in domain.d.ts:65
+Defined in domain.d.ts:116
 
 #### Type declaration:
 
@@ -438,9 +504,11 @@ ___
 
 ###  OperationType
 
-Ƭ **OperationType**: *"Buy" | "Sell"*
+Ƭ **OperationType**: *object*
 
-Defined in domain.d.ts:127
+Defined in domain.d.ts:180
+
+#### Type declaration:
 
 ___
 
@@ -448,7 +516,7 @@ ___
 
 Ƭ **OperationTypeWithCommission**: *object*
 
-Defined in domain.d.ts:129
+Defined in domain.d.ts:182
 
 #### Type declaration:
 
@@ -458,7 +526,7 @@ ___
 
 Ƭ **Operations**: *object*
 
-Defined in domain.d.ts:61
+Defined in domain.d.ts:112
 
 #### Type declaration:
 
@@ -466,19 +534,11 @@ Defined in domain.d.ts:61
 
 ___
 
-###  OperationsInterval
-
-Ƭ **OperationsInterval**: *"1day" | "7days" | "14days" | "30days"*
-
-Defined in OpenAPI.ts:14
-
-___
-
 ###  OperationsResponse
 
 Ƭ **OperationsResponse**: *object*
 
-Defined in domain.d.ts:55
+Defined in domain.d.ts:106
 
 #### Type declaration:
 
@@ -494,7 +554,7 @@ ___
 
 Ƭ **Order**: *object*
 
-Defined in domain.d.ts:94
+Defined in domain.d.ts:145
 
 #### Type declaration:
 
@@ -516,11 +576,25 @@ Defined in domain.d.ts:94
 
 ___
 
+###  OrderResponse
+
+Ƭ **OrderResponse**: *object*
+
+Defined in domain.d.ts:76
+
+#### Type declaration:
+
+* **price**: *number*
+
+* **quantity**: *number*
+
+___
+
 ###  OrderStatus
 
 Ƭ **OrderStatus**: *object*
 
-Defined in domain.d.ts:133
+Defined in domain.d.ts:186
 
 #### Type declaration:
 
@@ -530,9 +604,55 @@ ___
 
 Ƭ **OrderType**: *object*
 
-Defined in domain.d.ts:135
+Defined in domain.d.ts:188
 
 #### Type declaration:
+
+___
+
+###  Orderbook
+
+Ƭ **Orderbook**: *object*
+
+Defined in domain.d.ts:63
+
+#### Type declaration:
+
+* **asks**: *[OrderResponse](globals.md#orderresponse)[]*
+
+* **bids**: *[OrderResponse](globals.md#orderresponse)[]*
+
+* **closePrice**? : *undefined | number*
+
+* **depth**: *number*
+
+* **figi**: *string*
+
+* **lastPrice**? : *undefined | number*
+
+* **limitDown**? : *undefined | number*
+
+* **limitUp**? : *undefined | number*
+
+* **minPriceIncrement**: *number*
+
+* **tradeStatus**: *[TradeStatus](globals.md#tradestatus)*
+
+___
+
+###  OrderbookResponse
+
+Ƭ **OrderbookResponse**: *object*
+
+Defined in domain.d.ts:57
+
+#### Type declaration:
+
+* **payload**: *[Orderbook](globals.md#orderbook)*
+
+* **status**: *string*
+
+* **trackingId**: *string*
 
 ___
 
@@ -540,7 +660,7 @@ ___
 
 Ƭ **OrderbookStreaming**: *object*
 
-Defined in OpenAPI.ts:33
+Defined in OpenAPI.ts:36
 
 #### Type declaration:
 
@@ -556,7 +676,7 @@ ___
 
 Ƭ **OrdersResponse**: *object*
 
-Defined in domain.d.ts:88
+Defined in domain.d.ts:139
 
 #### Type declaration:
 
@@ -572,7 +692,7 @@ ___
 
 Ƭ **PlacedLimitOrder**: *object*
 
-Defined in domain.d.ts:117
+Defined in domain.d.ts:168
 
 #### Type declaration:
 
@@ -628,6 +748,10 @@ Defined in domain.d.ts:39
 
 #### Type declaration:
 
+* **averagePositionPrice**? : *[MoneyAmount](globals.md#moneyamount)*
+
+* **averagePositionPriceNoNkd**? : *[MoneyAmount](globals.md#moneyamount)*
+
 * **balance**: *number*
 
 * **blocked**? : *undefined | number*
@@ -666,7 +790,7 @@ ___
 
 Ƭ **SandboxCurrency**: *object*
 
-Defined in domain.d.ts:173
+Defined in domain.d.ts:227
 
 #### Type declaration:
 
@@ -676,7 +800,7 @@ ___
 
 Ƭ **SandboxSetCurrencyBalanceRequest**: *object*
 
-Defined in domain.d.ts:137
+Defined in domain.d.ts:190
 
 #### Type declaration:
 
@@ -690,7 +814,7 @@ ___
 
 Ƭ **SandboxSetPositionBalanceRequest**: *object*
 
-Defined in domain.d.ts:142
+Defined in domain.d.ts:195
 
 #### Type declaration:
 
@@ -704,7 +828,17 @@ ___
 
 Ƭ **SocketEventType**: *"orderbook" | "candle" | "instrument_info"*
 
-Defined in OpenAPI.ts:31
+Defined in OpenAPI.ts:34
+
+___
+
+###  TradeStatus
+
+Ƭ **TradeStatus**: *object*
+
+Defined in domain.d.ts:178
+
+#### Type declaration:
 
 ## Variables
 
@@ -712,7 +846,7 @@ Defined in OpenAPI.ts:31
 
 • **WebSocket**: *any* =  require('ws')
 
-Defined in OpenAPI.ts:13
+Defined in OpenAPI.ts:17
 
 ## Functions
 
@@ -720,7 +854,7 @@ Defined in OpenAPI.ts:13
 
 ▸ **getQueryString**(`params`: object): *string*
 
-Defined in OpenAPI.ts:50
+Defined in OpenAPI.ts:53
 
 **Parameters:**
 
@@ -736,7 +870,7 @@ ___
 
 ▸ **once**<**P**, **R**>(`fn`: function): *function*
 
-Defined in OpenAPI.ts:65
+Defined in OpenAPI.ts:68
 
 **Type parameters:**
 

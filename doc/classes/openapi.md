@@ -1,4 +1,4 @@
-[invest-openapi-js-sdk](../README.md) › [Globals](../globals.md) › [OpenAPI](openapi.md)
+[@tinkoff/invest-openapi-js-sdk](../README.md) › [Globals](../globals.md) › [OpenAPI](openapi.md)
 
 # Class: OpenAPI
 
@@ -19,6 +19,7 @@
 * [bonds](openapi.md#bonds)
 * [cancelOrder](openapi.md#cancelorder)
 * [candle](openapi.md#candle)
+* [candlesGet](openapi.md#candlesget)
 * [currencies](openapi.md#currencies)
 * [etfs](openapi.md#etfs)
 * [instrumentInfo](openapi.md#instrumentinfo)
@@ -26,6 +27,7 @@
 * [limitOrder](openapi.md#limitorder)
 * [operations](openapi.md#operations)
 * [orderbook](openapi.md#orderbook)
+* [orderbookGet](openapi.md#orderbookget)
 * [orders](openapi.md#orders)
 * [portfolio](openapi.md#portfolio)
 * [sandboxClear](openapi.md#sandboxclear)
@@ -41,7 +43,7 @@
 
 \+ **new OpenAPI**(`__namedParameters`: object): *[OpenAPI](openapi.md)*
 
-Defined in OpenAPI.ts:83
+Defined in OpenAPI.ts:86
 
 **Parameters:**
 
@@ -61,7 +63,7 @@ Name | Type | Description |
 
 ▸ **bonds**(): *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
-Defined in OpenAPI.ts:300
+Defined in OpenAPI.ts:307
 
 Метод для получения всех доступных облигаций
 
@@ -73,7 +75,7 @@ ___
 
 ▸ **cancelOrder**(`__namedParameters`: object): *Promise‹void›*
 
-Defined in OpenAPI.ts:272
+Defined in OpenAPI.ts:279
 
 Метод для отмены активных заявок
 
@@ -93,7 +95,7 @@ ___
 
 ▸ **candle**(`__namedParameters`: object, `cb`: function): *unsubscribe*
 
-Defined in OpenAPI.ts:387
+Defined in OpenAPI.ts:418
 
 Метод для подписки на данные по свечному графику инструмента
 
@@ -126,11 +128,34 @@ Name | Type |
 
 ___
 
+###  candlesGet
+
+▸ **candlesGet**(`__namedParameters`: object): *Promise‹[Candles](../globals.md#candles)›*
+
+Defined in OpenAPI.ts:337
+
+Метод для получения исторических свечей по FIGI
+
+**Parameters:**
+
+▪ **__namedParameters**: *object*
+
+Name | Type | Default | Description |
+------ | ------ | ------ | ------ |
+`figi` | string | - | Figi-идентификатор инструмента |
+`from` | string | - | Начало временного промежутка в формате ISO 8601 |
+`interval` | "1min" &#124; "2min" &#124; "3min" &#124; "5min" &#124; "10min" &#124; "15min" &#124; "30min" &#124; "hour" &#124; "2hour" &#124; "4hour" &#124; "day" &#124; "week" &#124; "month" | "1min" | интервал для свечи  |
+`to` | string | - | Конец временного промежутка в формате ISO 8601 |
+
+**Returns:** *Promise‹[Candles](../globals.md#candles)›*
+
+___
+
 ###  currencies
 
 ▸ **currencies**(): *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
-Defined in OpenAPI.ts:286
+Defined in OpenAPI.ts:293
 
 Метод для получения всех доступных валютных инструментов
 
@@ -142,7 +167,7 @@ ___
 
 ▸ **etfs**(): *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
-Defined in OpenAPI.ts:293
+Defined in OpenAPI.ts:300
 
 Метод для получения всех доступных валютных ETF
 
@@ -154,7 +179,7 @@ ___
 
 ▸ **instrumentInfo**(`__namedParameters`: object, `cb`: log): *unsubscribe*
 
-Defined in OpenAPI.ts:401
+Defined in OpenAPI.ts:432
 
 Метод для подписки на данные по инструменту
 
@@ -182,7 +207,7 @@ ___
 
 ▸ **instrumentPortfolio**(`params`: [InstrumentId](../globals.md#instrumentid)): *Promise‹[PortfolioPosition](../globals.md#portfolioposition) | null›*
 
-Defined in OpenAPI.ts:235
+Defined in OpenAPI.ts:241
 
 Метод для получение данных по инструменту в портфеле
 
@@ -200,7 +225,7 @@ ___
 
 ▸ **limitOrder**(`__namedParameters`: object): *Promise‹[PlacedLimitOrder](../globals.md#placedlimitorder)›*
 
-Defined in OpenAPI.ts:256
+Defined in OpenAPI.ts:263
 
 Метод для выставления заявки
 
@@ -212,7 +237,7 @@ Name | Type | Description |
 ------ | ------ | ------ |
 `figi` | string | идентификатор инструмента |
 `lots` | number | количество лотов для заявки |
-`operation` | "Buy" &#124; "Sell" | тип заявки |
+`operation` | object | тип заявки |
 `price` | number | цена лимитной заявки  |
 
 **Returns:** *Promise‹[PlacedLimitOrder](../globals.md#placedlimitorder)›*
@@ -223,7 +248,7 @@ ___
 
 ▸ **operations**(`__namedParameters`: object): *Promise‹[Operations](../globals.md#operations)›*
 
-Defined in OpenAPI.ts:318
+Defined in OpenAPI.ts:324
 
 Метод для получения операций по цб по инструменту
 
@@ -233,9 +258,9 @@ Defined in OpenAPI.ts:318
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`figi` | string | Идентификатор инструмента  |
-`from` | string | Дата, с которой необходимо получить операции в формате ??? |
-`interval` | "1day" &#124; "7days" &#124; "14days" &#124; "30days" | Интервал, за который необходимы операции |
+`figi` | string | Figi-идентификатор инструмента  |
+`from` | string | Начало временного промежутка в формате ISO 8601 |
+`to` | string | Конец временного промежутка в формате ISO 8601 |
 
 **Returns:** *Promise‹[Operations](../globals.md#operations)›*
 
@@ -245,7 +270,7 @@ ___
 
 ▸ **orderbook**(`__namedParameters`: object, `cb`: function): *unsubscribe*
 
-Defined in OpenAPI.ts:372
+Defined in OpenAPI.ts:403
 
 Метод для подписки на данные по стакану инструмента
 
@@ -284,11 +309,32 @@ Name | Type |
 
 ___
 
+###  orderbookGet
+
+▸ **orderbookGet**(`__namedParameters`: object): *Promise‹[Orderbook](../globals.md#orderbook)›*
+
+Defined in OpenAPI.ts:358
+
+Метод для получение стакана
+
+**Parameters:**
+
+▪ **__namedParameters**: *object*
+
+Name | Type | Default | Description |
+------ | ------ | ------ | ------ |
+`depth` | 1 &#124; 2 &#124; 3 &#124; 4 &#124; 5 &#124; 6 &#124; 7 &#124; 8 &#124; 9 &#124; 10 | 3 |   |
+`figi` | string | - | Figi-идентификатор инструмента |
+
+**Returns:** *Promise‹[Orderbook](../globals.md#orderbook)›*
+
+___
+
 ###  orders
 
 ▸ **orders**(): *Promise‹[Order](../globals.md#order)[]›*
 
-Defined in OpenAPI.ts:279
+Defined in OpenAPI.ts:286
 
 Метод для получения всех активных заявок
 
@@ -300,7 +346,7 @@ ___
 
 ▸ **portfolio**(): *Promise‹[Portfolio](../globals.md#portfolio)›*
 
-Defined in OpenAPI.ts:228
+Defined in OpenAPI.ts:234
 
 Метод для получение портфеля цб
 
@@ -312,7 +358,7 @@ ___
 
 ▸ **sandboxClear**(): *Promise‹any›*
 
-Defined in OpenAPI.ts:202
+Defined in OpenAPI.ts:208
 
 Метод для очистки песочницы
 
@@ -324,7 +370,7 @@ ___
 
 ▸ **search**(`params`: [InstrumentId](../globals.md#instrumentid)): *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
-Defined in OpenAPI.ts:336
+Defined in OpenAPI.ts:367
 
 Метод для поиска инструментов по figi или ticker
 
@@ -342,7 +388,7 @@ ___
 
 ▸ **searchOne**(`params`: [InstrumentId](../globals.md#instrumentid)): *Promise‹[MarketInstrument](../globals.md#marketinstrument) | null›*
 
-Defined in OpenAPI.ts:354
+Defined in OpenAPI.ts:385
 
 Метод для поиска инструмента по figi или ticker
 
@@ -360,7 +406,7 @@ ___
 
 ▸ **setCurrenciesBalance**(`params`: [SandboxSetCurrencyBalanceRequest](../globals.md#sandboxsetcurrencybalancerequest)): *Promise‹void›*
 
-Defined in OpenAPI.ts:220
+Defined in OpenAPI.ts:226
 
 Метод для задания баланса по валютам
 
@@ -378,7 +424,7 @@ ___
 
 ▸ **setPositionBalance**(`params`: [SandboxSetPositionBalanceRequest](../globals.md#sandboxsetpositionbalancerequest)): *Promise‹void›*
 
-Defined in OpenAPI.ts:211
+Defined in OpenAPI.ts:217
 
 Метод для задания баланса по бумагам
 
@@ -396,7 +442,7 @@ ___
 
 ▸ **stocks**(): *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
-Defined in OpenAPI.ts:307
+Defined in OpenAPI.ts:314
 
 Метод для получения всех доступных акций
 
