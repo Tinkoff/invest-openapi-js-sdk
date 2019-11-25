@@ -44,7 +44,7 @@ const api = new OpenAPI({ apiURL, secretToken, socketURL });
     lots: 1,
     price: 100,
   }); // Покупаем AAPL
-  console.log(commission); // Комиссия за сделу
+  console.log(commission); // Комиссия за сделку
   await api.cancelOrder({ orderId }); // Отменяем заявку
 })();
 ```
