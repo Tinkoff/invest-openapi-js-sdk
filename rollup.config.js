@@ -13,7 +13,7 @@ export default [
   {
     input: './src/OpenAPI.ts',
     output: {
-      file: 'build/openApi.js',
+      file: 'build/OpenApi.js',
       format: 'cjs',
     },
     plugins: [typescript()],
