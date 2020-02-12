@@ -1,0 +1,10 @@
+{
+  "schemas": [
+    {
+      "fileName": "openapi.swagger.json",
+      "url": "https://tinkoffcreditsystems.github.io/invest-openapi/swagger-ui/swagger.yaml",
+      "format": "yaml"
+    }
+  ],
+  "projectDir": "./src"
+}

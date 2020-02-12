@@ -11,6 +11,7 @@ const api = new OpenAPI({ apiURL: sandboxApiURL, secretToken: sandboxToken, sock
   await api.sandboxClear();
   const { figi } = await api.searchOne({ ticker: 'AAPL' });
   console.log(await api.setCurrenciesBalance({ currency: 'USD', balance: 1000 })); // 1000$ на счет
+  console.log(await api.portfolioCurrencies());
   console.log(await api.instrumentPortfolio({ figi })); // В портфеле ничего нет
   console.log(await api.limitOrder({ operation: 'Buy', figi, lots: 1, price: 100 })); // Покупаем AAPL
   console.log(await api.instrumentPortfolio({ figi })); // Сделка прошла моментально

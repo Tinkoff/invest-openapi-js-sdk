@@ -13,6 +13,7 @@ import {
   PortfolioPosition,
   SandboxSetCurrencyBalanceRequest,
   SandboxSetPositionBalanceRequest,
+  Currencies,
 } from './domain';
 const WebSocket = require('ws');
 type Interval =
@@ -233,6 +234,13 @@ export default class OpenAPI extends EventEmitter {
    */
   portfolio(): Promise<Portfolio> {
     return this.makeRequest('/portfolio');
+  }
+
+  /**
+   * Метод для получения валютных активов клиента
+   */
+  portfolioCurrencies(): Promise<Currencies> {
+    return this.makeRequest('/portfolio/currencies');
   }
 
   /**

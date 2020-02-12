@@ -20,6 +20,21 @@ export type Portfolio = {
   positions: PortfolioPosition[];
 };
 
+export type UserAccountsResponse = {
+  trackingId: string;
+  status: string;
+  payload: UserAccounts;
+};
+
+export type UserAccounts = {
+  accounts: UserAccount[];
+};
+
+export type UserAccount = {
+  brokerAccountType: BrokerAccountType;
+  brokerAccountId: string;
+};
+
 export type PortfolioCurrenciesResponse = {
   trackingId: string;
   status: string;
@@ -43,10 +58,11 @@ export type PortfolioPosition = {
   instrumentType: InstrumentType;
   balance: number;
   blocked?: number;
-  lots: number;
   expectedYield?: MoneyAmount;
+  lots: number;
   averagePositionPrice?: MoneyAmount;
   averagePositionPriceNoNkd?: MoneyAmount;
+  name: string;
 };
 
 export type MoneyAmount = {
@@ -67,6 +83,7 @@ export type Orderbook = {
   asks: OrderResponse[];
   tradeStatus: TradeStatus;
   minPriceIncrement: number;
+  faceValue?: number;
   lastPrice?: number;
   closePrice?: number;
   limitUp?: number;
@@ -100,8 +117,6 @@ export type Candle = {
   v: number;
   time: string;
 };
-
-export type CandleResolution = {};
 
 export type OperationsResponse = {
   trackingId: string;
@@ -170,6 +185,29 @@ export type PlacedLimitOrder = {
   operation: OperationType;
   status: OrderStatus;
   rejectReason?: string;
+  message?: string;
+  requestedLots: number;
+  executedLots: number;
+  commission?: MoneyAmount;
+};
+
+export type MarketOrderRequest = {
+  lots: number;
+  operation: OperationType;
+};
+
+export type MarketOrderResponse = {
+  trackingId: string;
+  status: string;
+  payload: PlacedMarketOrder;
+};
+
+export type PlacedMarketOrder = {
+  orderId: string;
+  operation: OperationType;
+  status: OrderStatus;
+  rejectReason?: string;
+  message?: string;
   requestedLots: number;
   executedLots: number;
   commission?: MoneyAmount;
@@ -183,9 +221,26 @@ export type OperationTypeWithCommission = {};
 
 export type OperationStatus = {};
 
+export type CandleResolution = {};
+
 export type OrderStatus = {};
 
 export type OrderType = {};
+
+export type SandboxRegisterRequest = {
+  brokerAccountType?: BrokerAccountType;
+};
+
+export type SandboxRegisterResponse = {
+  trackingId: string;
+  status: string;
+  payload: SandboxAccount;
+};
+
+export type SandboxAccount = {
+  brokerAccountType: BrokerAccountType;
+  brokerAccountId: string;
+};
 
 export type SandboxSetCurrencyBalanceRequest = {
   currency: SandboxCurrency;
@@ -208,10 +263,27 @@ export type MarketInstrumentList = {
   instruments: MarketInstrument[];
 };
 
+export type SearchMarketInstrumentResponse = {
+  trackingId: string;
+  status: string;
+  payload: SearchMarketInstrument;
+};
+
 export type MarketInstrumentResponse = {
   trackingId: string;
   status: string;
   payload: MarketInstrument;
+};
+
+export type SearchMarketInstrument = {
+  figi: string;
+  ticker: string;
+  isin?: string;
+  minPriceIncrement?: number;
+  lot: number;
+  currency?: Currency;
+  name: string;
+  type: InstrumentType;
 };
 
 export type MarketInstrument = {
@@ -229,6 +301,8 @@ export type SandboxCurrency = {};
 export type Currency = {};
 
 export type InstrumentType = {};
+
+export type BrokerAccountType = {};
 
 export type ErrorPayload = {
   message?: string;
