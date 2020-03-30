@@ -9,7 +9,9 @@ export * from './types';
 
 function getQueryString(params: Record<string, string | number>) {
   // must be a number https://github.com/microsoft/TypeScript/issues/32951
-  return new URLSearchParams(params as any).toString();
+  const searchParams = new URLSearchParams(params as any).toString();
+
+  return searchParams.length ? `?${searchParams}` : '';
 }
 
 type OpenApiConfig = {
@@ -65,7 +67,7 @@ export default class OpenAPI extends EventEmitter {
    * Соединяемся с сокетом
    */
   private connect() {
-    if (!this._ws || [ReadyState.OPEN, ReadyState.CONNECTING].includes(this._ws.readyState)) {
+    if (this._ws && [ReadyState.OPEN, ReadyState.CONNECTING].includes(this._ws.readyState)) {
       return;
     }
 
@@ -195,7 +197,7 @@ export default class OpenAPI extends EventEmitter {
     if (this._ws?.readyState === ReadyState.OPEN) {
       const cb = () => this._wsQueue.length && this.dispatchWsQueue();
 
-      this._ws.send(this._wsQueue.shift(), cb)
+      this._ws.send(JSON.stringify(this._wsQueue.shift()), cb);
     }
   }
 
