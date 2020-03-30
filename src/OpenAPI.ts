@@ -102,8 +102,13 @@ export default class OpenAPI extends EventEmitter {
   /**
    * Обработчик серверного пинга
    */
-  private handleSocketPing = (m: string) => {
+  private handleSocketPing = (m: Buffer) => {
     this._ws?.pong(m);
+    clearTimeout(this._wsPingTimeout!);
+
+    this._wsPingTimeout = setTimeout(() => {
+      this._ws?.terminate();
+    }, 30000 + 1000);
   }
 
   /**
