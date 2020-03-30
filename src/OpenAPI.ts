@@ -92,17 +92,6 @@ export default class OpenAPI extends EventEmitter {
   }
 
   /**
-   * Поддержание соединения активным при отсутсвии пакетов
-   */
-  private heartbeat() {
-    clearTimeout(this._wsPingTimeout!);
-
-    this._wsPingTimeout = setTimeout(() => {
-      this._ws?.terminate();
-    }, 30000 + 1000);
-  }
-
-  /**
    * Обработчик открытия соединения
    */
   private handleSocketOpen = () => {
@@ -113,8 +102,8 @@ export default class OpenAPI extends EventEmitter {
   /**
    * Обработчик серверного пинга
    */
-  private handleSocketPing = () => {
-    this.heartbeat();
+  private handleSocketPing = (m: string) => {
+    this._ws?.pong(m);
   }
 
   /**
