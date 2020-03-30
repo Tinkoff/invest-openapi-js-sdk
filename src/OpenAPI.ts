@@ -40,6 +40,7 @@ export default class OpenAPI extends EventEmitter {
   private _wsPingTimeout?: NodeJS.Timeout;
   private _wsQueue: object[] = [];
   private _sandboxCreated: boolean = false;
+  private _subscribeMessages: object[] = [];
   private readonly apiURL: string;
   private readonly socketURL: string;
   private readonly secretToken: string;
@@ -81,6 +82,13 @@ export default class OpenAPI extends EventEmitter {
     this._ws.on('message', this.handleSocketMessage);
     this._ws.on('close', this.handleSocketClose)
     this._ws.on('error', this.handleSocketError)
+
+    // Восстанавливаем подписки
+    if (this._subscribeMessages) {
+      this._subscribeMessages.forEach(msg => {
+        this.enqueue(msg);
+      });
+    }
   }
 
   /**
@@ -209,7 +217,9 @@ export default class OpenAPI extends EventEmitter {
       this.connect();
     }
 
-    this.enqueue({ event: `${type}:subscribe`, ...params })
+    const message = { event: `${type}:subscribe`, ...params };
+    this.enqueue(message);
+    this._subscribeMessages.push(message);
 
     const handler = (x: any) => cb(x);
     let eventName = this.getEventName(type, params);
@@ -218,8 +228,14 @@ export default class OpenAPI extends EventEmitter {
 
     return () => {
       this.off(eventName, handler);
+
       if (!this.listenerCount(eventName)) {
-        this.enqueue({ event: `${type}:unsubscribe`, ...params })
+        this.enqueue({ event: `${type}:unsubscribe`, ...params });
+        const index = this._subscribeMessages.findIndex(msg => msg === message);
+
+        if (index !== -1) {
+          this._subscribeMessages.splice(index, 1);
+        }
       }
     };
   }
