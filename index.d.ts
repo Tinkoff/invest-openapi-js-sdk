@@ -1,2 +1,3 @@
-import OpenAPI from './build/OpenAPI.d'
+import OpenAPI from './build/OpenAPI'
 export default OpenAPI;
+export * from './build/domain';

@@ -3,9 +3,9 @@ import dts from 'rollup-plugin-dts';
 
 export default [
   {
-    input: './src/domain.d.ts',
+    input: './src/domain.ts',
     output: {
-      file: 'build/domain.d.ts',
+      file: 'build/domain.ts',
       format: 'es',
     },
     plugins: [dts()],

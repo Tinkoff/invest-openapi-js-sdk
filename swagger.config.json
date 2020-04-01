@@ -6,5 +6,6 @@
       "format": "yaml"
     }
   ],
-  "projectDir": "./src"
+  "projectDir": "./src",
+  "outputFilename": "domain.ts"
 }
