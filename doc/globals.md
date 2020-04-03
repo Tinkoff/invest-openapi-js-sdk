@@ -10,6 +10,7 @@
 
 ### Type aliases
 
+* [BrokerAccountType](globals.md#brokeraccounttype)
 * [Candle](globals.md#candle)
 * [CandleResolution](globals.md#candleresolution)
 * [CandleStreaming](globals.md#candlestreaming)
@@ -34,6 +35,8 @@
 * [MarketInstrumentList](globals.md#marketinstrumentlist)
 * [MarketInstrumentListResponse](globals.md#marketinstrumentlistresponse)
 * [MarketInstrumentResponse](globals.md#marketinstrumentresponse)
+* [MarketOrderRequest](globals.md#marketorderrequest)
+* [MarketOrderResponse](globals.md#marketorderresponse)
 * [MoneyAmount](globals.md#moneyamount)
 * [Operation](globals.md#operation)
 * [OperationStatus](globals.md#operationstatus)
@@ -51,15 +54,24 @@
 * [OrderbookStreaming](globals.md#orderbookstreaming)
 * [OrdersResponse](globals.md#ordersresponse)
 * [PlacedLimitOrder](globals.md#placedlimitorder)
+* [PlacedMarketOrder](globals.md#placedmarketorder)
 * [Portfolio](globals.md#portfolio)
 * [PortfolioCurrenciesResponse](globals.md#portfoliocurrenciesresponse)
 * [PortfolioPosition](globals.md#portfolioposition)
 * [PortfolioResponse](globals.md#portfolioresponse)
+* [SandboxAccount](globals.md#sandboxaccount)
 * [SandboxCurrency](globals.md#sandboxcurrency)
+* [SandboxRegisterRequest](globals.md#sandboxregisterrequest)
+* [SandboxRegisterResponse](globals.md#sandboxregisterresponse)
 * [SandboxSetCurrencyBalanceRequest](globals.md#sandboxsetcurrencybalancerequest)
 * [SandboxSetPositionBalanceRequest](globals.md#sandboxsetpositionbalancerequest)
+* [SearchMarketInstrument](globals.md#searchmarketinstrument)
+* [SearchMarketInstrumentResponse](globals.md#searchmarketinstrumentresponse)
 * [SocketEventType](globals.md#socketeventtype)
 * [TradeStatus](globals.md#tradestatus)
+* [UserAccount](globals.md#useraccount)
+* [UserAccounts](globals.md#useraccounts)
+* [UserAccountsResponse](globals.md#useraccountsresponse)
 
 ### Variables
 
@@ -72,11 +84,25 @@
 
 ## Type aliases
 
+###  BrokerAccountType
+
+Ƭ **BrokerAccountType**: *object*
+
+Defined in domain.ts:311
+
+Defined in src/domain.ts:311
+
+#### Type declaration:
+
+___
+
 ###  Candle
 
 Ƭ **Candle**: *object*
 
-Defined in domain.d.ts:93
+Defined in domain.ts:115
+
+Defined in src/domain.ts:115
 
 #### Type declaration:
 
@@ -102,7 +128,9 @@ ___
 
 Ƭ **CandleResolution**: *object*
 
-Defined in domain.d.ts:104
+Defined in domain.ts:229
+
+Defined in src/domain.ts:229
 
 #### Type declaration:
 
@@ -112,7 +140,7 @@ ___
 
 Ƭ **CandleStreaming**: *object*
 
-Defined in OpenAPI.ts:42
+Defined in OpenAPI.ts:43
 
 #### Type declaration:
 
@@ -138,7 +166,9 @@ ___
 
 Ƭ **Candles**: *object*
 
-Defined in domain.d.ts:87
+Defined in domain.ts:109
+
+Defined in src/domain.ts:109
 
 #### Type declaration:
 
@@ -154,7 +184,9 @@ ___
 
 Ƭ **CandlesResponse**: *object*
 
-Defined in domain.d.ts:81
+Defined in domain.ts:103
+
+Defined in src/domain.ts:103
 
 #### Type declaration:
 
@@ -170,7 +202,9 @@ ___
 
 Ƭ **Currencies**: *object*
 
-Defined in domain.d.ts:29
+Defined in domain.ts:49
+
+Defined in src/domain.ts:49
 
 #### Type declaration:
 
@@ -182,7 +216,9 @@ ___
 
 Ƭ **Currency**: *object*
 
-Defined in domain.d.ts:229
+Defined in domain.ts:307
+
+Defined in src/domain.ts:307
 
 #### Type declaration:
 
@@ -192,7 +228,9 @@ ___
 
 Ƭ **CurrencyPosition**: *object*
 
-Defined in domain.d.ts:33
+Defined in domain.ts:53
+
+Defined in src/domain.ts:53
 
 #### Type declaration:
 
@@ -208,7 +246,7 @@ ___
 
 Ƭ **Depth**: *1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10*
 
-Defined in OpenAPI.ts:32
+Defined in OpenAPI.ts:33
 
 ___
 
@@ -216,7 +254,7 @@ ___
 
 Ƭ **Dict**: *object*
 
-Defined in OpenAPI.ts:35
+Defined in OpenAPI.ts:36
 
 #### Type declaration:
 
@@ -228,7 +266,14 @@ ___
 
 Ƭ **Empty**: *object*
 
-Defined in domain.d.ts:1
+Defined in domain.ts:6
+
+Defined in src/domain.ts:6
+
+* This file was generated automatically by @tinkoff/invest-types-generator
+* do not try amending it manually
+* This file was generated automatically by @tinkoff/invest-types-generator
+* do not try amending it manually
 
 #### Type declaration:
 
@@ -244,7 +289,9 @@ ___
 
 Ƭ **Error**: *object*
 
-Defined in domain.d.ts:7
+Defined in domain.ts:12
+
+Defined in src/domain.ts:12
 
 #### Type declaration:
 
@@ -260,7 +307,9 @@ ___
 
 Ƭ **ErrorPayload**: *object*
 
-Defined in domain.d.ts:233
+Defined in domain.ts:313
+
+Defined in src/domain.ts:313
 
 #### Type declaration:
 
@@ -274,7 +323,7 @@ ___
 
 Ƭ **HttpMethod**: *"get" | "post"*
 
-Defined in OpenAPI.ts:33
+Defined in OpenAPI.ts:34
 
 ___
 
@@ -282,7 +331,7 @@ ___
 
 Ƭ **InstrumentId**: *object | object*
 
-Defined in OpenAPI.ts:41
+Defined in OpenAPI.ts:42
 
 ___
 
@@ -290,7 +339,9 @@ ___
 
 Ƭ **InstrumentType**: *object*
 
-Defined in domain.d.ts:231
+Defined in domain.ts:309
+
+Defined in src/domain.ts:309
 
 #### Type declaration:
 
@@ -300,7 +351,7 @@ ___
 
 Ƭ **Interval**: *"1min" | "2min" | "3min" | "5min" | "10min" | "15min" | "30min" | "hour" | "2hour" | "4hour" | "day" | "week" | "month"*
 
-Defined in OpenAPI.ts:18
+Defined in OpenAPI.ts:19
 
 ___
 
@@ -308,7 +359,7 @@ ___
 
 Ƭ **LimitOrderParams**: *object*
 
-Defined in OpenAPI.ts:61
+Defined in OpenAPI.ts:62
 
 #### Type declaration:
 
@@ -326,7 +377,9 @@ ___
 
 Ƭ **LimitOrderRequest**: *object*
 
-Defined in domain.d.ts:156
+Defined in domain.ts:176
+
+Defined in src/domain.ts:176
 
 #### Type declaration:
 
@@ -342,7 +395,9 @@ ___
 
 Ƭ **LimitOrderResponse**: *object*
 
-Defined in domain.d.ts:162
+Defined in domain.ts:182
+
+Defined in src/domain.ts:182
 
 #### Type declaration:
 
@@ -358,7 +413,9 @@ ___
 
 Ƭ **MarketInstrument**: *object*
 
-Defined in domain.d.ts:217
+Defined in domain.ts:294
+
+Defined in src/domain.ts:294
 
 #### Type declaration:
 
@@ -376,13 +433,17 @@ Defined in domain.d.ts:217
 
 * **ticker**: *string*
 
+* **type**: *[InstrumentType](globals.md#instrumenttype)*
+
 ___
 
 ###  MarketInstrumentList
 
 Ƭ **MarketInstrumentList**: *object*
 
-Defined in domain.d.ts:206
+Defined in domain.ts:266
+
+Defined in src/domain.ts:266
 
 #### Type declaration:
 
@@ -396,7 +457,9 @@ ___
 
 Ƭ **MarketInstrumentListResponse**: *object*
 
-Defined in domain.d.ts:200
+Defined in domain.ts:260
+
+Defined in src/domain.ts:260
 
 #### Type declaration:
 
@@ -412,7 +475,9 @@ ___
 
 Ƭ **MarketInstrumentResponse**: *object*
 
-Defined in domain.d.ts:211
+Defined in domain.ts:277
+
+Defined in src/domain.ts:277
 
 #### Type declaration:
 
@@ -424,11 +489,47 @@ Defined in domain.d.ts:211
 
 ___
 
+###  MarketOrderRequest
+
+Ƭ **MarketOrderRequest**: *object*
+
+Defined in domain.ts:199
+
+Defined in src/domain.ts:199
+
+#### Type declaration:
+
+* **lots**: *number*
+
+* **operation**: *[OperationType](globals.md#operationtype)*
+
+___
+
+###  MarketOrderResponse
+
+Ƭ **MarketOrderResponse**: *object*
+
+Defined in domain.ts:204
+
+Defined in src/domain.ts:204
+
+#### Type declaration:
+
+* **payload**: *[PlacedMarketOrder](globals.md#placedmarketorder)*
+
+* **status**: *string*
+
+* **trackingId**: *string*
+
+___
+
 ###  MoneyAmount
 
 Ƭ **MoneyAmount**: *object*
 
-Defined in domain.d.ts:52
+Defined in domain.ts:73
+
+Defined in src/domain.ts:73
 
 #### Type declaration:
 
@@ -442,7 +543,9 @@ ___
 
 Ƭ **Operation**: *object*
 
-Defined in domain.d.ts:123
+Defined in domain.ts:143
+
+Defined in src/domain.ts:143
 
 #### Type declaration:
 
@@ -478,7 +581,9 @@ ___
 
 Ƭ **OperationStatus**: *object*
 
-Defined in domain.d.ts:184
+Defined in domain.ts:227
+
+Defined in src/domain.ts:227
 
 #### Type declaration:
 
@@ -488,7 +593,9 @@ ___
 
 Ƭ **OperationTrade**: *object*
 
-Defined in domain.d.ts:116
+Defined in domain.ts:136
+
+Defined in src/domain.ts:136
 
 #### Type declaration:
 
@@ -506,7 +613,9 @@ ___
 
 Ƭ **OperationType**: *object*
 
-Defined in domain.d.ts:180
+Defined in domain.ts:223
+
+Defined in src/domain.ts:223
 
 #### Type declaration:
 
@@ -516,7 +625,9 @@ ___
 
 Ƭ **OperationTypeWithCommission**: *object*
 
-Defined in domain.d.ts:182
+Defined in domain.ts:225
+
+Defined in src/domain.ts:225
 
 #### Type declaration:
 
@@ -526,7 +637,9 @@ ___
 
 Ƭ **Operations**: *object*
 
-Defined in domain.d.ts:112
+Defined in domain.ts:132
+
+Defined in src/domain.ts:132
 
 #### Type declaration:
 
@@ -538,7 +651,9 @@ ___
 
 Ƭ **OperationsResponse**: *object*
 
-Defined in domain.d.ts:106
+Defined in domain.ts:126
+
+Defined in src/domain.ts:126
 
 #### Type declaration:
 
@@ -554,7 +669,9 @@ ___
 
 Ƭ **Order**: *object*
 
-Defined in domain.d.ts:145
+Defined in domain.ts:165
+
+Defined in src/domain.ts:165
 
 #### Type declaration:
 
@@ -580,7 +697,9 @@ ___
 
 Ƭ **OrderResponse**: *object*
 
-Defined in domain.d.ts:76
+Defined in domain.ts:98
+
+Defined in src/domain.ts:98
 
 #### Type declaration:
 
@@ -594,7 +713,9 @@ ___
 
 Ƭ **OrderStatus**: *object*
 
-Defined in domain.d.ts:186
+Defined in domain.ts:231
+
+Defined in src/domain.ts:231
 
 #### Type declaration:
 
@@ -604,7 +725,9 @@ ___
 
 Ƭ **OrderType**: *object*
 
-Defined in domain.d.ts:188
+Defined in domain.ts:233
+
+Defined in src/domain.ts:233
 
 #### Type declaration:
 
@@ -614,7 +737,9 @@ ___
 
 Ƭ **Orderbook**: *object*
 
-Defined in domain.d.ts:63
+Defined in domain.ts:84
+
+Defined in src/domain.ts:84
 
 #### Type declaration:
 
@@ -625,6 +750,8 @@ Defined in domain.d.ts:63
 * **closePrice**? : *undefined | number*
 
 * **depth**: *number*
+
+* **faceValue**? : *undefined | number*
 
 * **figi**: *string*
 
@@ -644,7 +771,9 @@ ___
 
 Ƭ **OrderbookResponse**: *object*
 
-Defined in domain.d.ts:57
+Defined in domain.ts:78
+
+Defined in src/domain.ts:78
 
 #### Type declaration:
 
@@ -660,7 +789,7 @@ ___
 
 Ƭ **OrderbookStreaming**: *object*
 
-Defined in OpenAPI.ts:36
+Defined in OpenAPI.ts:37
 
 #### Type declaration:
 
@@ -676,7 +805,9 @@ ___
 
 Ƭ **OrdersResponse**: *object*
 
-Defined in domain.d.ts:139
+Defined in domain.ts:159
+
+Defined in src/domain.ts:159
 
 #### Type declaration:
 
@@ -692,13 +823,45 @@ ___
 
 Ƭ **PlacedLimitOrder**: *object*
 
-Defined in domain.d.ts:168
+Defined in domain.ts:188
+
+Defined in src/domain.ts:188
 
 #### Type declaration:
 
 * **commission**? : *[MoneyAmount](globals.md#moneyamount)*
 
 * **executedLots**: *number*
+
+* **message**? : *undefined | string*
+
+* **operation**: *[OperationType](globals.md#operationtype)*
+
+* **orderId**: *string*
+
+* **rejectReason**? : *undefined | string*
+
+* **requestedLots**: *number*
+
+* **status**: *[OrderStatus](globals.md#orderstatus)*
+
+___
+
+###  PlacedMarketOrder
+
+Ƭ **PlacedMarketOrder**: *object*
+
+Defined in domain.ts:210
+
+Defined in src/domain.ts:210
+
+#### Type declaration:
+
+* **commission**? : *[MoneyAmount](globals.md#moneyamount)*
+
+* **executedLots**: *number*
+
+* **message**? : *undefined | string*
 
 * **operation**: *[OperationType](globals.md#operationtype)*
 
@@ -716,7 +879,9 @@ ___
 
 Ƭ **Portfolio**: *object*
 
-Defined in domain.d.ts:19
+Defined in domain.ts:24
+
+Defined in src/domain.ts:24
 
 #### Type declaration:
 
@@ -728,7 +893,9 @@ ___
 
 Ƭ **PortfolioCurrenciesResponse**: *object*
 
-Defined in domain.d.ts:23
+Defined in domain.ts:43
+
+Defined in src/domain.ts:43
 
 #### Type declaration:
 
@@ -744,7 +911,9 @@ ___
 
 Ƭ **PortfolioPosition**: *object*
 
-Defined in domain.d.ts:39
+Defined in domain.ts:59
+
+Defined in src/domain.ts:59
 
 #### Type declaration:
 
@@ -766,6 +935,8 @@ Defined in domain.d.ts:39
 
 * **lots**: *number*
 
+* **name**: *string*
+
 * **ticker**? : *undefined | string*
 
 ___
@@ -774,7 +945,9 @@ ___
 
 Ƭ **PortfolioResponse**: *object*
 
-Defined in domain.d.ts:13
+Defined in domain.ts:18
+
+Defined in src/domain.ts:18
 
 #### Type declaration:
 
@@ -786,13 +959,63 @@ Defined in domain.d.ts:13
 
 ___
 
+###  SandboxAccount
+
+Ƭ **SandboxAccount**: *object*
+
+Defined in domain.ts:245
+
+Defined in src/domain.ts:245
+
+#### Type declaration:
+
+* **brokerAccountId**: *string*
+
+* **brokerAccountType**: *[BrokerAccountType](globals.md#brokeraccounttype)*
+
+___
+
 ###  SandboxCurrency
 
 Ƭ **SandboxCurrency**: *object*
 
-Defined in domain.d.ts:227
+Defined in domain.ts:305
+
+Defined in src/domain.ts:305
 
 #### Type declaration:
+
+___
+
+###  SandboxRegisterRequest
+
+Ƭ **SandboxRegisterRequest**: *object*
+
+Defined in domain.ts:235
+
+Defined in src/domain.ts:235
+
+#### Type declaration:
+
+* **brokerAccountType**? : *[BrokerAccountType](globals.md#brokeraccounttype)*
+
+___
+
+###  SandboxRegisterResponse
+
+Ƭ **SandboxRegisterResponse**: *object*
+
+Defined in domain.ts:239
+
+Defined in src/domain.ts:239
+
+#### Type declaration:
+
+* **payload**: *[SandboxAccount](globals.md#sandboxaccount)*
+
+* **status**: *string*
+
+* **trackingId**: *string*
 
 ___
 
@@ -800,7 +1023,9 @@ ___
 
 Ƭ **SandboxSetCurrencyBalanceRequest**: *object*
 
-Defined in domain.d.ts:190
+Defined in domain.ts:250
+
+Defined in src/domain.ts:250
 
 #### Type declaration:
 
@@ -814,7 +1039,9 @@ ___
 
 Ƭ **SandboxSetPositionBalanceRequest**: *object*
 
-Defined in domain.d.ts:195
+Defined in domain.ts:255
+
+Defined in src/domain.ts:255
 
 #### Type declaration:
 
@@ -824,11 +1051,57 @@ Defined in domain.d.ts:195
 
 ___
 
+###  SearchMarketInstrument
+
+Ƭ **SearchMarketInstrument**: *object*
+
+Defined in domain.ts:283
+
+Defined in src/domain.ts:283
+
+#### Type declaration:
+
+* **currency**? : *[Currency](globals.md#currency)*
+
+* **figi**: *string*
+
+* **isin**? : *undefined | string*
+
+* **lot**: *number*
+
+* **minPriceIncrement**? : *undefined | number*
+
+* **name**: *string*
+
+* **ticker**: *string*
+
+* **type**: *[InstrumentType](globals.md#instrumenttype)*
+
+___
+
+###  SearchMarketInstrumentResponse
+
+Ƭ **SearchMarketInstrumentResponse**: *object*
+
+Defined in domain.ts:271
+
+Defined in src/domain.ts:271
+
+#### Type declaration:
+
+* **payload**: *[SearchMarketInstrument](globals.md#searchmarketinstrument)*
+
+* **status**: *string*
+
+* **trackingId**: *string*
+
+___
+
 ###  SocketEventType
 
 Ƭ **SocketEventType**: *"orderbook" | "candle" | "instrument_info"*
 
-Defined in OpenAPI.ts:34
+Defined in OpenAPI.ts:35
 
 ___
 
@@ -836,9 +1109,59 @@ ___
 
 Ƭ **TradeStatus**: *object*
 
-Defined in domain.d.ts:178
+Defined in domain.ts:221
+
+Defined in src/domain.ts:221
 
 #### Type declaration:
+
+___
+
+###  UserAccount
+
+Ƭ **UserAccount**: *object*
+
+Defined in domain.ts:38
+
+Defined in src/domain.ts:38
+
+#### Type declaration:
+
+* **brokerAccountId**: *string*
+
+* **brokerAccountType**: *[BrokerAccountType](globals.md#brokeraccounttype)*
+
+___
+
+###  UserAccounts
+
+Ƭ **UserAccounts**: *object*
+
+Defined in domain.ts:34
+
+Defined in src/domain.ts:34
+
+#### Type declaration:
+
+* **accounts**: *[UserAccount](globals.md#useraccount)[]*
+
+___
+
+###  UserAccountsResponse
+
+Ƭ **UserAccountsResponse**: *object*
+
+Defined in domain.ts:28
+
+Defined in src/domain.ts:28
+
+#### Type declaration:
+
+* **payload**: *[UserAccounts](globals.md#useraccounts)*
+
+* **status**: *string*
+
+* **trackingId**: *string*
 
 ## Variables
 
@@ -846,7 +1169,7 @@ Defined in domain.d.ts:178
 
 • **WebSocket**: *any* =  require('ws')
 
-Defined in OpenAPI.ts:17
+Defined in OpenAPI.ts:18
 
 ## Functions
 
@@ -854,7 +1177,7 @@ Defined in OpenAPI.ts:17
 
 ▸ **getQueryString**(`params`: object): *string*
 
-Defined in OpenAPI.ts:53
+Defined in OpenAPI.ts:54
 
 **Parameters:**
 
@@ -870,7 +1193,7 @@ ___
 
 ▸ **once**<**P**, **R**>(`fn`: function): *function*
 
-Defined in OpenAPI.ts:68
+Defined in OpenAPI.ts:69
 
 **Type parameters:**
 
