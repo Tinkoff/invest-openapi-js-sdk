@@ -6,6 +6,9 @@ import { SandboxSetCurrencyBalanceRequest, SandboxSetPositionBalanceRequest, Cur
 import WebSocket from 'ws';
 import { HttpMethod, SocketEventType, Dict, InstrumentId, Depth, Interval, LimitOrderParams, OrderbookStreaming, CandleStreaming } from './types';
 
+export * from './types';
+export * from './domain';
+
 function getQueryString(params: Record<string, string | number>) {
   // must be a number https://github.com/microsoft/TypeScript/issues/32951
   const searchParams = new URLSearchParams(params as any).toString();
