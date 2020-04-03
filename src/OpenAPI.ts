@@ -1,11 +1,10 @@
 import 'isomorphic-fetch';
 import { EventEmitter } from 'events';
-import { Candles, MarketInstrument, MarketInstrumentList, Operations, HttpMethod, SocketEventType, Dict, LimitOrderParams, Interval, Depth, CandleStreaming, OrderbookStreaming, InstrumentId } from './types';
-import { Order, Orderbook, PlacedLimitOrder, Portfolio, PortfolioPosition } from './types';
-import { SandboxSetCurrencyBalanceRequest, SandboxSetPositionBalanceRequest, Currencies } from './types';
+import { Candles, MarketInstrument, MarketInstrumentList, Operations } from './domain';
+import { Order, Orderbook, PlacedLimitOrder, Portfolio, PortfolioPosition } from './domain';
+import { SandboxSetCurrencyBalanceRequest, SandboxSetPositionBalanceRequest, Currencies } from './domain';
 import WebSocket from 'ws';
-
-export * from './types';
+import { HttpMethod, SocketEventType, Dict, InstrumentId, Depth, Interval, LimitOrderParams, OrderbookStreaming, CandleStreaming } from './types';
 
 function getQueryString(params: Record<string, string | number>) {
   // must be a number https://github.com/microsoft/TypeScript/issues/32951

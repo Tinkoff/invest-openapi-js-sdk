@@ -1,6 +1,6 @@
 {
   "name": "@tinkoff/invest-openapi-js-sdk",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Tinkoff Invest OpenAPI Client",
   "main": "index.js",
   "types": "./build/OpenAPI.d.ts",
@@ -11,7 +11,8 @@
     "prepare": "npm run build",
     "build": "rollup --config ./rollup.config.js",
     "watch": "rollup --config ./rollup.config.js -w -m",
-    "docs": " rm -rf ./doc && typedoc"
+    "docs": "rm -rf ./doc && typedoc",
+    "types": "swagger-types-generator ./swagger.config.json"
   },
   "repository": {
     "type": "git",
@@ -25,8 +26,8 @@
   ],
   "license": "ISC",
   "devDependencies": {
-    "@tinkoff/swagger-types-generator": "0.0.6",
     "@types/ws": "^7.2.3",
+    "@tinkoff/swagger-types-generator": "0.0.7",
     "fsevents": "^2.0.7",
     "prettier": "1.18.2",
     "rollup": "^1.21.3",
