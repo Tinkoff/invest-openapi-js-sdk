@@ -11,7 +11,7 @@
     "build": "rollup --config ./rollup.config.js",
     "watch": "rollup --config ./rollup.config.js -w -m",
     "docs": "rm -rf ./doc && typedoc",
-    "types": "swagger-types-generator ./swagger.config.json"
+    "types": "swagger-types-generator ./swagger.config.json && npm run docs"
   },
   "repository": {
     "type": "git",
