@@ -1,86 +1,48 @@
 import 'isomorphic-fetch';
 import { EventEmitter } from 'events';
-import {
-  Candles,
-  MarketInstrument,
-  MarketInstrumentList,
-  Operations,
-  OperationType,
-  Order,
-  Orderbook,
-  PlacedLimitOrder,
-  Portfolio,
-  PortfolioPosition,
-  SandboxSetCurrencyBalanceRequest,
-  SandboxSetPositionBalanceRequest,
-  Currencies,
-} from './domain';
-const WebSocket = require('ws');
-type Interval =
-  | '1min'
-  | '2min'
-  | '3min'
-  | '5min'
-  | '10min'
-  | '15min'
-  | '30min'
-  | 'hour'
-  | '2hour'
-  | '4hour'
-  | 'day'
-  | 'week'
-  | 'month';
-type Depth = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
-type HttpMethod = 'get' | 'post';
-type SocketEventType = 'orderbook' | 'candle' | 'instrument_info';
-type Dict<T> = { [x: string]: T };
-type OrderbookStreaming = {
-  figi: string;
-  depth: Depth;
-  bids: Array<[number, number]>;
-};
-type InstrumentId = { ticker: string } | { figi: string };
-type CandleStreaming = {
-  o: number;
-  c: number;
-  h: number;
-  l: number;
-  v: number;
-  time: string;
-  interval: Interval;
-  figi: string;
-};
+import { Candles, MarketInstrument, MarketInstrumentList, Operations } from './domain';
+import { Order, Orderbook, PlacedLimitOrder, Portfolio, PortfolioPosition } from './domain';
+import { SandboxSetCurrencyBalanceRequest, SandboxSetPositionBalanceRequest, Currencies } from './domain';
+import WebSocket from 'ws';
+import { HttpMethod, SocketEventType, Dict, InstrumentId, Depth, Interval, LimitOrderParams, OrderbookStreaming, CandleStreaming } from './types';
 
-function getQueryString(params: { [x: string]: string | number }) {
-  const esc = encodeURIComponent;
-  let s = Object.keys(params)
-    .map((k) => esc(k) + '=' + esc(params[k]))
-    .join('&');
-  return s ? '?' + s : '';
+export * from './types';
+export * from './domain';
+
+function getQueryString(params: Record<string, string | number>) {
+  // must be a number https://github.com/microsoft/TypeScript/issues/32951
+  const searchParams = new URLSearchParams(params as any).toString();
+
+  return searchParams.length ? `?${searchParams}` : '';
 }
 
-type LimitOrderParams = {
-  figi: string;
-  lots: number;
-  operation: OperationType;
-  price: number;
-};
+type OpenApiConfig = {
+  apiURL: string,
+  socketURL: string,
+  secretToken: string
+}
 
-function once<P extends Array<any>, R>(fn: (...args: P) => R): (...args: P) => R {
-  let result: { value: R };
-  return (...args: P) => {
-    if (!result) {
-      result = { value: fn(...args) };
-    }
-    return result.value;
-  };
+type RequestConfig<P> = {
+  method?: HttpMethod;
+  params?: P
+}
+
+const enum ReadyState {
+  'CONNECTING',
+  'OPEN',
+  'CLOSING',
+  'CLOSED',
 }
 
 /**
  * @noInheritDoc
  */
 export default class OpenAPI extends EventEmitter {
-  private _ws: any = null;
+  private _ws: WebSocket | null = null;
+  private _wsPingTimeout?: NodeJS.Timeout;
+  private _wsQueue: object[] = [];
+  private _sandboxCreated: boolean = false;
+  private _subscribeMessages: object[] = [];
   private readonly apiURL: string;
   private readonly socketURL: string;
   private readonly secretToken: string;
@@ -93,17 +55,8 @@ export default class OpenAPI extends EventEmitter {
    * @param secretToken токен доступа см [получение токена доступа](https://tinkoffcreditsystems.github.io/invest-openapi/auth/)
    *
    */
-  constructor({
-    apiURL,
-    socketURL,
-    secretToken,
-  }: {
-    apiURL: string;
-    socketURL: string;
-    secretToken: string;
-  }) {
+  constructor({ apiURL, socketURL, secretToken }: OpenApiConfig) {
     super();
-    this._ws = null;
     this.apiURL = apiURL;
     this.socketURL = socketURL;
     this.secretToken = secretToken;
@@ -113,95 +66,185 @@ export default class OpenAPI extends EventEmitter {
     };
   }
 
-  private ws() {
-    if (!this._ws) {
-      this._ws = new Promise((resolve) => {
-        const ws = new WebSocket(this.socketURL, {
-          perMessageDeflate: false,
-          headers: this.authHeaders,
-        });
-        ws.on('open', () => {
-          resolve(ws);
-        });
-        ws.on('message', (m: any) => {
-          const { event: type, payload } = JSON.parse(m);
-          this.emit(this.getEventName(type, payload), payload);
-        });
-      });
+  /**
+   * Соединяемся с сокетом
+   */
+  private connect() {
+    if (this._ws && [ReadyState.OPEN, ReadyState.CONNECTING].includes(this._ws.readyState)) {
+      return;
     }
 
-    return this._ws;
-  }
+    this._ws = new WebSocket(this.socketURL, {
+      perMessageDeflate: false,
+      headers: this.authHeaders,
+    });
 
-  private makeRequest<P, R>(
-    url: string,
-    { method = 'get', params }: { method?: HttpMethod; params?: P } = {}
-  ): Promise<R> {
-    return (method === 'get'
-      ? fetch(this.apiURL + url + getQueryString(params || {}), {
-          method,
-          headers: new Headers(this.authHeaders),
-        })
-      : fetch(this.apiURL + url, {
-          method,
-          headers: new Headers(this.authHeaders),
-          body: JSON.stringify(params),
-        })
-    )
-      .then((x) => {
-        if (!x.ok) {
-          return x.json().then((x) => Promise.reject(x.payload));
-        }
-        return x.json();
-      })
-      .then((x) => {
-        return x.payload;
+    this._ws.on('open', this.handleSocketOpen);
+    this._ws.on('ping', this.handleSocketPing);
+    this._ws.on('message', this.handleSocketMessage);
+    this._ws.on('close', this.handleSocketClose)
+    this._ws.on('error', this.handleSocketError)
+
+    // Восстанавливаем подписки
+    if (this._subscribeMessages) {
+      this._subscribeMessages.forEach(msg => {
+        this.enqueue(msg);
       });
+    }
   }
 
+  /**
+   * Обработчик открытия соединения
+   */
+  private handleSocketOpen = () => {
+    this.emit('socket-open');
+    this.dispatchWsQueue();
+  }
+
+  /**
+   * Обработчик серверного пинга
+   */
+  private handleSocketPing = (m: Buffer) => {
+    this._ws?.pong(m);
+    clearTimeout(this._wsPingTimeout!);
+
+    this._wsPingTimeout = setTimeout(() => {
+      this._ws?.terminate();
+    }, 30000 + 1000);
+  }
+
+  /**
+   * Обработчик закрытия соединения
+   */
+  private handleSocketClose = () => {
+    clearTimeout(this._wsPingTimeout!);
+    this.emit('socket-close');
+    this.handleSocketError();
+  }
+
+  /**
+   * Обработчик ошибок и переподключение при необходимости
+   */
+  private handleSocketError = () => {
+    clearTimeout(this._wsPingTimeout!);
+    const isClosed = [ReadyState.CLOSING, ReadyState.CLOSED].includes(this._ws?.readyState!);
+
+    if (isClosed) {
+      this._ws?.terminate();
+      this._ws = null;
+      this.connect();
+    }
+  }
+
+  /**
+   * Обработчик входящих сообщений
+   */
+  private handleSocketMessage = (m: string) => {
+    const { event: type, payload } = JSON.parse(m);
+
+    this.emit(this.getEventName(type, payload), payload);
+  }
+
+  /**
+   * Запрос к REST
+   */
+  private async makeRequest<P, R>(url: string, { method = 'get', params }: RequestConfig<P> = {}): Promise<R> {
+    let requestParams: Record<string, any> = { method, headers: new Headers(this.authHeaders) };
+    let requestUrl = method === 'get' ? this.apiURL + url + getQueryString(params || {}) : this.apiURL + url;
+
+    if (method === 'post') {
+      requestParams.body = JSON.stringify(params);
+    }
+
+    const res = await fetch(requestUrl, requestParams);
+
+    if (!res.ok) {
+      return res.json().then((x) => Promise.reject(x.payload));
+    }
+
+    const data = await res.json();
+
+    return data.payload;
+  }
+
+  /**
+   * Получение имени ивента
+   */
   private getEventName(type: SocketEventType, params: Dict<string>) {
     if (type === 'orderbook') {
       return `${type}-${params.figi}-${params.depth}`;
     }
+
     if (type === 'candle') {
       return `${type}-${params.figi}-${params.interval}`;
     }
+
     if (type === 'instrument_info') {
       return `${type}-${params.figi}`;
     }
+
     throw new Error(`Unknown type: ${type}`);
   }
 
-  private subscribeToSocket({ type, ...params }: any, cb: Function) {
-    this.ws().then((ws: any) => {
-      return ws.send(
-        JSON.stringify({
-          event: `${type}:subscribe`,
-          ...params,
-        })
-      );
-    });
-    const handler = (x: any) => cb(x);
-    let eventName = this.getEventName(type, params);
-    this.on(eventName, handler);
-
-    const unsubscribe = () => {
-      this.off(eventName, handler);
-      if (!this.listenerCount(eventName)) {
-        this.ws().then((ws: any) =>
-          ws.send(
-            JSON.stringify({
-              event: `${type}:unsubscribe`,
-              ...params,
-            })
-          )
-        );
-      }
-    };
-    return unsubscribe;
+  /**
+   * Поставить сообщение в очередь на отправку в сокет
+   */
+  private enqueue(command: object) {
+    this._wsQueue.push(command);
+    this.dispatchWsQueue();
   }
 
-  private sandboxRegister = once(() => this.makeRequest('/sandbox/register', { method: 'post' }));
+  /**
+   * Разбор очереди сообщений на отправку в сокет
+   */
+  private dispatchWsQueue() {
+    if (this._ws?.readyState === ReadyState.OPEN) {
+      const cb = () => this._wsQueue.length && this.dispatchWsQueue();
+
+      this._ws.send(JSON.stringify(this._wsQueue.shift()), cb);
+    }
+  }
+
+  /**
+   * Подписка на различные каналы в сокете
+   */
+  private subscribeToSocket({ type, ...params }: any, cb: Function) {
+    if (!this._ws) {
+      this.connect();
+    }
+
+    const message = { event: `${type}:subscribe`, ...params };
+    this.enqueue(message);
+    this._subscribeMessages.push(message);
+
+    const handler = (x: any) => cb(x);
+    let eventName = this.getEventName(type, params);
+
+    this.on(eventName, handler);
+
+    return () => {
+      this.off(eventName, handler);
+
+      if (!this.listenerCount(eventName)) {
+        this.enqueue({ event: `${type}:unsubscribe`, ...params });
+        const index = this._subscribeMessages.findIndex(msg => msg === message);
+
+        if (index !== -1) {
+          this._subscribeMessages.splice(index, 1);
+        }
+      }
+    };
+  }
+
+  /**
+   * Регистрация песочницы
+   */
+  private sandboxRegister() {
+    if (!this._sandboxCreated) {
+      this.makeRequest('/sandbox/register', { method: 'post' });
+      this._sandboxCreated = true;
+    }
+  };
 
   /**
    * Метод для очистки песочницы
