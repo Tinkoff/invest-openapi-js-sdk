@@ -88,7 +88,7 @@
 
 Ƭ **BrokerAccountType**: *object*
 
-Defined in domain.ts:311
+*Defined in [domain.ts:311](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L311)*
 
 Defined in src/domain.ts:311
 
@@ -100,7 +100,7 @@ ___
 
 Ƭ **Candle**: *object*
 
-Defined in domain.ts:115
+*Defined in [domain.ts:115](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L115)*
 
 Defined in src/domain.ts:115
 
@@ -128,7 +128,7 @@ ___
 
 Ƭ **CandleResolution**: *object*
 
-Defined in domain.ts:229
+*Defined in [domain.ts:229](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L229)*
 
 Defined in src/domain.ts:229
 
@@ -140,7 +140,7 @@ ___
 
 Ƭ **CandleStreaming**: *object*
 
-Defined in OpenAPI.ts:43
+*Defined in [OpenAPI.ts:43](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L43)*
 
 #### Type declaration:
 
@@ -166,7 +166,7 @@ ___
 
 Ƭ **Candles**: *object*
 
-Defined in domain.ts:109
+*Defined in [domain.ts:109](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L109)*
 
 Defined in src/domain.ts:109
 
@@ -184,7 +184,7 @@ ___
 
 Ƭ **CandlesResponse**: *object*
 
-Defined in domain.ts:103
+*Defined in [domain.ts:103](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L103)*
 
 Defined in src/domain.ts:103
 
@@ -202,7 +202,7 @@ ___
 
 Ƭ **Currencies**: *object*
 
-Defined in domain.ts:49
+*Defined in [domain.ts:49](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L49)*
 
 Defined in src/domain.ts:49
 
@@ -216,7 +216,7 @@ ___
 
 Ƭ **Currency**: *object*
 
-Defined in domain.ts:307
+*Defined in [domain.ts:307](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L307)*
 
 Defined in src/domain.ts:307
 
@@ -228,7 +228,7 @@ ___
 
 Ƭ **CurrencyPosition**: *object*
 
-Defined in domain.ts:53
+*Defined in [domain.ts:53](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L53)*
 
 Defined in src/domain.ts:53
 
@@ -246,7 +246,7 @@ ___
 
 Ƭ **Depth**: *1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10*
 
-Defined in OpenAPI.ts:33
+*Defined in [OpenAPI.ts:33](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L33)*
 
 ___
 
@@ -254,7 +254,7 @@ ___
 
 Ƭ **Dict**: *object*
 
-Defined in OpenAPI.ts:36
+*Defined in [OpenAPI.ts:36](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L36)*
 
 #### Type declaration:
 
@@ -266,7 +266,7 @@ ___
 
 Ƭ **Empty**: *object*
 
-Defined in domain.ts:6
+*Defined in [domain.ts:6](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L6)*
 
 Defined in src/domain.ts:6
 
@@ -289,7 +289,7 @@ ___
 
 Ƭ **Error**: *object*
 
-Defined in domain.ts:12
+*Defined in [domain.ts:12](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L12)*
 
 Defined in src/domain.ts:12
 
@@ -307,7 +307,7 @@ ___
 
 Ƭ **ErrorPayload**: *object*
 
-Defined in domain.ts:313
+*Defined in [domain.ts:313](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L313)*
 
 Defined in src/domain.ts:313
 
@@ -323,7 +323,7 @@ ___
 
 Ƭ **HttpMethod**: *"get" | "post"*
 
-Defined in OpenAPI.ts:34
+*Defined in [OpenAPI.ts:34](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L34)*
 
 ___
 
@@ -331,7 +331,7 @@ ___
 
 Ƭ **InstrumentId**: *object | object*
 
-Defined in OpenAPI.ts:42
+*Defined in [OpenAPI.ts:42](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L42)*
 
 ___
 
@@ -339,7 +339,7 @@ ___
 
 Ƭ **InstrumentType**: *object*
 
-Defined in domain.ts:309
+*Defined in [domain.ts:309](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L309)*
 
 Defined in src/domain.ts:309
 
@@ -351,7 +351,7 @@ ___
 
 Ƭ **Interval**: *"1min" | "2min" | "3min" | "5min" | "10min" | "15min" | "30min" | "hour" | "2hour" | "4hour" | "day" | "week" | "month"*
 
-Defined in OpenAPI.ts:19
+*Defined in [OpenAPI.ts:19](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L19)*
 
 ___
 
@@ -359,7 +359,7 @@ ___
 
 Ƭ **LimitOrderParams**: *object*
 
-Defined in OpenAPI.ts:62
+*Defined in [OpenAPI.ts:62](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L62)*
 
 #### Type declaration:
 
@@ -377,7 +377,7 @@ ___
 
 Ƭ **LimitOrderRequest**: *object*
 
-Defined in domain.ts:176
+*Defined in [domain.ts:176](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L176)*
 
 Defined in src/domain.ts:176
 
@@ -395,7 +395,7 @@ ___
 
 Ƭ **LimitOrderResponse**: *object*
 
-Defined in domain.ts:182
+*Defined in [domain.ts:182](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L182)*
 
 Defined in src/domain.ts:182
 
@@ -413,7 +413,7 @@ ___
 
 Ƭ **MarketInstrument**: *object*
 
-Defined in domain.ts:294
+*Defined in [domain.ts:294](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L294)*
 
 Defined in src/domain.ts:294
 
@@ -441,7 +441,7 @@ ___
 
 Ƭ **MarketInstrumentList**: *object*
 
-Defined in domain.ts:266
+*Defined in [domain.ts:266](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L266)*
 
 Defined in src/domain.ts:266
 
@@ -457,7 +457,7 @@ ___
 
 Ƭ **MarketInstrumentListResponse**: *object*
 
-Defined in domain.ts:260
+*Defined in [domain.ts:260](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L260)*
 
 Defined in src/domain.ts:260
 
@@ -475,7 +475,7 @@ ___
 
 Ƭ **MarketInstrumentResponse**: *object*
 
-Defined in domain.ts:277
+*Defined in [domain.ts:277](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L277)*
 
 Defined in src/domain.ts:277
 
@@ -493,7 +493,7 @@ ___
 
 Ƭ **MarketOrderRequest**: *object*
 
-Defined in domain.ts:199
+*Defined in [domain.ts:199](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L199)*
 
 Defined in src/domain.ts:199
 
@@ -509,7 +509,7 @@ ___
 
 Ƭ **MarketOrderResponse**: *object*
 
-Defined in domain.ts:204
+*Defined in [domain.ts:204](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L204)*
 
 Defined in src/domain.ts:204
 
@@ -527,7 +527,7 @@ ___
 
 Ƭ **MoneyAmount**: *object*
 
-Defined in domain.ts:73
+*Defined in [domain.ts:73](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L73)*
 
 Defined in src/domain.ts:73
 
@@ -543,7 +543,7 @@ ___
 
 Ƭ **Operation**: *object*
 
-Defined in domain.ts:143
+*Defined in [domain.ts:143](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L143)*
 
 Defined in src/domain.ts:143
 
@@ -581,7 +581,7 @@ ___
 
 Ƭ **OperationStatus**: *object*
 
-Defined in domain.ts:227
+*Defined in [domain.ts:227](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L227)*
 
 Defined in src/domain.ts:227
 
@@ -593,7 +593,7 @@ ___
 
 Ƭ **OperationTrade**: *object*
 
-Defined in domain.ts:136
+*Defined in [domain.ts:136](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L136)*
 
 Defined in src/domain.ts:136
 
@@ -613,7 +613,7 @@ ___
 
 Ƭ **OperationType**: *object*
 
-Defined in domain.ts:223
+*Defined in [domain.ts:223](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L223)*
 
 Defined in src/domain.ts:223
 
@@ -625,7 +625,7 @@ ___
 
 Ƭ **OperationTypeWithCommission**: *object*
 
-Defined in domain.ts:225
+*Defined in [domain.ts:225](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L225)*
 
 Defined in src/domain.ts:225
 
@@ -637,7 +637,7 @@ ___
 
 Ƭ **Operations**: *object*
 
-Defined in domain.ts:132
+*Defined in [domain.ts:132](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L132)*
 
 Defined in src/domain.ts:132
 
@@ -651,7 +651,7 @@ ___
 
 Ƭ **OperationsResponse**: *object*
 
-Defined in domain.ts:126
+*Defined in [domain.ts:126](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L126)*
 
 Defined in src/domain.ts:126
 
@@ -669,7 +669,7 @@ ___
 
 Ƭ **Order**: *object*
 
-Defined in domain.ts:165
+*Defined in [domain.ts:165](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L165)*
 
 Defined in src/domain.ts:165
 
@@ -697,7 +697,7 @@ ___
 
 Ƭ **OrderResponse**: *object*
 
-Defined in domain.ts:98
+*Defined in [domain.ts:98](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L98)*
 
 Defined in src/domain.ts:98
 
@@ -713,7 +713,7 @@ ___
 
 Ƭ **OrderStatus**: *object*
 
-Defined in domain.ts:231
+*Defined in [domain.ts:231](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L231)*
 
 Defined in src/domain.ts:231
 
@@ -725,7 +725,7 @@ ___
 
 Ƭ **OrderType**: *object*
 
-Defined in domain.ts:233
+*Defined in [domain.ts:233](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L233)*
 
 Defined in src/domain.ts:233
 
@@ -737,7 +737,7 @@ ___
 
 Ƭ **Orderbook**: *object*
 
-Defined in domain.ts:84
+*Defined in [domain.ts:84](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L84)*
 
 Defined in src/domain.ts:84
 
@@ -771,7 +771,7 @@ ___
 
 Ƭ **OrderbookResponse**: *object*
 
-Defined in domain.ts:78
+*Defined in [domain.ts:78](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L78)*
 
 Defined in src/domain.ts:78
 
@@ -789,7 +789,7 @@ ___
 
 Ƭ **OrderbookStreaming**: *object*
 
-Defined in OpenAPI.ts:37
+*Defined in [OpenAPI.ts:37](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L37)*
 
 #### Type declaration:
 
@@ -805,7 +805,7 @@ ___
 
 Ƭ **OrdersResponse**: *object*
 
-Defined in domain.ts:159
+*Defined in [domain.ts:159](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L159)*
 
 Defined in src/domain.ts:159
 
@@ -823,7 +823,7 @@ ___
 
 Ƭ **PlacedLimitOrder**: *object*
 
-Defined in domain.ts:188
+*Defined in [domain.ts:188](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L188)*
 
 Defined in src/domain.ts:188
 
@@ -851,7 +851,7 @@ ___
 
 Ƭ **PlacedMarketOrder**: *object*
 
-Defined in domain.ts:210
+*Defined in [domain.ts:210](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L210)*
 
 Defined in src/domain.ts:210
 
@@ -879,7 +879,7 @@ ___
 
 Ƭ **Portfolio**: *object*
 
-Defined in domain.ts:24
+*Defined in [domain.ts:24](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L24)*
 
 Defined in src/domain.ts:24
 
@@ -893,7 +893,7 @@ ___
 
 Ƭ **PortfolioCurrenciesResponse**: *object*
 
-Defined in domain.ts:43
+*Defined in [domain.ts:43](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L43)*
 
 Defined in src/domain.ts:43
 
@@ -911,7 +911,7 @@ ___
 
 Ƭ **PortfolioPosition**: *object*
 
-Defined in domain.ts:59
+*Defined in [domain.ts:59](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L59)*
 
 Defined in src/domain.ts:59
 
@@ -945,7 +945,7 @@ ___
 
 Ƭ **PortfolioResponse**: *object*
 
-Defined in domain.ts:18
+*Defined in [domain.ts:18](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L18)*
 
 Defined in src/domain.ts:18
 
@@ -963,7 +963,7 @@ ___
 
 Ƭ **SandboxAccount**: *object*
 
-Defined in domain.ts:245
+*Defined in [domain.ts:245](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L245)*
 
 Defined in src/domain.ts:245
 
@@ -979,7 +979,7 @@ ___
 
 Ƭ **SandboxCurrency**: *object*
 
-Defined in domain.ts:305
+*Defined in [domain.ts:305](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L305)*
 
 Defined in src/domain.ts:305
 
@@ -991,7 +991,7 @@ ___
 
 Ƭ **SandboxRegisterRequest**: *object*
 
-Defined in domain.ts:235
+*Defined in [domain.ts:235](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L235)*
 
 Defined in src/domain.ts:235
 
@@ -1005,7 +1005,7 @@ ___
 
 Ƭ **SandboxRegisterResponse**: *object*
 
-Defined in domain.ts:239
+*Defined in [domain.ts:239](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L239)*
 
 Defined in src/domain.ts:239
 
@@ -1023,7 +1023,7 @@ ___
 
 Ƭ **SandboxSetCurrencyBalanceRequest**: *object*
 
-Defined in domain.ts:250
+*Defined in [domain.ts:250](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L250)*
 
 Defined in src/domain.ts:250
 
@@ -1039,7 +1039,7 @@ ___
 
 Ƭ **SandboxSetPositionBalanceRequest**: *object*
 
-Defined in domain.ts:255
+*Defined in [domain.ts:255](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L255)*
 
 Defined in src/domain.ts:255
 
@@ -1055,7 +1055,7 @@ ___
 
 Ƭ **SearchMarketInstrument**: *object*
 
-Defined in domain.ts:283
+*Defined in [domain.ts:283](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L283)*
 
 Defined in src/domain.ts:283
 
@@ -1083,7 +1083,7 @@ ___
 
 Ƭ **SearchMarketInstrumentResponse**: *object*
 
-Defined in domain.ts:271
+*Defined in [domain.ts:271](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L271)*
 
 Defined in src/domain.ts:271
 
@@ -1101,7 +1101,7 @@ ___
 
 Ƭ **SocketEventType**: *"orderbook" | "candle" | "instrument_info"*
 
-Defined in OpenAPI.ts:35
+*Defined in [OpenAPI.ts:35](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L35)*
 
 ___
 
@@ -1109,7 +1109,7 @@ ___
 
 Ƭ **TradeStatus**: *object*
 
-Defined in domain.ts:221
+*Defined in [domain.ts:221](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L221)*
 
 Defined in src/domain.ts:221
 
@@ -1121,7 +1121,7 @@ ___
 
 Ƭ **UserAccount**: *object*
 
-Defined in domain.ts:38
+*Defined in [domain.ts:38](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L38)*
 
 Defined in src/domain.ts:38
 
@@ -1137,7 +1137,7 @@ ___
 
 Ƭ **UserAccounts**: *object*
 
-Defined in domain.ts:34
+*Defined in [domain.ts:34](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L34)*
 
 Defined in src/domain.ts:34
 
@@ -1151,7 +1151,7 @@ ___
 
 Ƭ **UserAccountsResponse**: *object*
 
-Defined in domain.ts:28
+*Defined in [domain.ts:28](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/domain.ts#L28)*
 
 Defined in src/domain.ts:28
 
@@ -1169,7 +1169,7 @@ Defined in src/domain.ts:28
 
 • **WebSocket**: *any* =  require('ws')
 
-Defined in OpenAPI.ts:18
+*Defined in [OpenAPI.ts:18](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L18)*
 
 ## Functions
 
@@ -1177,7 +1177,7 @@ Defined in OpenAPI.ts:18
 
 ▸ **getQueryString**(`params`: object): *string*
 
-Defined in OpenAPI.ts:54
+*Defined in [OpenAPI.ts:54](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L54)*
 
 **Parameters:**
 
@@ -1193,7 +1193,7 @@ ___
 
 ▸ **once**<**P**, **R**>(`fn`: function): *function*
 
-Defined in OpenAPI.ts:69
+*Defined in [OpenAPI.ts:69](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L69)*
 
 **Type parameters:**
 

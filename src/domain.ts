@@ -218,19 +218,19 @@ export type PlacedMarketOrder = {
     commission?: MoneyAmount;
 };
 
-export type TradeStatus = {};
+export type TradeStatus = "NormalTrading" | "NotAvailableForTrading";
 
-export type OperationType = {};
+export type OperationType = "Buy" | "Sell";
 
-export type OperationTypeWithCommission = {};
+export type OperationTypeWithCommission = "Buy" | "BuyCard" | "Sell" | "BrokerCommission" | "ExchangeCommission" | "ServiceCommission" | "MarginCommission" | "OtherCommission" | "PayIn" | "PayOut" | "Tax" | "TaxLucre" | "TaxDividend" | "TaxCoupon" | "TaxBack" | "Repayment" | "PartRepayment" | "Coupon" | "Dividend" | "SecurityIn" | "SecurityOut";
 
-export type OperationStatus = {};
+export type OperationStatus = "Done" | "Decline" | "Progress";
 
-export type CandleResolution = {};
+export type CandleResolution = "1min" | "2min" | "3min" | "5min" | "10min" | "15min" | "30min" | "hour" | "day" | "week" | "month";
 
-export type OrderStatus = {};
+export type OrderStatus = "New" | "PartiallyFill" | "Fill" | "Cancelled" | "Replaced" | "PendingCancel" | "Rejected" | "PendingReplace" | "PendingNew";
 
-export type OrderType = {};
+export type OrderType = "Limit" | "Market";
 
 export type SandboxRegisterRequest = {
     brokerAccountType?: BrokerAccountType;
@@ -302,13 +302,13 @@ export type MarketInstrument = {
     type: InstrumentType;
 };
 
-export type SandboxCurrency = {};
+export type SandboxCurrency = "RUB" | "USD" | "EUR" | "GBP" | "HKD" | "CHF" | "JPY" | "CNY" | "TRY";
 
-export type Currency = {};
+export type Currency = "RUB" | "USD" | "EUR" | "GBP" | "HKD" | "CHF" | "JPY" | "CNY" | "TRY";
 
-export type InstrumentType = {};
+export type InstrumentType = "Stock" | "Currency" | "Bond" | "Etf";
 
-export type BrokerAccountType = {};
+export type BrokerAccountType = "Tinkoff" | "TinkoffIis";
 
 export type ErrorPayload = {
     message?: string;

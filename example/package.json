@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@tinkoff/invest-openapi-js-sdk": "^1.2.4"
+    "@tinkoff/invest-openapi-js-sdk": "^1.2.5"
   },
   "devDependencies": {
     "ts-node": "^8.8.1",
