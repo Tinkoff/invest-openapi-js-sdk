@@ -372,7 +372,12 @@ export default class OpenAPI extends EventEmitter {
    * @param to Конец временного промежутка в формате ISO 8601
    * @param figi Figi-идентификатор инструмента
    */
-  operations({ from, to, figi }: { from: string; to: string; figi: string }): Promise<Operations> {
+  operations({ from, to, figi }: { from: string; to: string; figi?: string }): Promise<Operations> {
+    if (figi === undefined) {
+      return this.makeRequest('/operations', {
+        params: { from, to },
+      });
+    }
     return this.makeRequest('/operations', {
       params: { from, to, figi },
     });
