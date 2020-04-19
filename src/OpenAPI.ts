@@ -1,10 +1,32 @@
 import 'isomorphic-fetch';
 import { EventEmitter } from 'events';
-import { CandleResolution, Candles, MarketInstrument, MarketInstrumentList, Operations } from './domain';
-import { Order, Orderbook, PlacedLimitOrder, Portfolio, PortfolioPosition } from './domain';
-import { SandboxSetCurrencyBalanceRequest, SandboxSetPositionBalanceRequest, Currencies } from './domain';
+import {
+  CandleResolution,
+  Candles,
+  Currencies,
+  MarketInstrument,
+  MarketInstrumentList,
+  Operations,
+  Order,
+  Orderbook,
+  PlacedLimitOrder,
+  Portfolio,
+  PortfolioPosition,
+  SandboxSetCurrencyBalanceRequest,
+  SandboxSetPositionBalanceRequest
+} from './domain';
 import WebSocket from 'ws';
-import { HttpMethod, SocketEventType, Dict, InstrumentId, Depth, Interval, LimitOrderParams, OrderbookStreaming, CandleStreaming } from './types';
+import {
+  CandleStreaming,
+  Depth,
+  Dict,
+  HttpMethod,
+  InstrumentId,
+  Interval,
+  LimitOrderParams,
+  OrderbookStreaming,
+  SocketEventType
+} from './types';
 import { URLSearchParams } from 'url';
 
 export * from './types';
@@ -159,8 +181,12 @@ export default class OpenAPI extends EventEmitter {
 
     const res = await fetch(requestUrl, requestParams);
 
+    if (res.status === 401) {
+      return Promise.reject(new Error('Unauthorized! Try to use valid token. https://tinkoffcreditsystems.github.io/invest-openapi/auth/'))
+    }
+
     if (!res.ok) {
-      return res.json().then((x) => Promise.reject(x.payload));
+      throw res.headers.get('content-type') === 'application/json' ? (await res.json()).payload : await res.text();
     }
 
     const data = await res.json();
