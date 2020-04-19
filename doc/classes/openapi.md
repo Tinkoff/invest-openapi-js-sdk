@@ -1,4 +1,4 @@
-[@tinkoff/invest-openapi-js-sdk](../README.md) › [Globals](../globals.md) › [OpenAPI](openapi.md)
+[@tinkoff/invest-openapi-js-sdk - v1.2.6](../README.md) › [Globals](../globals.md) › [OpenAPI](openapi.md)
 
 # Class: OpenAPI
 
@@ -44,7 +44,7 @@
 
 \+ **new OpenAPI**(`__namedParameters`: object): *[OpenAPI](openapi.md)*
 
-*Defined in [OpenAPI.ts:87](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L87)*
+*Defined in [src/OpenAPI.ts:50](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L50)*
 
 **Parameters:**
 
@@ -64,7 +64,7 @@ Name | Type | Description |
 
 ▸ **bonds**(): *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
-*Defined in [OpenAPI.ts:315](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L315)*
+*Defined in [src/OpenAPI.ts:359](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L359)*
 
 Метод для получения всех доступных облигаций
 
@@ -76,7 +76,7 @@ ___
 
 ▸ **cancelOrder**(`__namedParameters`: object): *Promise‹void›*
 
-*Defined in [OpenAPI.ts:287](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L287)*
+*Defined in [src/OpenAPI.ts:331](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L331)*
 
 Метод для отмены активных заявок
 
@@ -94,9 +94,9 @@ ___
 
 ###  candle
 
-▸ **candle**(`__namedParameters`: object, `cb`: function): *unsubscribe*
+▸ **candle**(`__namedParameters`: object, `cb`: function): *(Anonymous function)*
 
-*Defined in [OpenAPI.ts:426](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L426)*
+*Defined in [src/OpenAPI.ts:470](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L470)*
 
 Метод для подписки на данные по свечному графику инструмента
 
@@ -123,7 +123,7 @@ Name | Type |
 ------ | ------ |
 `x` | [CandleStreaming](../globals.md#candlestreaming) |
 
-**Returns:** *unsubscribe*
+**Returns:** *(Anonymous function)*
 
 функция для отмены подписки
 
@@ -133,7 +133,7 @@ ___
 
 ▸ **candlesGet**(`__namedParameters`: object): *Promise‹[Candles](../globals.md#candles)›*
 
-*Defined in [OpenAPI.ts:345](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L345)*
+*Defined in [src/OpenAPI.ts:389](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L389)*
 
 Метод для получения исторических свечей по FIGI
 
@@ -145,7 +145,7 @@ Name | Type | Default | Description |
 ------ | ------ | ------ | ------ |
 `figi` | string | - | Figi-идентификатор инструмента |
 `from` | string | - | Начало временного промежутка в формате ISO 8601 |
-`interval` | "1min" &#124; "2min" &#124; "3min" &#124; "5min" &#124; "10min" &#124; "15min" &#124; "30min" &#124; "hour" &#124; "day" &#124; "week" &#124; "month" &#124; "2hour" &#124; "4hour" | "1min" | интервал для свечи  |
+`interval` | "1min" &#124; "2min" &#124; "3min" &#124; "5min" &#124; "10min" &#124; "15min" &#124; "30min" &#124; "hour" &#124; "day" &#124; "week" &#124; "month" | "1min" | интервал для свечи  |
 `to` | string | - | Конец временного промежутка в формате ISO 8601 |
 
 **Returns:** *Promise‹[Candles](../globals.md#candles)›*
@@ -156,7 +156,7 @@ ___
 
 ▸ **currencies**(): *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
-*Defined in [OpenAPI.ts:301](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L301)*
+*Defined in [src/OpenAPI.ts:345](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L345)*
 
 Метод для получения всех доступных валютных инструментов
 
@@ -168,7 +168,7 @@ ___
 
 ▸ **etfs**(): *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
-*Defined in [OpenAPI.ts:308](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L308)*
+*Defined in [src/OpenAPI.ts:352](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L352)*
 
 Метод для получения всех доступных валютных ETF
 
@@ -178,9 +178,9 @@ ___
 
 ###  instrumentInfo
 
-▸ **instrumentInfo**(`__namedParameters`: object, `cb`: log): *unsubscribe*
+▸ **instrumentInfo**(`__namedParameters`: object, `cb`: log): *(Anonymous function)*
 
-*Defined in [OpenAPI.ts:440](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L440)*
+*Defined in [src/OpenAPI.ts:484](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L484)*
 
 Метод для подписки на данные по инструменту
 
@@ -198,7 +198,7 @@ Name | Type | Description |
 
 функция для обработки новых данных по инструменту
 
-**Returns:** *unsubscribe*
+**Returns:** *(Anonymous function)*
 
 функция для отмены подписки
 
@@ -208,7 +208,7 @@ ___
 
 ▸ **instrumentPortfolio**(`params`: [InstrumentId](../globals.md#instrumentid)): *Promise‹[PortfolioPosition](../globals.md#portfolioposition) | null›*
 
-*Defined in [OpenAPI.ts:249](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L249)*
+*Defined in [src/OpenAPI.ts:293](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L293)*
 
 Метод для получение данных по инструменту в портфеле
 
@@ -226,7 +226,7 @@ ___
 
 ▸ **limitOrder**(`__namedParameters`: object): *Promise‹[PlacedLimitOrder](../globals.md#placedlimitorder)›*
 
-*Defined in [OpenAPI.ts:271](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L271)*
+*Defined in [src/OpenAPI.ts:315](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L315)*
 
 Метод для выставления заявки
 
@@ -249,7 +249,7 @@ ___
 
 ▸ **operations**(`__namedParameters`: object): *Promise‹[Operations](../globals.md#operations)›*
 
-*Defined in [OpenAPI.ts:332](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L332)*
+*Defined in [src/OpenAPI.ts:376](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L376)*
 
 Метод для получения операций по цб по инструменту
 
@@ -269,9 +269,9 @@ ___
 
 ###  orderbook
 
-▸ **orderbook**(`__namedParameters`: object, `cb`: function): *unsubscribe*
+▸ **orderbook**(`__namedParameters`: object, `cb`: function): *(Anonymous function)*
 
-*Defined in [OpenAPI.ts:411](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L411)*
+*Defined in [src/OpenAPI.ts:455](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L455)*
 
 Метод для подписки на данные по стакану инструмента
 
@@ -304,7 +304,7 @@ Name | Type |
 ------ | ------ |
 `x` | [OrderbookStreaming](../globals.md#orderbookstreaming) |
 
-**Returns:** *unsubscribe*
+**Returns:** *(Anonymous function)*
 
 функция для отмены подписки
 
@@ -314,7 +314,7 @@ ___
 
 ▸ **orderbookGet**(`__namedParameters`: object): *Promise‹[Orderbook](../globals.md#orderbook)›*
 
-*Defined in [OpenAPI.ts:366](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L366)*
+*Defined in [src/OpenAPI.ts:410](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L410)*
 
 Метод для получение стакана
 
@@ -335,7 +335,7 @@ ___
 
 ▸ **orders**(): *Promise‹[Order](../globals.md#order)[]›*
 
-*Defined in [OpenAPI.ts:294](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L294)*
+*Defined in [src/OpenAPI.ts:338](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L338)*
 
 Метод для получения всех активных заявок
 
@@ -347,7 +347,7 @@ ___
 
 ▸ **portfolio**(): *Promise‹[Portfolio](../globals.md#portfolio)›*
 
-*Defined in [OpenAPI.ts:235](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L235)*
+*Defined in [src/OpenAPI.ts:279](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L279)*
 
 Метод для получение портфеля цб
 
@@ -359,7 +359,7 @@ ___
 
 ▸ **portfolioCurrencies**(): *Promise‹[Currencies](../globals.md#currencies)›*
 
-*Defined in [OpenAPI.ts:242](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L242)*
+*Defined in [src/OpenAPI.ts:286](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L286)*
 
 Метод для получения валютных активов клиента
 
@@ -371,7 +371,7 @@ ___
 
 ▸ **sandboxClear**(): *Promise‹any›*
 
-*Defined in [OpenAPI.ts:209](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L209)*
+*Defined in [src/OpenAPI.ts:253](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L253)*
 
 Метод для очистки песочницы
 
@@ -383,7 +383,7 @@ ___
 
 ▸ **search**(`params`: [InstrumentId](../globals.md#instrumentid)): *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
-*Defined in [OpenAPI.ts:375](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L375)*
+*Defined in [src/OpenAPI.ts:419](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L419)*
 
 Метод для поиска инструментов по figi или ticker
 
@@ -401,7 +401,7 @@ ___
 
 ▸ **searchOne**(`params`: [InstrumentId](../globals.md#instrumentid)): *Promise‹[MarketInstrument](../globals.md#marketinstrument) | null›*
 
-*Defined in [OpenAPI.ts:393](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L393)*
+*Defined in [src/OpenAPI.ts:437](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L437)*
 
 Метод для поиска инструмента по figi или ticker
 
@@ -419,7 +419,7 @@ ___
 
 ▸ **setCurrenciesBalance**(`params`: [SandboxSetCurrencyBalanceRequest](../globals.md#sandboxsetcurrencybalancerequest)): *Promise‹void›*
 
-*Defined in [OpenAPI.ts:227](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L227)*
+*Defined in [src/OpenAPI.ts:271](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L271)*
 
 Метод для задания баланса по валютам
 
@@ -437,7 +437,7 @@ ___
 
 ▸ **setPositionBalance**(`params`: [SandboxSetPositionBalanceRequest](../globals.md#sandboxsetpositionbalancerequest)): *Promise‹void›*
 
-*Defined in [OpenAPI.ts:218](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L218)*
+*Defined in [src/OpenAPI.ts:262](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L262)*
 
 Метод для задания баланса по бумагам
 
@@ -455,7 +455,7 @@ ___
 
 ▸ **stocks**(): *Promise‹[MarketInstrumentList](../globals.md#marketinstrumentlist)›*
 
-*Defined in [OpenAPI.ts:322](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/d2b8fd9/src/OpenAPI.ts#L322)*
+*Defined in [src/OpenAPI.ts:366](https://github.com/TinkoffCreditSystems/invest-openapi-js-sdk/blob/51f6815/src/OpenAPI.ts#L366)*
 
 Метод для получения всех доступных акций
 

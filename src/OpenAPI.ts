@@ -1,6 +1,6 @@
 import 'isomorphic-fetch';
 import { EventEmitter } from 'events';
-import { Candles, MarketInstrument, MarketInstrumentList, Operations } from './domain';
+import { CandleResolution, Candles, MarketInstrument, MarketInstrumentList, Operations } from './domain';
 import { Order, Orderbook, PlacedLimitOrder, Portfolio, PortfolioPosition } from './domain';
 import { SandboxSetCurrencyBalanceRequest, SandboxSetPositionBalanceRequest, Currencies } from './domain';
 import WebSocket from 'ws';
@@ -394,7 +394,7 @@ export default class OpenAPI extends EventEmitter {
     from: string;
     to: string;
     figi: string;
-    interval?: Interval;
+    interval?: CandleResolution;
   }): Promise<Candles> {
     return this.makeRequest('/market/candles', {
       params: { from, to, figi, interval },
