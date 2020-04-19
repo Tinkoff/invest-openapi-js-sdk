@@ -5,6 +5,7 @@ import { Order, Orderbook, PlacedLimitOrder, Portfolio, PortfolioPosition } from
 import { SandboxSetCurrencyBalanceRequest, SandboxSetPositionBalanceRequest, Currencies } from './domain';
 import WebSocket from 'ws';
 import { HttpMethod, SocketEventType, Dict, InstrumentId, Depth, Interval, LimitOrderParams, OrderbookStreaming, CandleStreaming } from './types';
+import { URLSearchParams } from 'url';
 
 export * from './types';
 export * from './domain';

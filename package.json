@@ -4,6 +4,9 @@
   "description": "Tinkoff Invest OpenAPI Client",
   "main": "index.js",
   "types": "./build/OpenAPI.d.ts",
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "directories": {
     "example": "example"
   },
