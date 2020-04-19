@@ -29,10 +29,10 @@
   ],
   "license": "ISC",
   "devDependencies": {
-    "@types/ws": "^7.2.3",
     "@tinkoff/swagger-types-generator": "0.0.9",
+    "@types/ws": "^7.2.3",
     "fsevents": "^2.0.7",
-    "prettier": "1.18.2",
+    "prettier": "^2.0.4",
     "rollup": "^1.21.3",
     "rollup-plugin-dts": "^1.1.11",
     "rollup-plugin-typescript": "^1.0.1",
@@ -41,7 +41,7 @@
     "typedoc": "^0.15.0",
     "typedoc-plugin-markdown": "^2.2.10",
     "typedoc-plugin-no-inherit": "^1.1.10",
-    "typescript": "^3.6.3"
+    "typescript": "^3.8.3"
   },
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",

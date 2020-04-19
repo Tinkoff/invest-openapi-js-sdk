@@ -1,5 +1,4 @@
 import 'isomorphic-fetch';
-import { EventEmitter } from 'events';
 import {
   CandleResolution,
   Candles,
@@ -13,21 +12,19 @@ import {
   Portfolio,
   PortfolioPosition,
   SandboxSetCurrencyBalanceRequest,
-  SandboxSetPositionBalanceRequest
+  SandboxSetPositionBalanceRequest,
 } from './domain';
-import WebSocket from 'ws';
 import {
   CandleStreaming,
   Depth,
-  Dict,
   HttpMethod,
   InstrumentId,
   Interval,
   LimitOrderParams,
   OrderbookStreaming,
-  SocketEventType
 } from './types';
 import { URLSearchParams } from 'url';
+import Streaming from './Streeming';
 
 export * from './types';
 export * from './domain';
@@ -40,34 +37,20 @@ function getQueryString(params: Record<string, string | number>) {
 }
 
 type OpenApiConfig = {
-  apiURL: string,
-  socketURL: string,
-  secretToken: string
-}
+  apiURL: string;
+  socketURL: string;
+  secretToken: string;
+};
 
 type RequestConfig<P> = {
   method?: HttpMethod;
-  params?: P
-}
+  params?: P;
+};
 
-const enum ReadyState {
-  'CONNECTING',
-  'OPEN',
-  'CLOSING',
-  'CLOSED',
-}
-
-/**
- * @noInheritDoc
- */
-export default class OpenAPI extends EventEmitter {
-  private _ws: WebSocket | null = null;
-  private _wsPingTimeout?: NodeJS.Timeout;
-  private _wsQueue: object[] = [];
+export default class OpenAPI {
+  private _streaming: Streaming;
   private _sandboxCreated: boolean = false;
-  private _subscribeMessages: object[] = [];
   private readonly apiURL: string;
-  private readonly socketURL: string;
   private readonly secretToken: string;
   private readonly authHeaders: any;
 
@@ -79,9 +62,8 @@ export default class OpenAPI extends EventEmitter {
    *
    */
   constructor({ apiURL, socketURL, secretToken }: OpenApiConfig) {
-    super();
+    this._streaming = new Streaming({ url: socketURL, secretToken });
     this.apiURL = apiURL;
-    this.socketURL = socketURL;
     this.secretToken = secretToken;
     this.authHeaders = {
       Authorization: 'Bearer ' + this.secretToken,
@@ -90,90 +72,15 @@ export default class OpenAPI extends EventEmitter {
   }
 
   /**
-   * Соединяемся с сокетом
-   */
-  private connect() {
-    if (this._ws && [ReadyState.OPEN, ReadyState.CONNECTING].includes(this._ws.readyState)) {
-      return;
-    }
-
-    this._ws = new WebSocket(this.socketURL, {
-      perMessageDeflate: false,
-      headers: this.authHeaders,
-    });
-
-    this._ws.on('open', this.handleSocketOpen);
-    this._ws.on('ping', this.handleSocketPing);
-    this._ws.on('message', this.handleSocketMessage);
-    this._ws.on('close', this.handleSocketClose)
-    this._ws.on('error', this.handleSocketError)
-
-    // Восстанавливаем подписки
-    if (this._subscribeMessages) {
-      this._subscribeMessages.forEach(msg => {
-        this.enqueue(msg);
-      });
-    }
-  }
-
-  /**
-   * Обработчик открытия соединения
-   */
-  private handleSocketOpen = () => {
-    this.emit('socket-open');
-    this.dispatchWsQueue();
-  }
-
-  /**
-   * Обработчик серверного пинга
-   */
-  private handleSocketPing = (m: Buffer) => {
-    this._ws?.pong(m);
-    clearTimeout(this._wsPingTimeout!);
-
-    this._wsPingTimeout = setTimeout(() => {
-      this._ws?.terminate();
-    }, 30000 + 1000);
-  }
-
-  /**
-   * Обработчик закрытия соединения
-   */
-  private handleSocketClose = () => {
-    clearTimeout(this._wsPingTimeout!);
-    this.emit('socket-close');
-    this.handleSocketError();
-  }
-
-  /**
-   * Обработчик ошибок и переподключение при необходимости
-   */
-  private handleSocketError = () => {
-    clearTimeout(this._wsPingTimeout!);
-    const isClosed = [ReadyState.CLOSING, ReadyState.CLOSED].includes(this._ws?.readyState!);
-
-    if (isClosed) {
-      this._ws?.terminate();
-      this._ws = null;
-      this.connect();
-    }
-  }
-
-  /**
-   * Обработчик входящих сообщений
-   */
-  private handleSocketMessage = (m: string) => {
-    const { event: type, payload } = JSON.parse(m);
-
-    this.emit(this.getEventName(type, payload), payload);
-  }
-
-  /**
    * Запрос к REST
    */
-  private async makeRequest<P, R>(url: string, { method = 'get', params }: RequestConfig<P> = {}): Promise<R> {
+  private async makeRequest<P, R>(
+    url: string,
+    { method = 'get', params }: RequestConfig<P> = {}
+  ): Promise<R> {
     let requestParams: Record<string, any> = { method, headers: new Headers(this.authHeaders) };
-    let requestUrl = method === 'get' ? this.apiURL + url + getQueryString(params || {}) : this.apiURL + url;
+    let requestUrl =
+      method === 'get' ? this.apiURL + url + getQueryString(params || {}) : this.apiURL + url;
 
     if (method === 'post') {
       requestParams.body = JSON.stringify(params);
@@ -182,85 +89,22 @@ export default class OpenAPI extends EventEmitter {
     const res = await fetch(requestUrl, requestParams);
 
     if (res.status === 401) {
-      return Promise.reject(new Error('Unauthorized! Try to use valid token. https://tinkoffcreditsystems.github.io/invest-openapi/auth/'))
+      return Promise.reject(
+        new Error(
+          'Unauthorized! Try to use valid token. https://tinkoffcreditsystems.github.io/invest-openapi/auth/'
+        )
+      );
     }
 
     if (!res.ok) {
-      throw res.headers.get('content-type') === 'application/json' ? (await res.json()).payload : await res.text();
+      throw res.headers.get('content-type') === 'application/json'
+        ? (await res.json()).payload
+        : await res.text();
     }
 
     const data = await res.json();
 
     return data.payload;
-  }
-
-  /**
-   * Получение имени ивента
-   */
-  private getEventName(type: SocketEventType, params: Dict<string>) {
-    if (type === 'orderbook') {
-      return `${type}-${params.figi}-${params.depth}`;
-    }
-
-    if (type === 'candle') {
-      return `${type}-${params.figi}-${params.interval}`;
-    }
-
-    if (type === 'instrument_info') {
-      return `${type}-${params.figi}`;
-    }
-
-    throw new Error(`Unknown type: ${type}`);
-  }
-
-  /**
-   * Поставить сообщение в очередь на отправку в сокет
-   */
-  private enqueue(command: object) {
-    this._wsQueue.push(command);
-    this.dispatchWsQueue();
-  }
-
-  /**
-   * Разбор очереди сообщений на отправку в сокет
-   */
-  private dispatchWsQueue() {
-    if (this._ws?.readyState === ReadyState.OPEN) {
-      const cb = () => this._wsQueue.length && this.dispatchWsQueue();
-
-      this._ws.send(JSON.stringify(this._wsQueue.shift()), cb);
-    }
-  }
-
-  /**
-   * Подписка на различные каналы в сокете
-   */
-  private subscribeToSocket({ type, ...params }: any, cb: Function) {
-    if (!this._ws) {
-      this.connect();
-    }
-
-    const message = { event: `${type}:subscribe`, ...params };
-    this.enqueue(message);
-    this._subscribeMessages.push(message);
-
-    const handler = (x: any) => cb(x);
-    let eventName = this.getEventName(type, params);
-
-    this.on(eventName, handler);
-
-    return () => {
-      this.off(eventName, handler);
-
-      if (!this.listenerCount(eventName)) {
-        this.enqueue({ event: `${type}:unsubscribe`, ...params });
-        const index = this._subscribeMessages.findIndex(msg => msg === message);
-
-        if (index !== -1) {
-          this._subscribeMessages.splice(index, 1);
-        }
-      }
-    };
   }
 
   /**
@@ -271,7 +115,7 @@ export default class OpenAPI extends EventEmitter {
       this.makeRequest('/sandbox/register', { method: 'post' });
       this._sandboxCreated = true;
     }
-  };
+  }
 
   /**
    * Метод для очистки песочницы
@@ -482,7 +326,7 @@ export default class OpenAPI extends EventEmitter {
     { figi, depth = 3 }: { figi: string; depth?: Depth },
     cb: (x: OrderbookStreaming) => any = console.log
   ) {
-    return this.subscribeToSocket({ type: 'orderbook', figi, depth }, cb);
+    return this._streaming.orderbook({ figi, depth }, cb);
   }
 
   /**
@@ -497,7 +341,7 @@ export default class OpenAPI extends EventEmitter {
     { figi, interval = '1min' }: { figi: string; interval?: Interval },
     cb: (x: CandleStreaming) => any = console.log
   ) {
-    return this.subscribeToSocket({ type: 'candle', figi, interval }, cb);
+    return this._streaming.candle({ figi, interval }, cb);
   }
 
   /**
@@ -508,6 +352,6 @@ export default class OpenAPI extends EventEmitter {
    * @return функция для отмены подписки
    */
   instrumentInfo({ figi }: { figi: string }, cb = console.log) {
-    return this.subscribeToSocket({ type: 'instrument_info', figi }, cb);
+    return this._streaming.instrumentInfo({ figi }, cb);
   }
 }
