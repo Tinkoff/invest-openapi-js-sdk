@@ -13,6 +13,8 @@ import {
   PortfolioPosition,
   SandboxSetCurrencyBalanceRequest,
   SandboxSetPositionBalanceRequest,
+  UserAccountsResponse,
+  UserAccount,
 } from './domain';
 import {
   CandleStreaming,
@@ -50,6 +52,7 @@ type RequestConfig<P> = {
 export default class OpenAPI {
   private _streaming: Streaming;
   private _sandboxCreated: boolean = false;
+  private _selectedAccount?: UserAccount;
   private readonly apiURL: string;
   private readonly secretToken: string;
   private readonly authHeaders: any;
@@ -144,17 +147,33 @@ export default class OpenAPI {
   }
 
   /**
-   * Метод для получение портфеля цб
+   * Метод для выбора активного аккаунта
+   * @param userAccount см. описание типа
    */
-  portfolio(): Promise<Portfolio> {
-    return this.makeRequest('/portfolio');
+  useAccount(userAccount: UserAccount): void {
+    this._selectedAccount = userAccount
+  }
+
+  /**
+   * Метод для получение портфеля цб
+   * @param params см. описание типа
+   */
+  portfolio(params?: UserAccount): Promise<Portfolio> {
+    if (!params && this._selectedAccount) {
+      params = this._selectedAccount
+    }
+    return this.makeRequest('/portfolio', { params });
   }
 
   /**
    * Метод для получения валютных активов клиента
+   * @param params см. описание типа
    */
-  portfolioCurrencies(): Promise<Currencies> {
-    return this.makeRequest('/portfolio/currencies');
+  portfolioCurrencies(params?: UserAccount): Promise<Currencies> {
+    if (!params && this._selectedAccount) {
+      params = this._selectedAccount
+    }
+    return this.makeRequest('/portfolio/currencies', { params });
   }
 
   /**
@@ -353,5 +372,13 @@ export default class OpenAPI {
    */
   instrumentInfo({ figi }: { figi: string }, cb = console.log) {
     return this._streaming.instrumentInfo({ figi }, cb);
+  }
+
+
+  /**
+   * Метод для получение брокерских счетов клиента
+   */
+  accounts(): Promise<UserAccountsResponse> {
+    return this.makeRequest('/user/accounts');
   }
 }
