@@ -13,7 +13,7 @@ import {
   PortfolioPosition,
   SandboxSetCurrencyBalanceRequest,
   SandboxSetPositionBalanceRequest,
-  UserAccountsResponse,
+  UserAccounts,
   UserAccount,
 } from './domain';
 import {
@@ -380,7 +380,7 @@ export default class OpenAPI {
   /**
    * Метод для получение брокерских счетов клиента
    */
-  accounts(): Promise<UserAccountsResponse> {
+  accounts(): Promise<UserAccounts> {
     return this.makeRequest('/user/accounts');
   }
 }
