@@ -82,11 +82,19 @@ export default class OpenAPI {
     { method = 'get', params }: RequestConfig<P> = {}
   ): Promise<R> {
     let requestParams: Record<string, any> = { method, headers: new Headers(this.authHeaders) };
+    let combinedParams: any = params;
+
+    if (this._selectedAccount) {
+      const { brokerAccountId } = this._selectedAccount;
+      if (combinedParams) combinedParams.brokerAccountId = brokerAccountId
+      else combinedParams = { brokerAccountId }
+    }
+
     let requestUrl =
-      method === 'get' ? this.apiURL + url + getQueryString(params || {}) : this.apiURL + url;
+      method === 'get' ? this.apiURL + url + getQueryString(combinedParams || {}) : this.apiURL + url;
 
     if (method === 'post') {
-      requestParams.body = JSON.stringify(params);
+      requestParams.body = JSON.stringify(combinedParams);
     }
 
     const res = await fetch(requestUrl, requestParams);
@@ -159,9 +167,6 @@ export default class OpenAPI {
    * @param params см. описание типа
    */
   portfolio(params?: UserAccount): Promise<Portfolio> {
-    if (!params && this._selectedAccount) {
-      params = this._selectedAccount
-    }
     return this.makeRequest('/portfolio', { params });
   }
 
@@ -170,9 +175,6 @@ export default class OpenAPI {
    * @param params см. описание типа
    */
   portfolioCurrencies(params?: UserAccount): Promise<Currencies> {
-    if (!params && this._selectedAccount) {
-      params = this._selectedAccount
-    }
     return this.makeRequest('/portfolio/currencies', { params });
   }
 
