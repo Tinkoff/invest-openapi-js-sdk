@@ -24,7 +24,8 @@ import {
   OrderbookStreaming,
 } from './types';
 import { URLSearchParams } from 'url';
-import Streaming from './Streeming';
+import Streaming, { PublicEvents } from './Streaming';
+import { EventEmitter } from 'events';
 
 export * from './types';
 export * from './domain';
@@ -47,7 +48,7 @@ type RequestConfig<P> = {
   params?: P;
 };
 
-export default class OpenAPI {
+export default class OpenAPI extends EventEmitter {
   private _streaming: Streaming;
   private _sandboxCreated: boolean = false;
   private readonly apiURL: string;
@@ -62,6 +63,7 @@ export default class OpenAPI {
    *
    */
   constructor({ apiURL, socketURL, secretToken }: OpenApiConfig) {
+    super();
     this._streaming = new Streaming({ url: socketURL, secretToken });
     this.apiURL = apiURL;
     this.secretToken = secretToken;
@@ -69,6 +71,11 @@ export default class OpenAPI {
       Authorization: 'Bearer ' + this.secretToken,
       'Content-Type': 'application/json',
     };
+
+    // Даем возможность пользователю логировать ключевые события в стриминге
+    this.forwardSocketEvent('socket-open');
+    this.forwardSocketEvent('socket-close');
+    this.forwardSocketEvent('socket-error');
   }
 
   /**
@@ -115,6 +122,10 @@ export default class OpenAPI {
       this.makeRequest('/sandbox/register', { method: 'post' });
       this._sandboxCreated = true;
     }
+  }
+
+  private forwardSocketEvent(name: PublicEvents) {
+    this._streaming.addListener(name, e => this.emit(name, e));
   }
 
   /**

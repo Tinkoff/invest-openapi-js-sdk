@@ -19,11 +19,14 @@ const enum ReadyState {
   'CLOSED',
 }
 
+export type PublicEvents = 'socket-error' | 'socket-open' | 'socket-close';
+
 /**
  * @hidden
  */
 export default class Streaming extends EventEmitter {
   private _ws: WebSocket | null = null;
+  private _wsPongTimeout?: NodeJS.Timeout;
   private _wsPingTimeout?: NodeJS.Timeout;
   private _wsQueue: object[] = [];
   private _subscribeMessages: object[] = [];
@@ -56,6 +59,14 @@ export default class Streaming extends EventEmitter {
       return;
     }
 
+    if (this._wsPingTimeout) {
+      clearTimeout(this._wsPingTimeout);
+    }
+
+    if (this._wsPongTimeout) {
+      clearTimeout(this._wsPongTimeout);
+    }
+
     this._ws = new WebSocket(this.socketURL, {
       perMessageDeflate: false,
       headers: this.authHeaders,
@@ -68,7 +79,7 @@ export default class Streaming extends EventEmitter {
     this._ws.on('error', this.handleSocketError);
 
     // Восстанавливаем подписки
-    if (this._subscribeMessages) {
+    if (this._ws && this._subscribeMessages) {
       this._subscribeMessages.forEach((msg) => {
         this.enqueue(msg);
       });
@@ -78,37 +89,49 @@ export default class Streaming extends EventEmitter {
   /**
    * Обработчик открытия соединения
    */
-  private handleSocketOpen = () => {
-    this.emit('socket-open');
+  private handleSocketOpen = (e: Event) => {
+    this.emit('socket-open', e);
     this.dispatchWsQueue();
   };
+
+  /**
+   * Зацикленная отправка пингов на сервер
+   */
+  private socketPingLoop = () => {
+    if (this._ws) {
+      this._ws.ping();
+
+      this._wsPingTimeout = setTimeout(this.socketPingLoop, 15_000)
+    }
+  }
 
   /**
    * Обработчик серверного пинга
    */
   private handleSocketPing = (m: Buffer) => {
     this._ws?.pong(m);
-    clearTimeout(this._wsPingTimeout!);
+    clearTimeout(this._wsPongTimeout!);
 
-    this._wsPingTimeout = setTimeout(() => {
+    this._wsPongTimeout = setTimeout(() => {
       this._ws?.terminate();
-    }, 30000 + 1000);
+    }, 30_000);
   };
 
   /**
    * Обработчик закрытия соединения
    */
-  private handleSocketClose = () => {
-    clearTimeout(this._wsPingTimeout!);
-    this.emit('socket-close');
+  private handleSocketClose = (e: Event) => {
+    clearTimeout(this._wsPongTimeout!);
+    this.emit('socket-close', e);
     this.handleSocketError();
   };
 
   /**
    * Обработчик ошибок и переподключение при необходимости
    */
-  private handleSocketError = () => {
-    clearTimeout(this._wsPingTimeout!);
+  private handleSocketError = (e?: Error) => {
+    this.emit('socket-error', e);
+    clearTimeout(this._wsPongTimeout!);
     const isClosed = [ReadyState.CLOSING, ReadyState.CLOSED].includes(this._ws?.readyState!);
 
     if (isClosed) {
