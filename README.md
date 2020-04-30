@@ -49,6 +49,17 @@ const api = new OpenAPI({ apiURL, secretToken, socketURL });
 })();
 ```
 
+## Ивенты транспорта
+> Ивенты транспорта позволяют отслеживать разрывы соединений и ошибки
+```typescript
+...
+const api = new OpenAPI({ apiURL, secretToken, socketURL });
+api.addListener('socket-open', callback);
+api.addListener('socket-close', callback);
+api.addListener('socket-error', callback);
+```
+
+
 ## Sandbox
 
 Для использования _Sandbox_ необходимо передать в apiURL и в secretToken url
@@ -63,3 +74,6 @@ await api.instrumentPortfolio({ figi }); // В портфеле ничего н�
 await api.limitOrder({ operation: 'Buy', figi, lots: 1, price: 100 }); // Покупаем AAPL
 await api.instrumentPortfolio({ figi }); // Сделка прошла моментально
 ```
+## Ограничения
+
+На данный оммент доступно только 6 TCP соединений на аккаунт
