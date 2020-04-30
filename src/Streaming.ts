@@ -59,14 +59,6 @@ export default class Streaming extends EventEmitter {
       return;
     }
 
-    if (this._wsPingTimeout) {
-      clearTimeout(this._wsPingTimeout);
-    }
-
-    if (this._wsPongTimeout) {
-      clearTimeout(this._wsPongTimeout);
-    }
-
     this._ws = new WebSocket(this.socketURL, {
       perMessageDeflate: false,
       headers: this.authHeaders,
@@ -91,6 +83,7 @@ export default class Streaming extends EventEmitter {
    */
   private handleSocketOpen = (e: Event) => {
     this.emit('socket-open', e);
+    this.socketPingLoop();
     this.dispatchWsQueue();
   };
 
@@ -121,7 +114,9 @@ export default class Streaming extends EventEmitter {
    * Обработчик закрытия соединения
    */
   private handleSocketClose = (e: Event) => {
+    clearTimeout(this._wsPingTimeout!);
     clearTimeout(this._wsPongTimeout!);
+
     this.emit('socket-close', e);
     this.handleSocketError();
   };
@@ -130,8 +125,10 @@ export default class Streaming extends EventEmitter {
    * Обработчик ошибок и переподключение при необходимости
    */
   private handleSocketError = (e?: Error) => {
-    this.emit('socket-error', e);
+    clearTimeout(this._wsPingTimeout!);
     clearTimeout(this._wsPongTimeout!);
+
+    this.emit('socket-error', e);
     const isClosed = [ReadyState.CLOSING, ReadyState.CLOSED].includes(this._ws?.readyState!);
 
     if (isClosed) {
