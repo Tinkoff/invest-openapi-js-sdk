@@ -27,7 +27,7 @@
     "strategy",
     "bot"
   ],
-  "license": "ISC",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@tinkoff/swagger-types-generator": "0.0.9",
     "@types/ws": "^7.2.3",
