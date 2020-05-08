@@ -51,7 +51,7 @@ type RequestConfig<P> = {
   params?: P;
 };
 
-export default class OpenAPI {
+export class OpenAPI {
   private _streaming: Streaming;
   private _sandboxCreated: boolean = false;
   private readonly apiURL: string;
