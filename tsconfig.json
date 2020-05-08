@@ -7,7 +7,8 @@
     "outDir": "./build/",
     "lib": [
       "es2018",
-      "dom"
+      "es2019.object",
+      "dom",
     ],
     "sourceMap": true,
     "strict": true,

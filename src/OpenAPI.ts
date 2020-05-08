@@ -32,7 +32,8 @@ import Streaming from './Streeming';
 export * from './types';
 export * from './domain';
 
-function getQueryString(params: Record<string, string | number>) {
+function getQueryString(params: Record<string, string | number | undefined | null>) {
+  params = Object.fromEntries(Object.entries(params).filter(([_, value]) => value != null))
   // must be a number https://github.com/microsoft/TypeScript/issues/32951
   const searchParams = new URLSearchParams(params as any).toString();
 
@@ -268,7 +269,7 @@ export default class OpenAPI {
    * @param to Конец временного промежутка в формате ISO 8601
    * @param figi Figi-идентификатор инструмента
    */
-  operations({ from, to, figi }: { from: string; to: string; figi: string }): Promise<Operations> {
+  operations({ from, to, figi }: { from: string; to: string; figi?: string }): Promise<Operations> {
     return this.makeRequest('/operations', {
       params: { from, to, figi },
     });
