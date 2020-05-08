@@ -32,9 +32,11 @@ import Streaming from './Streeming';
 export * from './types';
 export * from './domain';
 
+const omitUndef = (x: object) => JSON.parse(JSON.stringify(x));
+
 function getQueryString(params: Record<string, string | number>) {
   // must be a number https://github.com/microsoft/TypeScript/issues/32951
-  const searchParams = new URLSearchParams(params as any).toString();
+  const searchParams = new URLSearchParams(omitUndef(params) as any).toString();
 
   return searchParams.length ? `?${searchParams}` : '';
 }
