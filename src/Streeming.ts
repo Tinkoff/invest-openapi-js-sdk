@@ -23,7 +23,7 @@ const enum ReadyState {
  * @hidden
  */
 export default class Streaming extends EventEmitter {
-  private _ws: WebSocket | null = null;
+  protected _ws: WebSocket | null = null;
   private _wsPingTimeout?: NodeJS.Timeout;
   private _wsQueue: object[] = [];
   private _subscribeMessages: object[] = [];
@@ -121,7 +121,7 @@ export default class Streaming extends EventEmitter {
   /**
    * Обработчик входящих сообщений
    */
-  private handleSocketMessage = (m: string) => {
+  protected handleSocketMessage = (m: string) => {
     const { event: type, payload } = JSON.parse(m);
 
     this.emit(this.getEventName(type, payload), payload);
@@ -130,7 +130,7 @@ export default class Streaming extends EventEmitter {
   /**
    * Получение имени ивента
    */
-  private getEventName(type: SocketEventType, params: Dict<string>) {
+  protected getEventName(type: SocketEventType, params: Dict<string>) {
     if (type === 'orderbook') {
       return `${type}-${params.figi}-${params.depth}`;
     }
