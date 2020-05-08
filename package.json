@@ -2,7 +2,8 @@
   "name": "@tinkoff/invest-openapi-js-sdk",
   "version": "1.2.7",
   "description": "Tinkoff Invest OpenAPI Client",
-  "main": "index.js",
+  "main": "./build/OpenAPI.cjs.js",
+  "module": "./build/OpenAPI.esm.js",
   "types": "./build/OpenAPI.d.ts",
   "engines": {
     "node": ">=10.0.0"
