@@ -31,7 +31,7 @@ import Streaming from './Streeming';
 
 export * from './types';
 export * from './domain';
-export { Streaming };
+export * from './Streeming';
 
 function getQueryString(params: Record<string, string | number>) {
   // must be a number https://github.com/microsoft/TypeScript/issues/32951
@@ -51,7 +51,7 @@ type RequestConfig<P> = {
   params?: P;
 };
 
-export class OpenAPI {
+export default class OpenAPI {
   private _streaming: Streaming;
   private _sandboxCreated: boolean = false;
   private readonly apiURL: string;
