@@ -26,7 +26,6 @@ export type PublicEvents = 'socket-error' | 'socket-open' | 'socket-close';
  */
 export default class Streaming extends EventEmitter {
   private _ws: WebSocket | null = null;
-  private _wsPongTimeout?: NodeJS.Timeout;
   private _wsPingTimeout?: NodeJS.Timeout;
   private _wsQueue: object[] = [];
   private _subscribeMessages: object[] = [];
@@ -65,7 +64,6 @@ export default class Streaming extends EventEmitter {
     });
 
     this._ws.on('open', this.handleSocketOpen);
-    this._ws.on('ping', this.handleSocketPing);
     this._ws.on('message', this.handleSocketMessage);
     this._ws.on('close', this.handleSocketClose);
     this._ws.on('error', this.handleSocketError);
@@ -83,8 +81,8 @@ export default class Streaming extends EventEmitter {
    */
   private handleSocketOpen = (e: Event) => {
     this.emit('socket-open', e);
-    this.socketPingLoop();
     this.dispatchWsQueue();
+    this.socketPingLoop();
   };
 
   /**
@@ -92,31 +90,16 @@ export default class Streaming extends EventEmitter {
    */
   private socketPingLoop = () => {
     if (this._ws) {
-      this._ws.ping();
+      this._ws.ping('ping');
 
       this._wsPingTimeout = setTimeout(this.socketPingLoop, 15_000)
     }
   }
 
   /**
-   * Обработчик серверного пинга
-   */
-  private handleSocketPing = (m: Buffer) => {
-    this._ws?.pong(m);
-    clearTimeout(this._wsPongTimeout!);
-
-    this._wsPongTimeout = setTimeout(() => {
-      this._ws?.terminate();
-    }, 30_000);
-  };
-
-  /**
    * Обработчик закрытия соединения
    */
   private handleSocketClose = (e: Event) => {
-    clearTimeout(this._wsPingTimeout!);
-    clearTimeout(this._wsPongTimeout!);
-
     this.emit('socket-close', e);
     this.handleSocketError();
   };
@@ -126,13 +109,21 @@ export default class Streaming extends EventEmitter {
    */
   private handleSocketError = (e?: Error) => {
     clearTimeout(this._wsPingTimeout!);
-    clearTimeout(this._wsPongTimeout!);
-
     this.emit('socket-error', e);
+
+    if (!this._ws) {
+      return;
+    }
+
     const isClosed = [ReadyState.CLOSING, ReadyState.CLOSED].includes(this._ws?.readyState!);
 
+    this._ws.off('open', this.handleSocketOpen);
+    this._ws.off('message', this.handleSocketMessage);
+    this._ws.off('close', this.handleSocketClose);
+    this._ws.off('error', this.handleSocketError);
+
     if (isClosed) {
-      this._ws?.terminate();
+      this._ws.terminate();
       this._ws = null;
       this.connect();
     }
