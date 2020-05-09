@@ -10,10 +10,10 @@ export default [
       'url',
       'events',
     ],
-    output: {
-      file: 'build/OpenAPI.js',
-      format: 'cjs',
-    },
+    output: [
+      { file: pkg.main, format: "cjs" },
+      { file: pkg.module, format: "esm" }
+    ],
     plugins: [typescript()],
   },
 ];

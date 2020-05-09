@@ -33,9 +33,11 @@ import { EventEmitter } from 'events';
 export * from './types';
 export * from './domain';
 
+const omitUndef = (x: object) => JSON.parse(JSON.stringify(x));
+
 function getQueryString(params: Record<string, string | number>) {
   // must be a number https://github.com/microsoft/TypeScript/issues/32951
-  const searchParams = new URLSearchParams(params as any).toString();
+  const searchParams = new URLSearchParams(omitUndef(params) as any).toString();
 
   return searchParams.length ? `?${searchParams}` : '';
 }
@@ -279,7 +281,7 @@ export default class OpenAPI extends EventEmitter {
    * @param to Конец временного промежутка в формате ISO 8601
    * @param figi Figi-идентификатор инструмента
    */
-  operations({ from, to, figi }: { from: string; to: string; figi: string }): Promise<Operations> {
+  operations({ from, to, figi }: { from: string; to: string; figi?: string }): Promise<Operations> {
     return this.makeRequest('/operations', {
       params: { from, to, figi },
     });

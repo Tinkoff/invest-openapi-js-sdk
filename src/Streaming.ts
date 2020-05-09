@@ -67,19 +67,19 @@ export default class Streaming extends EventEmitter {
     this._ws.on('message', this.handleSocketMessage);
     this._ws.on('close', this.handleSocketClose);
     this._ws.on('error', this.handleSocketError);
-
-    // Восстанавливаем подписки
-    if (this._ws && this._subscribeMessages) {
-      this._subscribeMessages.forEach((msg) => {
-        this.enqueue(msg);
-      });
-    }
   }
 
   /**
    * Обработчик открытия соединения
    */
   private handleSocketOpen = (e: Event) => {
+    // Восстанавливаем подписки
+    if (this._ws && this._subscribeMessages) {
+      this._subscribeMessages.forEach((msg) => {
+        this.enqueue(msg);
+      });
+    }
+
     this.emit('socket-open', e);
     this.dispatchWsQueue();
     this.socketPingLoop();
