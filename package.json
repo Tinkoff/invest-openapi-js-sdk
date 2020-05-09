@@ -1,6 +1,6 @@
 {
   "name": "@tinkoff/invest-openapi-js-sdk",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "Tinkoff Invest OpenAPI Client",
   "main": "index.js",
   "types": "./build/OpenAPI.d.ts",
@@ -27,7 +27,7 @@
     "strategy",
     "bot"
   ],
-  "license": "ISC",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@tinkoff/swagger-types-generator": "0.0.9",
     "@types/ws": "^7.2.3",

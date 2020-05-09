@@ -42,3 +42,7 @@ export type LimitOrderParams = {
     operation: OperationType;
     price: number;
 };
+
+export type FIGI = {
+    figi: string;
+}

@@ -5,14 +5,17 @@ import {
   Currencies,
   MarketInstrument,
   MarketInstrumentList,
+  MarketOrderRequest,
   Operations,
   Order,
   Orderbook,
   PlacedLimitOrder,
+  PlacedMarketOrder,
   Portfolio,
   PortfolioPosition,
   SandboxSetCurrencyBalanceRequest,
   SandboxSetPositionBalanceRequest,
+  LimitOrderRequest,
 } from './domain';
 import {
   CandleStreaming,
@@ -20,8 +23,8 @@ import {
   HttpMethod,
   InstrumentId,
   Interval,
-  LimitOrderParams,
   OrderbookStreaming,
+  FIGI,
 } from './types';
 import { URLSearchParams } from 'url';
 import Streaming, { PublicEvents } from './Streaming';
@@ -193,13 +196,35 @@ export default class OpenAPI extends EventEmitter {
    * @param operation тип заявки
    * @param price цена лимитной заявки
    */
-  limitOrder({ figi, lots, operation, price }: LimitOrderParams): Promise<PlacedLimitOrder> {
+  limitOrder({
+    figi,
+    lots,
+    operation,
+    price,
+  }: LimitOrderRequest & FIGI): Promise<PlacedLimitOrder> {
     return this.makeRequest(`/orders/limit-order?figi=${figi}`, {
       method: 'post',
       params: {
         lots,
         operation,
         price,
+      },
+    });
+  }
+
+  /**
+   * Метод для выставления заявки
+   * @param figi идентификатор инструмента
+   * @param lots количество лотов для заявки
+   * @param operation тип заявки
+   * @param price цена лимитной заявки
+   */
+  marketOrder({ figi, lots, operation }: MarketOrderRequest & FIGI): Promise<PlacedMarketOrder> {
+    return this.makeRequest(`/orders/market-order?figi=${figi}`, {
+      method: 'post',
+      params: {
+        lots,
+        operation,
       },
     });
   }
