@@ -31,7 +31,6 @@ import Streaming from './Streeming';
 
 export * from './types';
 export * from './domain';
-export * from './Streeming';
 
 function getQueryString(params: Record<string, string | number>) {
   // must be a number https://github.com/microsoft/TypeScript/issues/32951
