@@ -12,7 +12,7 @@
     "sourceMap": true,
     "strict": true,
     "module": "esnext",
-    "target": "es5",
+    "target": "es2018",
     "rootDir": "src",
     "moduleResolution": "node",
     "noUnusedLocals": true,
