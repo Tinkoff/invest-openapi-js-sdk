@@ -270,7 +270,7 @@ export default class OpenAPI {
    * @param to Конец временного промежутка в формате ISO 8601
    * @param figi Figi-идентификатор инструмента
    */
-  operations({ from, to, figi }: { from: string; to: string; figi: string }): Promise<Operations> {
+  operations({ from, to, figi }: { from: string; to: string; figi?: string }): Promise<Operations> {
     return this.makeRequest('/operations', {
       params: { from, to, figi },
     });
