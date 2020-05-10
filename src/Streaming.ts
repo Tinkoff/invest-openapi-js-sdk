@@ -75,6 +75,7 @@ export default class Streaming extends EventEmitter {
   private handleSocketOpen = (e: Event) => {
     // Восстанавливаем подписки
     if (this._ws && this._subscribeMessages) {
+      this._wsQueue.length = 0;
       this._subscribeMessages.forEach((msg) => {
         this.enqueue(msg);
       });
