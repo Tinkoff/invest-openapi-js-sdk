@@ -53,7 +53,7 @@ const api = new OpenAPI({ apiURL, secretToken, socketURL });
 
 Для использования _Sandbox_ необходимо передать в apiURL и в secretToken url
 эндпоинта с апи sandbox'а и токен для песочницы.
-Более подробнов [документации](https://tinkoffcreditsystems.github.io/invest-openapi/env/)
+Более подробно в [документации](https://tinkoffcreditsystems.github.io/invest-openapi/env/)
 
 ```typescript
 await api.sandboxClear(); // очищаем песочницу 
