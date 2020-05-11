@@ -27,7 +27,7 @@ import {
   FIGI,
 } from './types';
 import { URLSearchParams } from 'url';
-import Streaming from './Streeming';
+import Streaming from './Streaming';
 
 export * from './types';
 export * from './domain';
