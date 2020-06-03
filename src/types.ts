@@ -23,6 +23,7 @@ export type OrderbookStreaming = {
     figi: string;
     depth: Depth;
     bids: Array<[number, number]>;
+    asks: Array<[number, number]>;
 };
 export type InstrumentId = { ticker: string } | { figi: string };
 export type CandleStreaming = {
