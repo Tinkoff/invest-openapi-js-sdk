@@ -1,6 +1,6 @@
-[@tinkoff/invest-openapi-js-sdk - v1.2.7](README.md) › [Globals](globals.md)
+[@tinkoff/invest-openapi-js-sdk - v1.2.12](README.md) › [Globals](globals.md)
 
-# @tinkoff/invest-openapi-js-sdk - v1.2.7
+# @tinkoff/invest-openapi-js-sdk - v1.2.12
 
 ## Index
 
@@ -10,6 +10,7 @@
 
 ### Type aliases
 
+* [BrokerAccountId](globals.md#brokeraccountid)
 * [BrokerAccountType](globals.md#brokeraccounttype)
 * [Candle](globals.md#candle)
 * [CandleResolution](globals.md#candleresolution)
@@ -79,8 +80,19 @@
 ### Functions
 
 * [getQueryString](globals.md#getquerystring)
+* [omitUndef](globals.md#const-omitundef)
 
 ## Type aliases
+
+###  BrokerAccountId
+
+Ƭ **BrokerAccountId**: *object*
+
+#### Type declaration:
+
+* **brokerAccountId**? : *undefined | string*
+
+___
 
 ###  BrokerAccountType
 
@@ -643,6 +655,8 @@ ___
 
 #### Type declaration:
 
+* **asks**: *Array‹[number, number]›*
+
 * **bids**: *Array‹[number, number]›*
 
 * **depth**: *[Depth](globals.md#depth)*
@@ -787,9 +801,11 @@ ___
 
 #### Type declaration:
 
+* **body**? : *B*
+
 * **method**? : *[HttpMethod](globals.md#httpmethod)*
 
-* **params**? : *P*
+* **query**? : *Q*
 
 ___
 
@@ -956,3 +972,17 @@ Name | Type |
 `params` | Record‹string, string &#124; number› |
 
 **Returns:** *string*
+
+___
+
+### `Const` omitUndef
+
+▸ **omitUndef**(`x`: object): *any*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`x` | object |
+
+**Returns:** *any*

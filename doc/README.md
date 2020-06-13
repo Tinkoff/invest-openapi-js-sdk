@@ -1,6 +1,6 @@
-[@tinkoff/invest-openapi-js-sdk - v1.2.7](README.md) › [Globals](globals.md)
+[@tinkoff/invest-openapi-js-sdk - v1.2.12](README.md) › [Globals](globals.md)
 
-# @tinkoff/invest-openapi-js-sdk - v1.2.7
+# @tinkoff/invest-openapi-js-sdk - v1.2.12
 
 # Trading Open API - JS SDK
 
@@ -55,7 +55,7 @@ const api = new OpenAPI({ apiURL, secretToken, socketURL });
 
 Для использования _Sandbox_ необходимо передать в apiURL и в secretToken url
 эндпоинта с апи sandbox'а и токен для песочницы.
-Более подробнов [документации](https://tinkoffcreditsystems.github.io/invest-openapi/env/)
+Более подробно в [документации](https://tinkoffcreditsystems.github.io/invest-openapi/env/)
 
 ```typescript
 await api.sandboxClear(); // очищаем песочницу 
@@ -65,3 +65,6 @@ await api.instrumentPortfolio({ figi }); // В портфеле ничего н�
 await api.limitOrder({ operation: 'Buy', figi, lots: 1, price: 100 }); // Покупаем AAPL
 await api.instrumentPortfolio({ figi }); // Сделка прошла моментально
 ```
+## Ограничения
+
+На данный момент доступно только 6 TCP соединений на аккаунт
