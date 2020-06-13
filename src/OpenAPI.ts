@@ -16,6 +16,7 @@ import {
   SandboxSetCurrencyBalanceRequest,
   SandboxSetPositionBalanceRequest,
   LimitOrderRequest,
+  UserAccounts,
 } from './domain';
 import {
   CandleStreaming,
@@ -25,6 +26,7 @@ import {
   Interval,
   OrderbookStreaming,
   FIGI,
+  BrokerAccountId,
 } from './types';
 import { URLSearchParams } from 'url';
 import Streaming from './Streaming';
@@ -47,9 +49,10 @@ type OpenApiConfig = {
   secretToken: string;
 };
 
-type RequestConfig<P> = {
+type RequestConfig<Q, B> = {
   method?: HttpMethod;
-  params?: P;
+  query?: Q;
+  body?: B;
 };
 
 export default class OpenAPI {
@@ -79,16 +82,15 @@ export default class OpenAPI {
   /**
    * Запрос к REST
    */
-  private async makeRequest<P, R>(
+  private async makeRequest<Q, B, R>(
     url: string,
-    { method = 'get', params }: RequestConfig<P> = {}
+    { method = 'get', query, body }: RequestConfig<Q, B> = {}
   ): Promise<R> {
     let requestParams: Record<string, any> = { method, headers: new Headers(this.authHeaders) };
-    let requestUrl =
-      method === 'get' ? this.apiURL + url + getQueryString(params || {}) : this.apiURL + url;
+    let requestUrl = this.apiURL + url + getQueryString(query || {});
 
     if (method === 'post') {
-      requestParams.body = JSON.stringify(params);
+      requestParams.body = JSON.stringify(body);
     }
 
     const res = await fetch(requestUrl, requestParams);
@@ -124,56 +126,72 @@ export default class OpenAPI {
 
   /**
    * Метод для очистки песочницы
+   * @param params см. описание типа
    */
-  async sandboxClear(): Promise<any> {
+  async sandboxClear(params?: BrokerAccountId): Promise<any> {
     await this.sandboxRegister();
-    return this.makeRequest('/sandbox/clear', { method: 'post' });
+    return this.makeRequest('/sandbox/clear', { method: 'post', query: params });
   }
 
   /**
    * Метод для задания баланса по бумагам
    * @param params см. описание типа
    */
-  async setPositionBalance(params: SandboxSetPositionBalanceRequest): Promise<void> {
+  async setPositionBalance(params: SandboxSetPositionBalanceRequest & BrokerAccountId): Promise<void> {
+    const { brokerAccountId, ...body } = params;
     await this.sandboxRegister();
-    return this.makeRequest('/sandbox/positions/balance', { method: 'post', params });
+    return this.makeRequest('/sandbox/positions/balance', {
+      method: 'post',
+      query: { brokerAccountId },
+      body,
+    });
   }
 
   /**
    * Метод для задания баланса по валютам
    * @param params см. описание типа
    */
-  async setCurrenciesBalance(params: SandboxSetCurrencyBalanceRequest): Promise<void> {
+  async setCurrenciesBalance(params: SandboxSetCurrencyBalanceRequest & BrokerAccountId): Promise<void> {
+    const { brokerAccountId, ...body } = params;
     await this.sandboxRegister();
-    return this.makeRequest('/sandbox/currencies/balance', { method: 'post', params });
+    return this.makeRequest('/sandbox/currencies/balance', {
+      method: 'post',
+      query: { brokerAccountId },
+      body,
+    });
   }
 
   /**
    * Метод для получение портфеля цб
+   * @param params см. описание типа
    */
-  portfolio(): Promise<Portfolio> {
-    return this.makeRequest('/portfolio');
+  portfolio(params?: BrokerAccountId): Promise<Portfolio> {
+    return this.makeRequest('/portfolio', { query: params });
   }
 
   /**
    * Метод для получения валютных активов клиента
+   * @param params см. описание типа
    */
-  portfolioCurrencies(): Promise<Currencies> {
-    return this.makeRequest('/portfolio/currencies');
+  portfolioCurrencies(params?: BrokerAccountId): Promise<Currencies> {
+    return this.makeRequest('/portfolio/currencies', { query: params });
   }
 
   /**
    * Метод для получение данных по инструменту в портфеле
+   * @param params см. описание типа
    */
-  instrumentPortfolio(params: InstrumentId): Promise<PortfolioPosition | null> {
-    return this.portfolio().then((x) => {
+  instrumentPortfolio(params: InstrumentId & BrokerAccountId): Promise<PortfolioPosition | null> {
+    const { brokerAccountId, ...instrument } = params;
+
+    return this.portfolio({ brokerAccountId }).then((x) => {
       return (
         x.positions.find((position) => {
-          if ('figi' in params) {
-            return position.figi === params.figi;
+          if ('figi' in instrument) {
+            return position.figi === instrument.figi;
           }
-          if ('ticker' in params) {
-            return position.ticker === params.ticker;
+          if ('ticker' in instrument) {
+            return position.ticker === instrument.ticker;
           }
         }) || null
       );
@@ -186,16 +204,22 @@ export default class OpenAPI {
    * @param lots количество лотов для заявки
    * @param operation тип заявки
    * @param price цена лимитной заявки
+   * @param brokerAccountId номер счета (по умолчанию - Тинькофф)
    */
   limitOrder({
     figi,
     lots,
     operation,
     price,
-  }: LimitOrderRequest & FIGI): Promise<PlacedLimitOrder> {
-    return this.makeRequest(`/orders/limit-order?figi=${figi}`, {
+    brokerAccountId,
+  }: LimitOrderRequest & FIGI & BrokerAccountId): Promise<PlacedLimitOrder> {
+    return this.makeRequest('/orders/limit-order', {
       method: 'post',
-      params: {
+      query: {
+        figi,
+        brokerAccountId,
+      },
+      body: {
         lots,
         operation,
         price,
@@ -209,11 +233,21 @@ export default class OpenAPI {
    * @param lots количество лотов для заявки
    * @param operation тип заявки
    * @param price цена лимитной заявки
+   * @param brokerAccountId номер счета (по умолчанию - Тинькофф)
    */
-  marketOrder({ figi, lots, operation }: MarketOrderRequest & FIGI): Promise<PlacedMarketOrder> {
-    return this.makeRequest(`/orders/market-order?figi=${figi}`, {
+  marketOrder({
+    figi,
+    lots,
+    operation,
+    brokerAccountId,
+  }: MarketOrderRequest & FIGI & BrokerAccountId): Promise<PlacedMarketOrder> {
+    return this.makeRequest('/orders/market-order', {
       method: 'post',
-      params: {
+      query: {
+        figi,
+        brokerAccountId,
+      },
+      body: {
         lots,
         operation,
       },
@@ -224,16 +258,24 @@ export default class OpenAPI {
   /**
    * Метод для отмены активных заявок
    * @param orderId идентифткатор заявки
+   * @param brokerAccountId номер счета (по умолчанию - Тинькофф)
    */
-  cancelOrder({ orderId }: { orderId: string }): Promise<void> {
-    return this.makeRequest(`/orders/cancel?orderId=${orderId}`, { method: 'post' });
+  cancelOrder({ orderId, brokerAccountId }: { orderId: string } & BrokerAccountId): Promise<void> {
+    return this.makeRequest(`/orders/cancel`, {
+      method: 'post',
+      query: {
+        orderId,
+        brokerAccountId,
+      },
+    });
   }
 
   /**
    * Метод для получения всех активных заявок
+   * @param params см. описание типа
    */
-  orders(): Promise<Order[]> {
-    return this.makeRequest('/orders');
+  orders(params?: BrokerAccountId): Promise<Order[]> {
+    return this.makeRequest('/orders', { query: params });
   }
 
   /**
@@ -269,10 +311,16 @@ export default class OpenAPI {
    * @param from Начало временного промежутка в формате ISO 8601
    * @param to Конец временного промежутка в формате ISO 8601
    * @param figi Figi-идентификатор инструмента
+   * @param brokerAccountId номер счета (по умолчанию - Тинькофф)
    */
-  operations({ from, to, figi }: { from: string; to: string; figi?: string }): Promise<Operations> {
+  operations({
+    from,
+    to,
+    figi,
+    brokerAccountId,
+  }: { from: string; to: string; figi?: string } & BrokerAccountId): Promise<Operations> {
     return this.makeRequest('/operations', {
-      params: { from, to, figi },
+      query: { from, to, figi, brokerAccountId },
     });
   }
 
@@ -295,7 +343,7 @@ export default class OpenAPI {
     interval?: CandleResolution;
   }): Promise<Candles> {
     return this.makeRequest('/market/candles', {
-      params: { from, to, figi, interval },
+      query: { from, to, figi, interval },
     });
   }
 
@@ -306,7 +354,7 @@ export default class OpenAPI {
    */
   orderbookGet({ figi, depth = 3 }: { figi: string; depth?: Depth }): Promise<Orderbook> {
     return this.makeRequest('/market/orderbook', {
-      params: { figi, depth },
+      query: { figi, depth },
     });
   }
   /**
@@ -315,13 +363,13 @@ export default class OpenAPI {
    */
   search(params: InstrumentId): Promise<MarketInstrumentList> {
     if ('figi' in params) {
-      return this.makeRequest<any, MarketInstrument>('/market/search/by-figi', {
-        params: { figi: params.figi },
+      return this.makeRequest<any, never, MarketInstrument>('/market/search/by-figi', {
+        query: { figi: params.figi },
       }).then((x) => (x ? { total: 1, instruments: [x] } : { total: 0, instruments: [] }));
     }
     if ('ticker' in params) {
       return this.makeRequest('/market/search/by-ticker', {
-        params: { ticker: params.ticker },
+        query: { ticker: params.ticker },
       });
     }
     throw new Error('should specify figi or ticker');
@@ -380,5 +428,12 @@ export default class OpenAPI {
    */
   instrumentInfo({ figi }: { figi: string }, cb = console.log) {
     return this._streaming.instrumentInfo({ figi }, cb);
+  }
+
+  /**
+   * Метод для получения брокерских счетов клиента
+   */
+  accounts(): Promise<UserAccounts> {
+    return this.makeRequest('/user/accounts');
   }
 }
