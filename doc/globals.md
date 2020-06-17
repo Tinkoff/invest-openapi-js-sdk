@@ -10,7 +10,6 @@
 
 ### Type aliases
 
-* [BrokerAccountId](globals.md#brokeraccountid)
 * [BrokerAccountType](globals.md#brokeraccounttype)
 * [Candle](globals.md#candle)
 * [CandleResolution](globals.md#candleresolution)
@@ -83,16 +82,6 @@
 * [omitUndef](globals.md#const-omitundef)
 
 ## Type aliases
-
-###  BrokerAccountId
-
-Ƭ **BrokerAccountId**: *object*
-
-#### Type declaration:
-
-* **brokerAccountId**? : *undefined | string*
-
-___
 
 ###  BrokerAccountType
 
@@ -458,6 +447,8 @@ ___
 #### Type declaration:
 
 * **apiURL**: *string*
+
+* **brokerAccountId**? : *undefined | string*
 
 * **secretToken**: *string*
 
