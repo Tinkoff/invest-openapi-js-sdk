@@ -47,7 +47,3 @@ export type LimitOrderParams = {
 export type FIGI = {
     figi: string;
 };
-
-export type BrokerAccountId = {
-    brokerAccountId?: string;
-};

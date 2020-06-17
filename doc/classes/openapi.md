@@ -21,6 +21,7 @@
 * [candlesGet](openapi.md#candlesget)
 * [currencies](openapi.md#currencies)
 * [etfs](openapi.md#etfs)
+* [getCurrentAccountId](openapi.md#getcurrentaccountid)
 * [instrumentInfo](openapi.md#instrumentinfo)
 * [instrumentPortfolio](openapi.md#instrumentportfolio)
 * [limitOrder](openapi.md#limitorder)
@@ -35,6 +36,7 @@
 * [search](openapi.md#search)
 * [searchOne](openapi.md#searchone)
 * [setCurrenciesBalance](openapi.md#setcurrenciesbalance)
+* [setCurrentAccountId](openapi.md#setcurrentaccountid)
 * [setPositionBalance](openapi.md#setpositionbalance)
 * [stocks](openapi.md#stocks)
 
@@ -51,7 +53,8 @@
 Name | Type | Description |
 ------ | ------ | ------ |
 `apiURL` | string | REST api url см [документацию](https://tinkoffcreditsystems.github.io/invest-openapi/env/) |
-`secretToken` | string | токен доступа см [получение токена доступа](https://tinkoffcreditsystems.github.io/invest-openapi/auth/)   |
+`brokerAccountId` | undefined &#124; string | номер счета (по умолчанию - Тинькофф)  |
+`secretToken` | string | токен доступа см [получение токена доступа](https://tinkoffcreditsystems.github.io/invest-openapi/auth/) |
 `socketURL` | string | Streaming api url см [документацию](https://tinkoffcreditsystems.github.io/invest-openapi/env/) |
 
 **Returns:** *[OpenAPI](openapi.md)*
@@ -90,8 +93,7 @@ ___
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`brokerAccountId` | undefined &#124; string | номер счета (по умолчанию - Тинькофф)  |
-`orderId` | string | идентифткатор заявки |
+`orderId` | string | идентифткатор заявки  |
 
 **Returns:** *Promise‹void›*
 
@@ -173,6 +175,16 @@ ___
 
 ___
 
+###  getCurrentAccountId
+
+▸ **getCurrentAccountId**(): *string | undefined*
+
+Метод возвращает текущий номер счета (*undefined* - значение по умолчанию для счета Тинькофф).
+
+**Returns:** *string | undefined*
+
+___
+
 ###  instrumentInfo
 
 ▸ **instrumentInfo**(`__namedParameters`: object, `cb`: log): *(Anonymous function)*
@@ -201,7 +213,7 @@ ___
 
 ###  instrumentPortfolio
 
-▸ **instrumentPortfolio**(`params`: [InstrumentId](../globals.md#instrumentid) & [BrokerAccountId](../globals.md#brokeraccountid)): *Promise‹[PortfolioPosition](../globals.md#portfolioposition) | null›*
+▸ **instrumentPortfolio**(`params`: [InstrumentId](../globals.md#instrumentid)): *Promise‹[PortfolioPosition](../globals.md#portfolioposition) | null›*
 
 Метод для получение данных по инструменту в портфеле
 
@@ -209,7 +221,7 @@ ___
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`params` | [InstrumentId](../globals.md#instrumentid) & [BrokerAccountId](../globals.md#brokeraccountid) | см. описание типа  |
+`params` | [InstrumentId](../globals.md#instrumentid) | см. описание типа  |
 
 **Returns:** *Promise‹[PortfolioPosition](../globals.md#portfolioposition) | null›*
 
@@ -227,11 +239,10 @@ ___
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`brokerAccountId` | undefined &#124; string | номер счета (по умолчанию - Тинькофф)  |
 `figi` | string | идентификатор инструмента |
 `lots` | number | количество лотов для заявки |
 `operation` | "Buy" &#124; "Sell" | тип заявки |
-`price` | number | цена лимитной заявки |
+`price` | number | цена лимитной заявки  |
 
 **Returns:** *Promise‹[PlacedLimitOrder](../globals.md#placedlimitorder)›*
 
@@ -249,7 +260,6 @@ ___
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`brokerAccountId` | undefined &#124; string | номер счета (по умолчанию - Тинькофф)  |
 `figi` | string | идентификатор инструмента |
 `lots` | number | количество лотов для заявки |
 `operation` | "Buy" &#124; "Sell" | тип заявки |
@@ -270,8 +280,7 @@ ___
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`brokerAccountId` | undefined &#124; string | номер счета (по умолчанию - Тинькофф)  |
-`figi` | undefined &#124; string | Figi-идентификатор инструмента |
+`figi` | undefined &#124; string | Figi-идентификатор инструмента  |
 `from` | string | Начало временного промежутка в формате ISO 8601 |
 `to` | string | Конец временного промежутка в формате ISO 8601 |
 
@@ -341,15 +350,9 @@ ___
 
 ###  orders
 
-▸ **orders**(`params?`: [BrokerAccountId](../globals.md#brokeraccountid)): *Promise‹[Order](../globals.md#order)[]›*
+▸ **orders**(): *Promise‹[Order](../globals.md#order)[]›*
 
 Метод для получения всех активных заявок
-
-**Parameters:**
-
-Name | Type | Description |
------- | ------ | ------ |
-`params?` | [BrokerAccountId](../globals.md#brokeraccountid) | см. описание типа  |
 
 **Returns:** *Promise‹[Order](../globals.md#order)[]›*
 
@@ -357,15 +360,9 @@ ___
 
 ###  portfolio
 
-▸ **portfolio**(`params?`: [BrokerAccountId](../globals.md#brokeraccountid)): *Promise‹[Portfolio](../globals.md#portfolio)›*
+▸ **portfolio**(): *Promise‹[Portfolio](../globals.md#portfolio)›*
 
 Метод для получение портфеля цб
-
-**Parameters:**
-
-Name | Type | Description |
------- | ------ | ------ |
-`params?` | [BrokerAccountId](../globals.md#brokeraccountid) | см. описание типа  |
 
 **Returns:** *Promise‹[Portfolio](../globals.md#portfolio)›*
 
@@ -373,15 +370,9 @@ ___
 
 ###  portfolioCurrencies
 
-▸ **portfolioCurrencies**(`params?`: [BrokerAccountId](../globals.md#brokeraccountid)): *Promise‹[Currencies](../globals.md#currencies)›*
+▸ **portfolioCurrencies**(): *Promise‹[Currencies](../globals.md#currencies)›*
 
 Метод для получения валютных активов клиента
-
-**Parameters:**
-
-Name | Type | Description |
------- | ------ | ------ |
-`params?` | [BrokerAccountId](../globals.md#brokeraccountid) | см. описание типа  |
 
 **Returns:** *Promise‹[Currencies](../globals.md#currencies)›*
 
@@ -389,15 +380,9 @@ ___
 
 ###  sandboxClear
 
-▸ **sandboxClear**(`params?`: [BrokerAccountId](../globals.md#brokeraccountid)): *Promise‹any›*
+▸ **sandboxClear**(): *Promise‹any›*
 
 Метод для очистки песочницы
-
-**Parameters:**
-
-Name | Type | Description |
------- | ------ | ------ |
-`params?` | [BrokerAccountId](../globals.md#brokeraccountid) | см. описание типа  |
 
 **Returns:** *Promise‹any›*
 
@@ -437,7 +422,7 @@ ___
 
 ###  setCurrenciesBalance
 
-▸ **setCurrenciesBalance**(`params`: [SandboxSetCurrencyBalanceRequest](../globals.md#sandboxsetcurrencybalancerequest) & [BrokerAccountId](../globals.md#brokeraccountid)): *Promise‹void›*
+▸ **setCurrenciesBalance**(`params`: [SandboxSetCurrencyBalanceRequest](../globals.md#sandboxsetcurrencybalancerequest)): *Promise‹void›*
 
 Метод для задания баланса по валютам
 
@@ -445,15 +430,31 @@ ___
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`params` | [SandboxSetCurrencyBalanceRequest](../globals.md#sandboxsetcurrencybalancerequest) & [BrokerAccountId](../globals.md#brokeraccountid) | см. описание типа  |
+`params` | [SandboxSetCurrencyBalanceRequest](../globals.md#sandboxsetcurrencybalancerequest) | см. описание типа  |
 
 **Returns:** *Promise‹void›*
 
 ___
 
+###  setCurrentAccountId
+
+▸ **setCurrentAccountId**(`brokerAccountId`: string | undefined): *void*
+
+Метод для сохранения номера счета по умолчанию.
+
+**Parameters:**
+
+Name | Type | Description |
+------ | ------ | ------ |
+`brokerAccountId` | string &#124; undefined | Номер счета. Для счета Тинькофф можно также передать значение *undefined*.  |
+
+**Returns:** *void*
+
+___
+
 ###  setPositionBalance
 
-▸ **setPositionBalance**(`params`: [SandboxSetPositionBalanceRequest](../globals.md#sandboxsetpositionbalancerequest) & [BrokerAccountId](../globals.md#brokeraccountid)): *Promise‹void›*
+▸ **setPositionBalance**(`params`: [SandboxSetPositionBalanceRequest](../globals.md#sandboxsetpositionbalancerequest)): *Promise‹void›*
 
 Метод для задания баланса по бумагам
 
@@ -461,7 +462,7 @@ ___
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`params` | [SandboxSetPositionBalanceRequest](../globals.md#sandboxsetpositionbalancerequest) & [BrokerAccountId](../globals.md#brokeraccountid) | см. описание типа  |
+`params` | [SandboxSetPositionBalanceRequest](../globals.md#sandboxsetpositionbalancerequest) | см. описание типа  |
 
 **Returns:** *Promise‹void›*
 

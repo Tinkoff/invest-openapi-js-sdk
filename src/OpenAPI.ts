@@ -26,7 +26,6 @@ import {
   Interval,
   OrderbookStreaming,
   FIGI,
-  BrokerAccountId,
 } from './types';
 import { URLSearchParams } from 'url';
 import Streaming from './Streaming';
@@ -47,6 +46,7 @@ type OpenApiConfig = {
   apiURL: string;
   socketURL: string;
   secretToken: string;
+  brokerAccountId?: string;
 };
 
 type RequestConfig<Q, B> = {
@@ -58,6 +58,7 @@ type RequestConfig<Q, B> = {
 export default class OpenAPI {
   private _streaming: Streaming;
   private _sandboxCreated: boolean = false;
+  private _currentBrokerAccountId: string | undefined = undefined;
   private readonly apiURL: string;
   private readonly secretToken: string;
   private readonly authHeaders: any;
@@ -67,10 +68,11 @@ export default class OpenAPI {
    * @param apiURL REST api url см [документацию](https://tinkoffcreditsystems.github.io/invest-openapi/env/)
    * @param socketURL Streaming api url см [документацию](https://tinkoffcreditsystems.github.io/invest-openapi/env/)
    * @param secretToken токен доступа см [получение токена доступа](https://tinkoffcreditsystems.github.io/invest-openapi/auth/)
-   *
+   * @param brokerAccountId номер счета (по умолчанию - Тинькофф)
    */
-  constructor({ apiURL, socketURL, secretToken }: OpenApiConfig) {
+  constructor({ apiURL, socketURL, secretToken, brokerAccountId }: OpenApiConfig) {
     this._streaming = new Streaming({ url: socketURL, secretToken });
+    this._currentBrokerAccountId = brokerAccountId;
     this.apiURL = apiURL;
     this.secretToken = secretToken;
     this.authHeaders = {
@@ -125,25 +127,41 @@ export default class OpenAPI {
   }
 
   /**
-   * Метод для очистки песочницы
-   * @param params см. описание типа
+   * Метод возвращает текущий номер счета (*undefined* - значение по умолчанию для счета Тинькофф).
    */
-  async sandboxClear(params?: BrokerAccountId): Promise<any> {
+  getCurrentAccountId(): string | undefined {
+    return this._currentBrokerAccountId;
+  }
+
+  /**
+   * Метод для сохранения номера счета по умолчанию.
+   * @param brokerAccountId - Номер счета. Для счета Тинькофф можно также передать значение *undefined*.
+   */
+  setCurrentAccountId(brokerAccountId: string | undefined): void {
+    this._currentBrokerAccountId = brokerAccountId;
+  }
+
+  /**
+   * Метод для очистки песочницы
+   */
+  async sandboxClear(): Promise<any> {
     await this.sandboxRegister();
-    return this.makeRequest('/sandbox/clear', { method: 'post', query: params });
+    return this.makeRequest('/sandbox/clear', {
+      method: 'post',
+      query: { brokerAccountId: this._currentBrokerAccountId },
+    });
   }
 
   /**
    * Метод для задания баланса по бумагам
    * @param params см. описание типа
    */
-  async setPositionBalance(params: SandboxSetPositionBalanceRequest & BrokerAccountId): Promise<void> {
-    const { brokerAccountId, ...body } = params;
+  async setPositionBalance(params: SandboxSetPositionBalanceRequest): Promise<void> {
     await this.sandboxRegister();
     return this.makeRequest('/sandbox/positions/balance', {
       method: 'post',
-      query: { brokerAccountId },
-      body,
+      query: { brokerAccountId: this._currentBrokerAccountId },
+      body: params,
     });
   }
 
@@ -151,47 +169,46 @@ export default class OpenAPI {
    * Метод для задания баланса по валютам
    * @param params см. описание типа
    */
-  async setCurrenciesBalance(params: SandboxSetCurrencyBalanceRequest & BrokerAccountId): Promise<void> {
-    const { brokerAccountId, ...body } = params;
+  async setCurrenciesBalance(params: SandboxSetCurrencyBalanceRequest): Promise<void> {
     await this.sandboxRegister();
     return this.makeRequest('/sandbox/currencies/balance', {
       method: 'post',
-      query: { brokerAccountId },
-      body,
+      query: { brokerAccountId: this._currentBrokerAccountId },
+      body: params,
     });
   }
 
   /**
    * Метод для получение портфеля цб
-   * @param params см. описание типа
    */
-  portfolio(params?: BrokerAccountId): Promise<Portfolio> {
-    return this.makeRequest('/portfolio', { query: params });
+  portfolio(): Promise<Portfolio> {
+    return this.makeRequest('/portfolio', {
+      query: { brokerAccountId: this._currentBrokerAccountId },
+    });
   }
 
   /**
    * Метод для получения валютных активов клиента
-   * @param params см. описание типа
    */
-  portfolioCurrencies(params?: BrokerAccountId): Promise<Currencies> {
-    return this.makeRequest('/portfolio/currencies', { query: params });
+  portfolioCurrencies(): Promise<Currencies> {
+    return this.makeRequest('/portfolio/currencies', {
+      query: { brokerAccountId: this._currentBrokerAccountId },
+    });
   }
 
   /**
    * Метод для получение данных по инструменту в портфеле
    * @param params см. описание типа
    */
-  instrumentPortfolio(params: InstrumentId & BrokerAccountId): Promise<PortfolioPosition | null> {
-    const { brokerAccountId, ...instrument } = params;
-
-    return this.portfolio({ brokerAccountId }).then((x) => {
+  instrumentPortfolio(params: InstrumentId): Promise<PortfolioPosition | null> {
+    return this.portfolio().then((x) => {
       return (
         x.positions.find((position) => {
-          if ('figi' in instrument) {
-            return position.figi === instrument.figi;
+          if ('figi' in params) {
+            return position.figi === params.figi;
           }
-          if ('ticker' in instrument) {
-            return position.ticker === instrument.ticker;
+          if ('ticker' in params) {
+            return position.ticker === params.ticker;
           }
         }) || null
       );
@@ -204,20 +221,18 @@ export default class OpenAPI {
    * @param lots количество лотов для заявки
    * @param operation тип заявки
    * @param price цена лимитной заявки
-   * @param brokerAccountId номер счета (по умолчанию - Тинькофф)
    */
   limitOrder({
     figi,
     lots,
     operation,
     price,
-    brokerAccountId,
-  }: LimitOrderRequest & FIGI & BrokerAccountId): Promise<PlacedLimitOrder> {
+  }: LimitOrderRequest & FIGI): Promise<PlacedLimitOrder> {
     return this.makeRequest('/orders/limit-order', {
       method: 'post',
       query: {
         figi,
-        brokerAccountId,
+        brokerAccountId: this._currentBrokerAccountId,
       },
       body: {
         lots,
@@ -233,19 +248,17 @@ export default class OpenAPI {
    * @param lots количество лотов для заявки
    * @param operation тип заявки
    * @param price цена лимитной заявки
-   * @param brokerAccountId номер счета (по умолчанию - Тинькофф)
    */
   marketOrder({
     figi,
     lots,
     operation,
-    brokerAccountId,
-  }: MarketOrderRequest & FIGI & BrokerAccountId): Promise<PlacedMarketOrder> {
+  }: MarketOrderRequest & FIGI): Promise<PlacedMarketOrder> {
     return this.makeRequest('/orders/market-order', {
       method: 'post',
       query: {
         figi,
-        brokerAccountId,
+        brokerAccountId: this._currentBrokerAccountId,
       },
       body: {
         lots,
@@ -258,24 +271,24 @@ export default class OpenAPI {
   /**
    * Метод для отмены активных заявок
    * @param orderId идентифткатор заявки
-   * @param brokerAccountId номер счета (по умолчанию - Тинькофф)
    */
-  cancelOrder({ orderId, brokerAccountId }: { orderId: string } & BrokerAccountId): Promise<void> {
+  cancelOrder({ orderId }: { orderId: string }): Promise<void> {
     return this.makeRequest(`/orders/cancel`, {
       method: 'post',
       query: {
         orderId,
-        brokerAccountId,
+        brokerAccountId: this._currentBrokerAccountId,
       },
     });
   }
 
   /**
    * Метод для получения всех активных заявок
-   * @param params см. описание типа
    */
-  orders(params?: BrokerAccountId): Promise<Order[]> {
-    return this.makeRequest('/orders', { query: params });
+  orders(): Promise<Order[]> {
+    return this.makeRequest('/orders', {
+      query: { brokerAccountId: this._currentBrokerAccountId }
+    });
   }
 
   /**
@@ -311,16 +324,19 @@ export default class OpenAPI {
    * @param from Начало временного промежутка в формате ISO 8601
    * @param to Конец временного промежутка в формате ISO 8601
    * @param figi Figi-идентификатор инструмента
-   * @param brokerAccountId номер счета (по умолчанию - Тинькофф)
    */
   operations({
     from,
     to,
     figi,
-    brokerAccountId,
-  }: { from: string; to: string; figi?: string } & BrokerAccountId): Promise<Operations> {
+  }: { from: string; to: string; figi?: string }): Promise<Operations> {
     return this.makeRequest('/operations', {
-      query: { from, to, figi, brokerAccountId },
+      query: {
+        from,
+        to,
+        figi,
+        brokerAccountId: this._currentBrokerAccountId,
+      },
     });
   }
 
