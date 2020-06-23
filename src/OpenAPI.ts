@@ -17,6 +17,7 @@ import {
   SandboxSetPositionBalanceRequest,
   LimitOrderRequest,
   UserAccounts,
+  Error as ErrorData,
 } from './domain';
 import {
   CandleStreaming,
@@ -84,36 +85,35 @@ export default class OpenAPI {
   /**
    * Запрос к REST
    */
-  private async makeRequest<Q, B, R>(
-    url: string,
-    { method = 'get', query, body }: RequestConfig<Q, B> = {}
-  ): Promise<R> {
+  private async makeRequest<Q, B, R>( url: string, { method = 'get', query, body }: RequestConfig<Q, B> = {}): Promise<R> {
     let requestParams: Record<string, any> = { method, headers: new Headers(this.authHeaders) };
     let requestUrl = this.apiURL + url + getQueryString(query || {});
 
-    if (method === 'post') {
-      requestParams.body = JSON.stringify(body);
+    try {
+      if (method === 'post') {
+        requestParams.body = JSON.stringify(body);
+      }
+
+      const res = await fetch(requestUrl, requestParams);
+
+      if (res.status === 401) {
+        throw new Error('Unauthorized! Try to use valid token. https://tinkoffcreditsystems.github.io/invest-openapi/auth/');
+      }
+
+      if (!res.ok) {
+        throw await res.json()
+      }
+
+      const data = await res.json();
+
+      return data.payload;
+    } catch (e) {
+      if (e instanceof Error) {
+        throw { status: 'Error', message: e.message };
+      }
+
+      throw e;
     }
-
-    const res = await fetch(requestUrl, requestParams);
-
-    if (res.status === 401) {
-      return Promise.reject(
-        new Error(
-          'Unauthorized! Try to use valid token. https://tinkoffcreditsystems.github.io/invest-openapi/auth/'
-        )
-      );
-    }
-
-    if (!res.ok) {
-      throw res.headers.get('content-type') === 'application/json'
-        ? await res.json()
-        : await res.text();
-    }
-
-    const data = await res.json();
-
-    return data.payload;
   }
 
   /**
