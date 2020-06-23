@@ -107,7 +107,7 @@ export default class OpenAPI {
 
     if (!res.ok) {
       throw res.headers.get('content-type') === 'application/json'
-        ? (await res.json()).payload
+        ? await res.json()
         : await res.text();
     }
 
