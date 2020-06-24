@@ -187,7 +187,7 @@ export default class Streaming extends EventEmitter {
     this.enqueue(message);
     this._subscribeMessages.push(message);
 
-    const handler = (x: any) => cb(x);
+    const handler = (x: any) => setImmediate(() => cb(x));
     let eventName = this.getEventName(type, params);
 
     this.on(eventName, handler);
