@@ -17,7 +17,6 @@ import {
   SandboxSetPositionBalanceRequest,
   LimitOrderRequest,
   UserAccounts,
-  Error as ErrorData,
 } from './domain';
 import {
   CandleStreaming,
