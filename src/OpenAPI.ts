@@ -88,31 +88,27 @@ export default class OpenAPI {
     let requestParams: Record<string, any> = { method, headers: new Headers(this.authHeaders) };
     let requestUrl = this.apiURL + url + getQueryString(query || {});
 
-    try {
-      if (method === 'post') {
-        requestParams.body = JSON.stringify(body);
-      }
-
-      const res = await fetch(requestUrl, requestParams);
-
-      if (res.status === 401) {
-        throw new Error('Unauthorized! Try to use valid token. https://tinkoffcreditsystems.github.io/invest-openapi/auth/');
-      }
-
-      if (!res.ok) {
-        throw await res.json()
-      }
-
-      const data = await res.json();
-
-      return data.payload;
-    } catch (e) {
-      if (e instanceof Error) {
-        throw { status: 'Error', message: e.message };
-      }
-
-      throw e;
+    if (method === 'post') {
+      requestParams.body = JSON.stringify(body);
     }
+
+    const res = await fetch(requestUrl, requestParams);
+
+    // XXX для консистентности ошибок от API
+    if (res.status === 401) {
+      throw {
+        status: 'Error',
+        message: 'Unauthorized! Try to use valid token. https://tinkoffcreditsystems.github.io/invest-openapi/auth/')
+      };
+    }
+
+    if (!res.ok) {
+      throw await res.json()
+    }
+
+    const data = await res.json();
+
+    return data.payload;
   }
 
   /**
