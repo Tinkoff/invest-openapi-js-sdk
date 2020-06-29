@@ -84,7 +84,10 @@ export default class OpenAPI {
   /**
    * Запрос к REST
    */
-  private async makeRequest<Q, B, R>( url: string, { method = 'get', query, body }: RequestConfig<Q, B> = {}): Promise<R> {
+  private async makeRequest<Q, B, R>(
+    url: string,
+    { method = 'get', query, body }: RequestConfig<Q, B> = {}
+  ): Promise<R> {
     let requestParams: Record<string, any> = { method, headers: new Headers(this.authHeaders) };
     let requestUrl = this.apiURL + url + getQueryString(query || {});
 
@@ -94,16 +97,18 @@ export default class OpenAPI {
 
     const res = await fetch(requestUrl, requestParams);
 
-    // XXX для консистентности ошибок от API
     if (res.status === 401) {
-      throw {
-        status: 'Error',
-        message: 'Unauthorized! Try to use valid token. https://tinkoffcreditsystems.github.io/invest-openapi/auth/')
-      };
+      return Promise.reject(
+        new Error(
+          'Unauthorized! Try to use valid token. https://tinkoffcreditsystems.github.io/invest-openapi/auth/'
+        )
+      );
     }
 
     if (!res.ok) {
-      throw await res.json()
+      throw res.headers.get('content-type') === 'application/json'
+        ? (await res.json()).payload
+        : await res.text();
     }
 
     const data = await res.json();
