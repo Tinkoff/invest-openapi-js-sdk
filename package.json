@@ -1,6 +1,6 @@
 {
   "name": "@tinkoff/invest-openapi-js-sdk",
-  "version": "1.2.13",
+  "version": "1.2.15",
   "description": "Tinkoff Invest OpenAPI Client",
   "main": "./build/OpenAPI.cjs.js",
   "module": "./build/OpenAPI.esm.js",
@@ -31,21 +31,20 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@tinkoff/swagger-types-generator": "0.0.9",
-    "@types/ws": "^7.2.3",
+    "@types/ws": "^7.2.5",
     "fsevents": "^2.0.7",
-    "prettier": "^2.0.4",
-    "rollup": "^1.21.3",
-    "rollup-plugin-dts": "^1.1.11",
-    "rollup-plugin-typescript": "^1.0.1",
-    "rollup-plugin-typescript2": "^0.24.3",
-    "tslib": "^1.10.0",
-    "typedoc": "^0.15.0",
-    "typedoc-plugin-markdown": "^2.2.10",
+    "prettier": "^2.0.5",
+    "rollup": "^2.18.0",
+    "rollup-plugin-dts": "^1.4.7",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "tslib": "^2.0.0",
+    "typedoc": "^0.17.7",
+    "typedoc-plugin-markdown": "^2.3.1",
     "typedoc-plugin-no-inherit": "^1.1.10",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.5"
   },
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
-    "ws": "^7.1.2"
+    "ws": "^7.3.0"
   }
 }

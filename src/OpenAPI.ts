@@ -98,7 +98,8 @@ export default class OpenAPI {
     if (res.status === 401) {
       throw {
         status: 'Error',
-        message: 'Unauthorized! Try to use valid token. https://tinkoffcreditsystems.github.io/invest-openapi/auth/')
+        message:
+          'Unauthorized! Try to use valid token. https://tinkoffcreditsystems.github.io/invest-openapi/auth/',
       };
     }
 
@@ -244,11 +245,7 @@ export default class OpenAPI {
    * @param operation тип заявки
    * @param price цена лимитной заявки
    */
-  marketOrder({
-    figi,
-    lots,
-    operation,
-  }: MarketOrderRequest & FIGI): Promise<PlacedMarketOrder> {
+  marketOrder({ figi, lots, operation }: MarketOrderRequest & FIGI): Promise<PlacedMarketOrder> {
     return this.makeRequest('/orders/market-order', {
       method: 'post',
       query: {
@@ -282,7 +279,7 @@ export default class OpenAPI {
    */
   orders(): Promise<Order[]> {
     return this.makeRequest('/orders', {
-      query: { brokerAccountId: this._currentBrokerAccountId }
+      query: { brokerAccountId: this._currentBrokerAccountId },
     });
   }
 
@@ -320,11 +317,7 @@ export default class OpenAPI {
    * @param to Конец временного промежутка в формате ISO 8601
    * @param figi Figi-идентификатор инструмента
    */
-  operations({
-    from,
-    to,
-    figi,
-  }: { from: string; to: string; figi?: string }): Promise<Operations> {
+  operations({ from, to, figi }: { from: string; to: string; figi?: string }): Promise<Operations> {
     return this.makeRequest('/operations', {
       query: {
         from,
