@@ -104,7 +104,7 @@ export default class OpenAPI {
     }
 
     if (!res.ok) {
-      throw await res.json()
+      throw await res.json();
     }
 
     const data = await res.json();
