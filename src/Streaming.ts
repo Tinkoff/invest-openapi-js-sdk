@@ -57,6 +57,7 @@ export default class Streaming extends EventEmitter {
     }
 
     this._ws = new WebSocket(this.socketURL, {
+      handshakeTimeout: 4000,
       perMessageDeflate: false,
       headers: this.authHeaders,
     });
