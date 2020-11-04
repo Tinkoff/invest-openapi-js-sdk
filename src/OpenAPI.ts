@@ -26,6 +26,7 @@ import {
   Interval,
   OrderbookStreaming,
   FIGI,
+  InstrumentInfoStreaming,
 } from './types';
 import { URLSearchParams } from 'url';
 import Streaming from './Streaming';
@@ -430,7 +431,7 @@ export default class OpenAPI {
    * @param cb функция для обработки новых данных по инструменту
    * @return функция для отмены подписки
    */
-  instrumentInfo({ figi }: { figi: string }, cb = console.log) {
+  instrumentInfo({ figi }: { figi: string }, cb: (x: InstrumentInfoStreaming) => any = console.log) {
     return this._streaming.instrumentInfo({ figi }, cb);
   }
 

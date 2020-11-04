@@ -40,6 +40,14 @@ export type CandleStreaming = {
     /** Серверное время в формате RFC3339Nano */
     serverTime: string;
 };
+export type InstrumentInfoStreaming = {
+    figi: string;
+    trade_status: string;
+    min_price_increment: number;
+    lot: number;
+    /** Серверное время в формате RFC3339Nano */
+    serverTime: string;
+  };
 
 export type LimitOrderParams = {
     figi: string;
