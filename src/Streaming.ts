@@ -133,7 +133,8 @@ export default class Streaming extends EventEmitter {
    * Обработчик входящих сообщений
    */
   private handleSocketMessage = (m: string) => {
-    const { event: type, payload } = JSON.parse(m);
+    const { event: type, payload: payloadField, time: serverTime } = JSON.parse(m);
+    const payload = { ...payloadField, serverTime, };
 
     this.emit(this.getEventName(type, payload), payload);
   };

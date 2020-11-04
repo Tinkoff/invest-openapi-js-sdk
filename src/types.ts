@@ -24,6 +24,8 @@ export type OrderbookStreaming = {
     depth: Depth;
     bids: Array<[number, number]>;
     asks: Array<[number, number]>;
+    /** Серверное время в формате RFC3339Nano */
+    serverTime: string;
 };
 export type InstrumentId = { ticker: string } | { figi: string };
 export type CandleStreaming = {
@@ -35,6 +37,8 @@ export type CandleStreaming = {
     time: string;
     interval: Interval;
     figi: string;
+    /** Серверное время в формате RFC3339Nano */
+    serverTime: string;
 };
 
 export type LimitOrderParams = {
