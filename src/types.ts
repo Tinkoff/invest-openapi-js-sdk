@@ -41,10 +41,20 @@ export type CandleStreaming = {
     serverTime: string;
 };
 export type InstrumentInfoStreaming = {
-    figi: string;
+    /** Статус торгов */
     trade_status: string;
+    /** Шаг цены */
     min_price_increment: number;
+    /** Лот */
     lot: number;
+    /** НКД. Возвращается только для бондов */
+    accrued_interest?: number;
+    /** Верхняя граница заявки. Возвращается только для RTS инструментов */
+    limit_up?: number;
+    /** Нижняя граница заявки. Возвращается только для RTS инструментов */
+    limit_down?: number;
+    /** FIGI */
+    figi: string;
     /** Серверное время в формате RFC3339Nano */
     serverTime: string;
   };
