@@ -1,6 +1,6 @@
-[@tinkoff/invest-openapi-js-sdk - v1.2.12](README.md) › [Globals](globals.md)
+[@tinkoff/invest-openapi-js-sdk](README.md) › [Globals](globals.md)
 
-# @tinkoff/invest-openapi-js-sdk - v1.2.12
+# @tinkoff/invest-openapi-js-sdk
 
 ## Index
 
@@ -27,6 +27,7 @@
 * [FIGI](globals.md#figi)
 * [HttpMethod](globals.md#httpmethod)
 * [InstrumentId](globals.md#instrumentid)
+* [InstrumentInfoStreaming](globals.md#instrumentinfostreaming)
 * [InstrumentType](globals.md#instrumenttype)
 * [Interval](globals.md#interval)
 * [LimitOrderParams](globals.md#limitorderparams)
@@ -136,6 +137,8 @@ ___
 * **l**: *number*
 
 * **o**: *number*
+
+* **serverTime**: *string*
 
 * **time**: *string*
 
@@ -282,6 +285,24 @@ ___
 
 ___
 
+###  InstrumentInfoStreaming
+
+Ƭ **InstrumentInfoStreaming**: *object*
+
+#### Type declaration:
+
+* **figi**: *string*
+
+* **lot**: *number*
+
+* **min_price_increment**: *number*
+
+* **serverTime**: *string*
+
+* **trade_status**: *string*
+
+___
+
 ###  InstrumentType
 
 Ƭ **InstrumentType**: *"Stock" | "Currency" | "Bond" | "Etf"*
@@ -353,6 +374,8 @@ ___
 * **lot**: *number*
 
 * **minPriceIncrement**? : *undefined | number*
+
+* **minQuantity**? : *undefined | number*
 
 * **name**: *string*
 
@@ -483,6 +506,8 @@ ___
 * **price**? : *undefined | number*
 
 * **quantity**? : *undefined | number*
+
+* **quantityExecuted**? : *undefined | number*
 
 * **status**: *[OperationStatus](globals.md#operationstatus)*
 
@@ -653,6 +678,8 @@ ___
 * **depth**: *[Depth](globals.md#depth)*
 
 * **figi**: *string*
+
+* **serverTime**: *string*
 
 ___
 

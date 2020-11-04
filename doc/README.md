@@ -1,6 +1,6 @@
-[@tinkoff/invest-openapi-js-sdk - v1.2.12](README.md) › [Globals](globals.md)
+[@tinkoff/invest-openapi-js-sdk](README.md) › [Globals](globals.md)
 
-# @tinkoff/invest-openapi-js-sdk - v1.2.12
+# @tinkoff/invest-openapi-js-sdk
 
 # Trading Open API - JS SDK
 
