@@ -24,6 +24,8 @@ export type OrderbookStreaming = {
     depth: Depth;
     bids: Array<[number, number]>;
     asks: Array<[number, number]>;
+};
+export type OrderbookStreamingOtherParams = {
     /** Серверное время в формате RFC3339Nano */
     serverTime: string;
 };
@@ -37,6 +39,8 @@ export type CandleStreaming = {
     time: string;
     interval: Interval;
     figi: string;
+};
+export type CandleStreamingOtherParams = {
     /** Серверное время в формате RFC3339Nano */
     serverTime: string;
 };
@@ -55,9 +59,11 @@ export type InstrumentInfoStreaming = {
     limit_down?: number;
     /** FIGI */
     figi: string;
+};
+export type InstrumentInfoStreamingOtherParams = {
     /** Серверное время в формате RFC3339Nano */
     serverTime: string;
-  };
+};
 
 export type LimitOrderParams = {
     figi: string;

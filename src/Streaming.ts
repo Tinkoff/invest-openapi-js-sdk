@@ -2,10 +2,14 @@ import { EventEmitter } from 'events';
 import WebSocket from 'ws';
 import {
   CandleStreaming,
+  CandleStreamingOtherParams,
   Depth,
   Dict,
+  InstrumentInfoStreaming,
+  InstrumentInfoStreamingOtherParams,
   Interval,
   OrderbookStreaming,
+  OrderbookStreamingOtherParams,
   SocketEventType,
 } from './types';
 
@@ -133,10 +137,11 @@ export default class Streaming extends EventEmitter {
    * Обработчик входящих сообщений
    */
   private handleSocketMessage = (m: string) => {
-    const { event: type, payload: payloadField, time: serverTime } = JSON.parse(m);
-    const payload = { ...payloadField, serverTime, };
+    const { event: type, payload, time: serverTime } = JSON.parse(m);
 
-    this.emit(this.getEventName(type, payload), payload);
+    const otherFields = { serverTime };
+
+    this.emit(this.getEventName(type, payload), payload, otherFields);
   };
 
   /**
@@ -210,7 +215,7 @@ export default class Streaming extends EventEmitter {
 
   orderbook(
     { figi, depth = 3 }: { figi: string; depth?: Depth },
-    cb: (x: OrderbookStreaming) => any = console.log
+    cb: (x: OrderbookStreaming, otherParams: OrderbookStreamingOtherParams) => any = console.log
   ) {
     return this.subscribeToSocket({ type: 'orderbook', figi, depth }, cb);
   }
@@ -225,7 +230,7 @@ export default class Streaming extends EventEmitter {
    */
   candle(
     { figi, interval = '1min' }: { figi: string; interval?: Interval },
-    cb: (x: CandleStreaming) => any = console.log
+    cb: (x: CandleStreaming, otherParams: CandleStreamingOtherParams) => any = console.log
   ) {
     return this.subscribeToSocket({ type: 'candle', figi, interval }, cb);
   }
@@ -237,7 +242,7 @@ export default class Streaming extends EventEmitter {
    * @param cb функция для обработки новых данных по инструменту
    * @return функция для отмены подписки
    */
-  instrumentInfo({ figi }: { figi: string }, cb = console.log) {
+  instrumentInfo({ figi }: { figi: string }, cb: (x: InstrumentInfoStreaming, otherParams: InstrumentInfoStreamingOtherParams) => any = console.log) {
     return this.subscribeToSocket({ type: 'instrument_info', figi }, cb);
   }
 }

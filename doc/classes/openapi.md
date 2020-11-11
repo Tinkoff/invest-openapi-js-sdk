@@ -120,13 +120,14 @@ Name | Type | Default | Description |
 
 функция для обработки новых данных по свечи
 
-▸ (`x`: [CandleStreaming](../globals.md#candlestreaming)): *any*
+▸ (`x`: [CandleStreaming](../globals.md#candlestreaming), `otherParams`: [CandleStreamingOtherParams](../globals.md#candlestreamingotherparams)): *any*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `x` | [CandleStreaming](../globals.md#candlestreaming) |
+`otherParams` | [CandleStreamingOtherParams](../globals.md#candlestreamingotherparams) |
 
 **Returns:** *(Anonymous function)*
 
@@ -205,13 +206,14 @@ Name | Type | Description |
 
 функция для обработки новых данных по инструменту
 
-▸ (`x`: [InstrumentInfoStreaming](../globals.md#instrumentinfostreaming)): *any*
+▸ (`x`: [InstrumentInfoStreaming](../globals.md#instrumentinfostreaming), `otherParams`: [InstrumentInfoStreamingOtherParams](../globals.md#instrumentinfostreamingotherparams)): *any*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `x` | [InstrumentInfoStreaming](../globals.md#instrumentinfostreaming) |
+`otherParams` | [InstrumentInfoStreamingOtherParams](../globals.md#instrumentinfostreamingotherparams) |
 
 **Returns:** *(Anonymous function)*
 

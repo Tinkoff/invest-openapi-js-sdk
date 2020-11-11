@@ -14,6 +14,7 @@
 * [Candle](globals.md#candle)
 * [CandleResolution](globals.md#candleresolution)
 * [CandleStreaming](globals.md#candlestreaming)
+* [CandleStreamingOtherParams](globals.md#candlestreamingotherparams)
 * [Candles](globals.md#candles)
 * [CandlesResponse](globals.md#candlesresponse)
 * [Currencies](globals.md#currencies)
@@ -28,6 +29,7 @@
 * [HttpMethod](globals.md#httpmethod)
 * [InstrumentId](globals.md#instrumentid)
 * [InstrumentInfoStreaming](globals.md#instrumentinfostreaming)
+* [InstrumentInfoStreamingOtherParams](globals.md#instrumentinfostreamingotherparams)
 * [InstrumentType](globals.md#instrumenttype)
 * [Interval](globals.md#interval)
 * [LimitOrderParams](globals.md#limitorderparams)
@@ -55,6 +57,7 @@
 * [Orderbook](globals.md#orderbook)
 * [OrderbookResponse](globals.md#orderbookresponse)
 * [OrderbookStreaming](globals.md#orderbookstreaming)
+* [OrderbookStreamingOtherParams](globals.md#orderbookstreamingotherparams)
 * [OrdersResponse](globals.md#ordersresponse)
 * [PlacedLimitOrder](globals.md#placedlimitorder)
 * [PlacedMarketOrder](globals.md#placedmarketorder)
@@ -138,11 +141,19 @@ ___
 
 * **o**: *number*
 
-* **serverTime**: *string*
-
 * **time**: *string*
 
 * **v**: *number*
+
+___
+
+###  CandleStreamingOtherParams
+
+Ƭ **CandleStreamingOtherParams**: *object*
+
+#### Type declaration:
+
+* **serverTime**: *string*
 
 ___
 
@@ -291,15 +302,29 @@ ___
 
 #### Type declaration:
 
+* **accrued_interest**? : *undefined | number*
+
 * **figi**: *string*
+
+* **limit_down**? : *undefined | number*
+
+* **limit_up**? : *undefined | number*
 
 * **lot**: *number*
 
 * **min_price_increment**: *number*
 
-* **serverTime**: *string*
-
 * **trade_status**: *string*
+
+___
+
+###  InstrumentInfoStreamingOtherParams
+
+Ƭ **InstrumentInfoStreamingOtherParams**: *object*
+
+#### Type declaration:
+
+* **serverTime**: *string*
 
 ___
 
@@ -678,6 +703,14 @@ ___
 * **depth**: *[Depth](globals.md#depth)*
 
 * **figi**: *string*
+
+___
+
+###  OrderbookStreamingOtherParams
+
+Ƭ **OrderbookStreamingOtherParams**: *object*
+
+#### Type declaration:
 
 * **serverTime**: *string*
 
