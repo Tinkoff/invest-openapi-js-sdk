@@ -14,7 +14,7 @@
 * [Candle](globals.md#candle)
 * [CandleResolution](globals.md#candleresolution)
 * [CandleStreaming](globals.md#candlestreaming)
-* [CandleStreamingOtherParams](globals.md#candlestreamingotherparams)
+* [CandleStreamingMetaParams](globals.md#candlestreamingotherparams)
 * [Candles](globals.md#candles)
 * [CandlesResponse](globals.md#candlesresponse)
 * [Currencies](globals.md#currencies)
@@ -29,7 +29,7 @@
 * [HttpMethod](globals.md#httpmethod)
 * [InstrumentId](globals.md#instrumentid)
 * [InstrumentInfoStreaming](globals.md#instrumentinfostreaming)
-* [InstrumentInfoStreamingOtherParams](globals.md#instrumentinfostreamingotherparams)
+* [InstrumentInfoStreamingMetaParams](globals.md#instrumentinfostreamingotherparams)
 * [InstrumentType](globals.md#instrumenttype)
 * [Interval](globals.md#interval)
 * [LimitOrderParams](globals.md#limitorderparams)
@@ -57,7 +57,7 @@
 * [Orderbook](globals.md#orderbook)
 * [OrderbookResponse](globals.md#orderbookresponse)
 * [OrderbookStreaming](globals.md#orderbookstreaming)
-* [OrderbookStreamingOtherParams](globals.md#orderbookstreamingotherparams)
+* [OrderbookStreamingMetaParams](globals.md#orderbookstreamingotherparams)
 * [OrdersResponse](globals.md#ordersresponse)
 * [PlacedLimitOrder](globals.md#placedlimitorder)
 * [PlacedMarketOrder](globals.md#placedmarketorder)
@@ -147,9 +147,9 @@ ___
 
 ___
 
-###  CandleStreamingOtherParams
+###  CandleStreamingMetaParams
 
-Ƭ **CandleStreamingOtherParams**: *object*
+Ƭ **CandleStreamingMetaParams**: *object*
 
 #### Type declaration:
 
@@ -318,9 +318,9 @@ ___
 
 ___
 
-###  InstrumentInfoStreamingOtherParams
+###  InstrumentInfoStreamingMetaParams
 
-Ƭ **InstrumentInfoStreamingOtherParams**: *object*
+Ƭ **InstrumentInfoStreamingMetaParams**: *object*
 
 #### Type declaration:
 
@@ -706,9 +706,9 @@ ___
 
 ___
 
-###  OrderbookStreamingOtherParams
+###  OrderbookStreamingMetaParams
 
-Ƭ **OrderbookStreamingOtherParams**: *object*
+Ƭ **OrderbookStreamingMetaParams**: *object*
 
 #### Type declaration:
 

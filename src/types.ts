@@ -25,7 +25,7 @@ export type OrderbookStreaming = {
     bids: Array<[number, number]>;
     asks: Array<[number, number]>;
 };
-export type OrderbookStreamingOtherParams = {
+export type OrderbookStreamingMetaParams = {
     /** Серверное время в формате RFC3339Nano */
     serverTime: string;
 };
@@ -40,7 +40,7 @@ export type CandleStreaming = {
     interval: Interval;
     figi: string;
 };
-export type CandleStreamingOtherParams = {
+export type CandleStreamingMetaParams = {
     /** Серверное время в формате RFC3339Nano */
     serverTime: string;
 };
@@ -60,7 +60,7 @@ export type InstrumentInfoStreaming = {
     /** FIGI */
     figi: string;
 };
-export type InstrumentInfoStreamingOtherParams = {
+export type InstrumentInfoStreamingMetaParams = {
     /** Серверное время в формате RFC3339Nano */
     serverTime: string;
 };

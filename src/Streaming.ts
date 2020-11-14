@@ -2,14 +2,14 @@ import { EventEmitter } from 'events';
 import WebSocket from 'ws';
 import {
   CandleStreaming,
-  CandleStreamingOtherParams,
+  CandleStreamingMetaParams,
   Depth,
   Dict,
   InstrumentInfoStreaming,
-  InstrumentInfoStreamingOtherParams,
+  InstrumentInfoStreamingMetaParams,
   Interval,
   OrderbookStreaming,
-  OrderbookStreamingOtherParams,
+  OrderbookStreamingMetaParams,
   SocketEventType,
 } from './types';
 
@@ -215,7 +215,7 @@ export default class Streaming extends EventEmitter {
 
   orderbook(
     { figi, depth = 3 }: { figi: string; depth?: Depth },
-    cb: (x: OrderbookStreaming, otherParams: OrderbookStreamingOtherParams) => any = console.log
+    cb: (x: OrderbookStreaming, metaParams: OrderbookStreamingMetaParams) => any = console.log
   ) {
     return this.subscribeToSocket({ type: 'orderbook', figi, depth }, cb);
   }
@@ -230,7 +230,7 @@ export default class Streaming extends EventEmitter {
    */
   candle(
     { figi, interval = '1min' }: { figi: string; interval?: Interval },
-    cb: (x: CandleStreaming, otherParams: CandleStreamingOtherParams) => any = console.log
+    cb: (x: CandleStreaming, metaParams: CandleStreamingMetaParams) => any = console.log
   ) {
     return this.subscribeToSocket({ type: 'candle', figi, interval }, cb);
   }
@@ -242,7 +242,7 @@ export default class Streaming extends EventEmitter {
    * @param cb функция для обработки новых данных по инструменту
    * @return функция для отмены подписки
    */
-  instrumentInfo({ figi }: { figi: string }, cb: (x: InstrumentInfoStreaming, otherParams: InstrumentInfoStreamingOtherParams) => any = console.log) {
+  instrumentInfo({ figi }: { figi: string }, cb: (x: InstrumentInfoStreaming, metaParams: InstrumentInfoStreamingMetaParams) => any = console.log) {
     return this.subscribeToSocket({ type: 'instrument_info', figi }, cb);
   }
 }
