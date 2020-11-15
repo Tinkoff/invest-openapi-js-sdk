@@ -1,4 +1,4 @@
-[@tinkoff/invest-openapi-js-sdk - v1.2.12](../README.md) › [Globals](../globals.md) › [OpenAPI](openapi.md)
+[@tinkoff/invest-openapi-js-sdk](../README.md) › [Globals](../globals.md) › [OpenAPI](openapi.md)
 
 # Class: OpenAPI
 
@@ -116,17 +116,18 @@ Name | Type | Default | Description |
 `figi` | string | - | идентификатор инструмента |
 `interval` | "1min" &#124; "2min" &#124; "3min" &#124; "5min" &#124; "10min" &#124; "15min" &#124; "30min" &#124; "hour" &#124; "day" &#124; "week" &#124; "month" &#124; "2hour" &#124; "4hour" | "1min" | интервал для свечи |
 
-▪`Default value`  **cb**: *function*=  console.log
+▪`Default value`  **cb**: *function*= console.log
 
 функция для обработки новых данных по свечи
 
-▸ (`x`: [CandleStreaming](../globals.md#candlestreaming)): *any*
+▸ (`x`: [CandleStreaming](../globals.md#candlestreaming), `metaParams`: [CandleStreamingMetaParams](../globals.md#candlestreamingotherparams)): *any*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `x` | [CandleStreaming](../globals.md#candlestreaming) |
+`metaParams` | [CandleStreamingMetaParams](../globals.md#candlestreamingotherparams) |
 
 **Returns:** *(Anonymous function)*
 
@@ -187,7 +188,7 @@ ___
 
 ###  instrumentInfo
 
-▸ **instrumentInfo**(`__namedParameters`: object, `cb`: log): *(Anonymous function)*
+▸ **instrumentInfo**(`__namedParameters`: object, `cb`: function): *(Anonymous function)*
 
 Метод для подписки на данные по инструменту
 
@@ -201,9 +202,18 @@ Name | Type | Description |
 ------ | ------ | ------ |
 `figi` | string | идентификатор инструмента |
 
-▪`Default value`  **cb**: *log*=  console.log
+▪`Default value`  **cb**: *function*= console.log
 
 функция для обработки новых данных по инструменту
+
+▸ (`x`: [InstrumentInfoStreaming](../globals.md#instrumentinfostreaming), `metaParams`: [InstrumentInfoStreamingMetaParams](../globals.md#instrumentinfostreamingotherparams)): *any*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`x` | [InstrumentInfoStreaming](../globals.md#instrumentinfostreaming) |
+`metaParams` | [InstrumentInfoStreamingMetaParams](../globals.md#instrumentinfostreamingotherparams) |
 
 **Returns:** *(Anonymous function)*
 
@@ -294,7 +304,7 @@ ___
 
 Метод для подписки на данные по стакану инструмента
 
-**`example`** 
+**`example`**
 ```typescript
 const { figi } = await api.searchOne({ ticker: 'AAPL' });
 const unsubFromAAPL = api.orderbook({ figi }, (ob) => { console.log(ob.bids) });
@@ -311,7 +321,7 @@ Name | Type | Default | Description |
 `depth` | 1 &#124; 2 &#124; 3 &#124; 4 &#124; 5 &#124; 6 &#124; 7 &#124; 8 &#124; 9 &#124; 10 | 3 | - |
 `figi` | string | - | идентификатор инструмента |
 
-▪`Default value`  **cb**: *function*=  console.log
+▪`Default value`  **cb**: *function*= console.log
 
 функция для обработки новых данных по стакану
 

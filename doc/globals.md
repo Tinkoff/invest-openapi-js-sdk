@@ -1,6 +1,6 @@
-[@tinkoff/invest-openapi-js-sdk - v1.2.12](README.md) › [Globals](globals.md)
+[@tinkoff/invest-openapi-js-sdk](README.md) › [Globals](globals.md)
 
-# @tinkoff/invest-openapi-js-sdk - v1.2.12
+# @tinkoff/invest-openapi-js-sdk
 
 ## Index
 
@@ -14,6 +14,7 @@
 * [Candle](globals.md#candle)
 * [CandleResolution](globals.md#candleresolution)
 * [CandleStreaming](globals.md#candlestreaming)
+* [CandleStreamingMetaParams](globals.md#candlestreamingotherparams)
 * [Candles](globals.md#candles)
 * [CandlesResponse](globals.md#candlesresponse)
 * [Currencies](globals.md#currencies)
@@ -27,6 +28,8 @@
 * [FIGI](globals.md#figi)
 * [HttpMethod](globals.md#httpmethod)
 * [InstrumentId](globals.md#instrumentid)
+* [InstrumentInfoStreaming](globals.md#instrumentinfostreaming)
+* [InstrumentInfoStreamingMetaParams](globals.md#instrumentinfostreamingotherparams)
 * [InstrumentType](globals.md#instrumenttype)
 * [Interval](globals.md#interval)
 * [LimitOrderParams](globals.md#limitorderparams)
@@ -54,6 +57,7 @@
 * [Orderbook](globals.md#orderbook)
 * [OrderbookResponse](globals.md#orderbookresponse)
 * [OrderbookStreaming](globals.md#orderbookstreaming)
+* [OrderbookStreamingMetaParams](globals.md#orderbookstreamingotherparams)
 * [OrdersResponse](globals.md#ordersresponse)
 * [PlacedLimitOrder](globals.md#placedlimitorder)
 * [PlacedMarketOrder](globals.md#placedmarketorder)
@@ -140,6 +144,16 @@ ___
 * **time**: *string*
 
 * **v**: *number*
+
+___
+
+###  CandleStreamingMetaParams
+
+Ƭ **CandleStreamingMetaParams**: *object*
+
+#### Type declaration:
+
+* **serverTime**: *string*
 
 ___
 
@@ -282,6 +296,38 @@ ___
 
 ___
 
+###  InstrumentInfoStreaming
+
+Ƭ **InstrumentInfoStreaming**: *object*
+
+#### Type declaration:
+
+* **accrued_interest**? : *undefined | number*
+
+* **figi**: *string*
+
+* **limit_down**? : *undefined | number*
+
+* **limit_up**? : *undefined | number*
+
+* **lot**: *number*
+
+* **min_price_increment**: *number*
+
+* **trade_status**: *string*
+
+___
+
+###  InstrumentInfoStreamingMetaParams
+
+Ƭ **InstrumentInfoStreamingMetaParams**: *object*
+
+#### Type declaration:
+
+* **serverTime**: *string*
+
+___
+
 ###  InstrumentType
 
 Ƭ **InstrumentType**: *"Stock" | "Currency" | "Bond" | "Etf"*
@@ -353,6 +399,8 @@ ___
 * **lot**: *number*
 
 * **minPriceIncrement**? : *undefined | number*
+
+* **minQuantity**? : *undefined | number*
 
 * **name**: *string*
 
@@ -483,6 +531,8 @@ ___
 * **price**? : *undefined | number*
 
 * **quantity**? : *undefined | number*
+
+* **quantityExecuted**? : *undefined | number*
 
 * **status**: *[OperationStatus](globals.md#operationstatus)*
 
@@ -653,6 +703,16 @@ ___
 * **depth**: *[Depth](globals.md#depth)*
 
 * **figi**: *string*
+
+___
+
+###  OrderbookStreamingMetaParams
+
+Ƭ **OrderbookStreamingMetaParams**: *object*
+
+#### Type declaration:
+
+* **serverTime**: *string*
 
 ___
 

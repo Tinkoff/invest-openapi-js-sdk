@@ -25,6 +25,10 @@ export type OrderbookStreaming = {
     bids: Array<[number, number]>;
     asks: Array<[number, number]>;
 };
+export type OrderbookStreamingMetaParams = {
+    /** Серверное время в формате RFC3339Nano */
+    serverTime: string;
+};
 export type InstrumentId = { ticker: string } | { figi: string };
 export type CandleStreaming = {
     o: number;
@@ -35,6 +39,30 @@ export type CandleStreaming = {
     time: string;
     interval: Interval;
     figi: string;
+};
+export type CandleStreamingMetaParams = {
+    /** Серверное время в формате RFC3339Nano */
+    serverTime: string;
+};
+export type InstrumentInfoStreaming = {
+    /** Статус торгов */
+    trade_status: string;
+    /** Шаг цены */
+    min_price_increment: number;
+    /** Лот */
+    lot: number;
+    /** НКД. Возвращается только для бондов */
+    accrued_interest?: number;
+    /** Верхняя граница заявки. Возвращается только для RTS инструментов */
+    limit_up?: number;
+    /** Нижняя граница заявки. Возвращается только для RTS инструментов */
+    limit_down?: number;
+    /** FIGI */
+    figi: string;
+};
+export type InstrumentInfoStreamingMetaParams = {
+    /** Серверное время в формате RFC3339Nano */
+    serverTime: string;
 };
 
 export type LimitOrderParams = {

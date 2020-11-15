@@ -26,6 +26,9 @@ import {
   Interval,
   OrderbookStreaming,
   FIGI,
+  InstrumentInfoStreaming,
+  InstrumentInfoStreamingMetaParams,
+  CandleStreamingMetaParams,
 } from './types';
 import { URLSearchParams } from 'url';
 import Streaming from './Streaming';
@@ -418,7 +421,7 @@ export default class OpenAPI {
    */
   candle(
     { figi, interval = '1min' }: { figi: string; interval?: Interval },
-    cb: (x: CandleStreaming) => any = console.log
+    cb: (x: CandleStreaming, metaParams: CandleStreamingMetaParams) => any = console.log
   ) {
     return this._streaming.candle({ figi, interval }, cb);
   }
@@ -430,7 +433,7 @@ export default class OpenAPI {
    * @param cb функция для обработки новых данных по инструменту
    * @return функция для отмены подписки
    */
-  instrumentInfo({ figi }: { figi: string }, cb = console.log) {
+  instrumentInfo({ figi }: { figi: string }, cb: (x: InstrumentInfoStreaming, metaParams: InstrumentInfoStreamingMetaParams) => any = console.log) {
     return this._streaming.instrumentInfo({ figi }, cb);
   }
 
