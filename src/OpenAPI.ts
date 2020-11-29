@@ -319,14 +319,15 @@ export default class OpenAPI {
    * @param from Начало временного промежутка в формате ISO 8601
    * @param to Конец временного промежутка в формате ISO 8601
    * @param figi Figi-идентификатор инструмента
+   * @param brokerAccountId номер счета (по умолчанию - Тинькофф)
    */
-  operations({ from, to, figi }: { from: string; to: string; figi?: string }): Promise<Operations> {
+  operations({ from, to, figi, brokerAccountId }: { from: string; to: string; figi?: string, brokerAccountId?: string }): Promise<Operations> {
     return this.makeRequest('/operations', {
       query: {
         from,
         to,
         figi,
-        brokerAccountId: this._currentBrokerAccountId,
+        brokerAccountId: brokerAccountId || this._currentBrokerAccountId,
       },
     });
   }
