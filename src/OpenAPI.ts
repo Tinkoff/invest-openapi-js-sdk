@@ -105,6 +105,14 @@ export default class OpenAPI {
           'Unauthorized! Try to use valid token. https://tinkoffcreditsystems.github.io/invest-openapi/auth/',
       };
     }
+    
+    if (res.status === 429) {
+      throw {
+        status: 'Error',
+        message:
+          'Too Many Requests!',
+      };
+    }    
 
     if (!res.ok) {
       throw await res.json();
