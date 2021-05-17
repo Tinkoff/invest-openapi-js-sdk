@@ -96,7 +96,7 @@ export default class Streaming extends EventEmitter {
     if (this._ws) {
       this._ws.ping('ping');
 
-      this._wsPingTimeout = setTimeout(this.socketPingLoop, 15_000)
+      this._wsPingTimeout = setTimeout(this.socketPingLoop, 15000)
     }
   }
 
@@ -129,7 +129,10 @@ export default class Streaming extends EventEmitter {
     if (isClosed) {
       this._ws.terminate();
       this._ws = null;
-      this.connect();
+      if (this._subscribeMessages.length) {
+        // не делаем реконнект если нет активных подписок
+        this.connect();
+      }
     }
   };
 
@@ -208,6 +211,9 @@ export default class Streaming extends EventEmitter {
 
         if (index !== -1) {
           this._subscribeMessages.splice(index, 1);
+        }
+        if (!this._subscribeMessages.length) {
+          this._ws?.close();
         }
       }
     };
