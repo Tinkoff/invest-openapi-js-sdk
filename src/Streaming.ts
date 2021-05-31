@@ -11,6 +11,7 @@ import {
   OrderbookStreaming,
   OrderbookStreamingMetaParams,
   SocketEventType,
+  StreamingError,
 } from './types';
 
 /**
@@ -144,7 +145,11 @@ export default class Streaming extends EventEmitter {
 
     const otherFields = { serverTime };
 
-    this.emit(this.getEventName(type, payload), payload, otherFields);
+    if (type === 'error') {
+      this.emit('streaming-error', payload, otherFields);
+    } else {
+      this.emit(this.getEventName(type, payload), payload, otherFields);
+    }
   };
 
   /**
@@ -161,6 +166,10 @@ export default class Streaming extends EventEmitter {
 
     if (type === 'instrument_info') {
       return `${type}-${params.figi}`;
+    }
+
+    if (type === 'error') {
+      return 'streaming-error';
     }
 
     throw new Error(`Unknown type: ${type}`);
@@ -250,5 +259,19 @@ export default class Streaming extends EventEmitter {
    */
   instrumentInfo({ figi }: { figi: string }, cb: (x: InstrumentInfoStreaming, metaParams: InstrumentInfoStreamingMetaParams) => any = console.log) {
     return this.subscribeToSocket({ type: 'instrument_info', figi }, cb);
+  }
+
+  /**
+   * Метод для обработки ошибки от сервиса стриминга
+   * @example см. метод [[onStreamingError]]
+   * @param cb
+   * @return функция для отмены подписки
+   */
+  onStreamingError(cb: (x: StreamingError, metaParams: InstrumentInfoStreamingMetaParams) => any) {
+    this.on('streaming-error', cb);
+
+    return () => {
+      this.off('streaming-error', cb);
+    }
   }
 }

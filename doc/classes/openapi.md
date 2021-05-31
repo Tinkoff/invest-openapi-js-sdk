@@ -26,6 +26,7 @@
 * [instrumentPortfolio](openapi.md#instrumentportfolio)
 * [limitOrder](openapi.md#limitorder)
 * [marketOrder](openapi.md#marketorder)
+* [onStreamingError](openapi.md#onstreamingerror)
 * [operations](openapi.md#operations)
 * [orderbook](openapi.md#orderbook)
 * [orderbookGet](openapi.md#orderbookget)
@@ -120,14 +121,14 @@ Name | Type | Default | Description |
 
 функция для обработки новых данных по свечи
 
-▸ (`x`: [CandleStreaming](../globals.md#candlestreaming), `metaParams`: [CandleStreamingMetaParams](../globals.md#candlestreamingotherparams)): *any*
+▸ (`x`: [CandleStreaming](../globals.md#candlestreaming), `metaParams`: [CandleStreamingMetaParams](../globals.md#candlestreamingmetaparams)): *any*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `x` | [CandleStreaming](../globals.md#candlestreaming) |
-`metaParams` | [CandleStreamingMetaParams](../globals.md#candlestreamingotherparams) |
+`metaParams` | [CandleStreamingMetaParams](../globals.md#candlestreamingmetaparams) |
 
 **Returns:** *(Anonymous function)*
 
@@ -206,14 +207,14 @@ Name | Type | Description |
 
 функция для обработки новых данных по инструменту
 
-▸ (`x`: [InstrumentInfoStreaming](../globals.md#instrumentinfostreaming), `metaParams`: [InstrumentInfoStreamingMetaParams](../globals.md#instrumentinfostreamingotherparams)): *any*
+▸ (`x`: [InstrumentInfoStreaming](../globals.md#instrumentinfostreaming), `metaParams`: [InstrumentInfoStreamingMetaParams](../globals.md#instrumentinfostreamingmetaparams)): *any*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `x` | [InstrumentInfoStreaming](../globals.md#instrumentinfostreaming) |
-`metaParams` | [InstrumentInfoStreamingMetaParams](../globals.md#instrumentinfostreamingotherparams) |
+`metaParams` | [InstrumentInfoStreamingMetaParams](../globals.md#instrumentinfostreamingmetaparams) |
 
 **Returns:** *(Anonymous function)*
 
@@ -278,6 +279,40 @@ Name | Type | Description |
 
 ___
 
+###  onStreamingError
+
+▸ **onStreamingError**(`cb`: function): *(Anonymous function)*
+
+Метод для обработки сообщений об ошибки от стриминга
+
+**`example`** 
+```typescript
+api.onStreamingError(({ error }) => { console.log(error) });
+api.instrumentInfo({ figi: 'NOOOOOOO' }, (ob) => { console.log(ob.bids) });
+// logs:  Subscription instrument_info:subscribe. FIGI NOOOOOOO not found
+```
+
+**Parameters:**
+
+▪ **cb**: *function*
+
+функция для обработки всех ошибок от стриминга
+
+▸ (`x`: [StreamingError](../globals.md#streamingerror), `metaParams`: [InstrumentInfoStreamingMetaParams](../globals.md#instrumentinfostreamingmetaparams)): *any*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`x` | [StreamingError](../globals.md#streamingerror) |
+`metaParams` | [InstrumentInfoStreamingMetaParams](../globals.md#instrumentinfostreamingmetaparams) |
+
+**Returns:** *(Anonymous function)*
+
+функция для отмены подписки
+
+___
+
 ###  operations
 
 ▸ **operations**(`__namedParameters`: object): *Promise‹[Operations](../globals.md#operations)›*
@@ -304,7 +339,7 @@ ___
 
 Метод для подписки на данные по стакану инструмента
 
-**`example`**
+**`example`** 
 ```typescript
 const { figi } = await api.searchOne({ ticker: 'AAPL' });
 const unsubFromAAPL = api.orderbook({ figi }, (ob) => { console.log(ob.bids) });

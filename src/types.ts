@@ -60,6 +60,10 @@ export type InstrumentInfoStreaming = {
     /** FIGI */
     figi: string;
 };
+export type StreamingError = {
+    request_id: string;
+    error: string;
+};
 export type InstrumentInfoStreamingMetaParams = {
     /** Серверное время в формате RFC3339Nano */
     serverTime: string;

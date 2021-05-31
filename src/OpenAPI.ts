@@ -29,6 +29,7 @@ import {
   InstrumentInfoStreaming,
   InstrumentInfoStreamingMetaParams,
   CandleStreamingMetaParams,
+  StreamingError,
 } from './types';
 import { URLSearchParams } from 'url';
 import Streaming from './Streaming';
@@ -443,6 +444,22 @@ export default class OpenAPI {
    */
   instrumentInfo({ figi }: { figi: string }, cb: (x: InstrumentInfoStreaming, metaParams: InstrumentInfoStreamingMetaParams) => any = console.log) {
     return this._streaming.instrumentInfo({ figi }, cb);
+  }
+
+
+  /**
+   * Метод для обработки сообщений об ошибки от стриминга
+   * @example
+   * ```typescript
+   * api.onStreamingError(({ error }) => { console.log(error) });
+   * api.instrumentInfo({ figi: 'NOOOOOOO' }, (ob) => { console.log(ob.bids) });
+   * // logs:  Subscription instrument_info:subscribe. FIGI NOOOOOOO not found
+   * ```
+   * @param cb функция для обработки всех ошибок от стриминга
+   * @return функция для отмены подписки
+   */
+  onStreamingError(cb: (x: StreamingError, metaParams: InstrumentInfoStreamingMetaParams) => any) {
+    return this._streaming.onStreamingError(cb);
   }
 
   /**

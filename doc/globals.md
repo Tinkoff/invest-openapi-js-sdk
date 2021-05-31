@@ -14,7 +14,7 @@
 * [Candle](globals.md#candle)
 * [CandleResolution](globals.md#candleresolution)
 * [CandleStreaming](globals.md#candlestreaming)
-* [CandleStreamingMetaParams](globals.md#candlestreamingotherparams)
+* [CandleStreamingMetaParams](globals.md#candlestreamingmetaparams)
 * [Candles](globals.md#candles)
 * [CandlesResponse](globals.md#candlesresponse)
 * [Currencies](globals.md#currencies)
@@ -29,7 +29,7 @@
 * [HttpMethod](globals.md#httpmethod)
 * [InstrumentId](globals.md#instrumentid)
 * [InstrumentInfoStreaming](globals.md#instrumentinfostreaming)
-* [InstrumentInfoStreamingMetaParams](globals.md#instrumentinfostreamingotherparams)
+* [InstrumentInfoStreamingMetaParams](globals.md#instrumentinfostreamingmetaparams)
 * [InstrumentType](globals.md#instrumenttype)
 * [Interval](globals.md#interval)
 * [LimitOrderParams](globals.md#limitorderparams)
@@ -57,7 +57,7 @@
 * [Orderbook](globals.md#orderbook)
 * [OrderbookResponse](globals.md#orderbookresponse)
 * [OrderbookStreaming](globals.md#orderbookstreaming)
-* [OrderbookStreamingMetaParams](globals.md#orderbookstreamingotherparams)
+* [OrderbookStreamingMetaParams](globals.md#orderbookstreamingmetaparams)
 * [OrdersResponse](globals.md#ordersresponse)
 * [PlacedLimitOrder](globals.md#placedlimitorder)
 * [PlacedMarketOrder](globals.md#placedmarketorder)
@@ -75,6 +75,7 @@
 * [SearchMarketInstrument](globals.md#searchmarketinstrument)
 * [SearchMarketInstrumentResponse](globals.md#searchmarketinstrumentresponse)
 * [SocketEventType](globals.md#socketeventtype)
+* [StreamingError](globals.md#streamingerror)
 * [TradeStatus](globals.md#tradestatus)
 * [UserAccount](globals.md#useraccount)
 * [UserAccounts](globals.md#useraccounts)
@@ -967,6 +968,18 @@ ___
 ###  SocketEventType
 
 Ƭ **SocketEventType**: *"orderbook" | "candle" | "instrument_info"*
+
+___
+
+###  StreamingError
+
+Ƭ **StreamingError**: *object*
+
+#### Type declaration:
+
+* **error**: *string*
+
+* **request_id**: *string*
 
 ___
 
