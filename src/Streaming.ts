@@ -2,11 +2,16 @@ import { EventEmitter } from 'events';
 import WebSocket from 'ws';
 import {
   CandleStreaming,
+  CandleStreamingMetaParams,
   Depth,
   Dict,
+  InstrumentInfoStreaming,
+  InstrumentInfoStreamingMetaParams,
   Interval,
   OrderbookStreaming,
+  OrderbookStreamingMetaParams,
   SocketEventType,
+  StreamingError,
 } from './types';
 
 /**
@@ -57,6 +62,7 @@ export default class Streaming extends EventEmitter {
     }
 
     this._ws = new WebSocket(this.socketURL, {
+      handshakeTimeout: 4000,
       perMessageDeflate: false,
       headers: this.authHeaders,
     });
@@ -91,7 +97,7 @@ export default class Streaming extends EventEmitter {
     if (this._ws) {
       this._ws.ping('ping');
 
-      this._wsPingTimeout = setTimeout(this.socketPingLoop, 15_000)
+      this._wsPingTimeout = setTimeout(this.socketPingLoop, 15000)
     }
   }
 
@@ -124,7 +130,10 @@ export default class Streaming extends EventEmitter {
     if (isClosed) {
       this._ws.terminate();
       this._ws = null;
-      this.connect();
+      if (this._subscribeMessages.length) {
+        // не делаем реконнект если нет активных подписок
+        this.connect();
+      }
     }
   };
 
@@ -132,9 +141,15 @@ export default class Streaming extends EventEmitter {
    * Обработчик входящих сообщений
    */
   private handleSocketMessage = (m: string) => {
-    const { event: type, payload } = JSON.parse(m);
+    const { event: type, payload, time: serverTime } = JSON.parse(m);
 
-    this.emit(this.getEventName(type, payload), payload);
+    const otherFields = { serverTime };
+
+    if (type === 'error') {
+      this.emit('streaming-error', payload, otherFields);
+    } else {
+      this.emit(this.getEventName(type, payload), payload, otherFields);
+    }
   };
 
   /**
@@ -151,6 +166,10 @@ export default class Streaming extends EventEmitter {
 
     if (type === 'instrument_info') {
       return `${type}-${params.figi}`;
+    }
+
+    if (type === 'error') {
+      return 'streaming-error';
     }
 
     throw new Error(`Unknown type: ${type}`);
@@ -202,13 +221,16 @@ export default class Streaming extends EventEmitter {
         if (index !== -1) {
           this._subscribeMessages.splice(index, 1);
         }
+        if (!this._subscribeMessages.length) {
+          this._ws?.close();
+        }
       }
     };
   }
 
   orderbook(
     { figi, depth = 3 }: { figi: string; depth?: Depth },
-    cb: (x: OrderbookStreaming) => any = console.log
+    cb: (x: OrderbookStreaming, metaParams: OrderbookStreamingMetaParams) => any = console.log
   ) {
     return this.subscribeToSocket({ type: 'orderbook', figi, depth }, cb);
   }
@@ -223,7 +245,7 @@ export default class Streaming extends EventEmitter {
    */
   candle(
     { figi, interval = '1min' }: { figi: string; interval?: Interval },
-    cb: (x: CandleStreaming) => any = console.log
+    cb: (x: CandleStreaming, metaParams: CandleStreamingMetaParams) => any = console.log
   ) {
     return this.subscribeToSocket({ type: 'candle', figi, interval }, cb);
   }
@@ -235,7 +257,21 @@ export default class Streaming extends EventEmitter {
    * @param cb функция для обработки новых данных по инструменту
    * @return функция для отмены подписки
    */
-  instrumentInfo({ figi }: { figi: string }, cb = console.log) {
+  instrumentInfo({ figi }: { figi: string }, cb: (x: InstrumentInfoStreaming, metaParams: InstrumentInfoStreamingMetaParams) => any = console.log) {
     return this.subscribeToSocket({ type: 'instrument_info', figi }, cb);
+  }
+
+  /**
+   * Метод для обработки ошибки от сервиса стриминга
+   * @example см. метод [[onStreamingError]]
+   * @param cb
+   * @return функция для отмены подписки
+   */
+  onStreamingError(cb: (x: StreamingError, metaParams: InstrumentInfoStreamingMetaParams) => any) {
+    this.on('streaming-error', cb);
+
+    return () => {
+      this.off('streaming-error', cb);
+    }
   }
 }

@@ -26,6 +26,10 @@ import {
   Interval,
   OrderbookStreaming,
   FIGI,
+  InstrumentInfoStreaming,
+  InstrumentInfoStreamingMetaParams,
+  CandleStreamingMetaParams,
+  StreamingError,
 } from './types';
 import { URLSearchParams } from 'url';
 import Streaming from './Streaming';
@@ -102,6 +106,14 @@ export default class OpenAPI {
           'Unauthorized! Try to use valid token. https://tinkoffcreditsystems.github.io/invest-openapi/auth/',
       };
     }
+    
+    if (res.status === 429) {
+      throw {
+        status: 'Error',
+        message:
+          'Too Many Requests!',
+      };
+    }    
 
     if (!res.ok) {
       throw await res.json()
@@ -418,7 +430,7 @@ export default class OpenAPI {
    */
   candle(
     { figi, interval = '1min' }: { figi: string; interval?: Interval },
-    cb: (x: CandleStreaming) => any = console.log
+    cb: (x: CandleStreaming, metaParams: CandleStreamingMetaParams) => any = console.log
   ) {
     return this._streaming.candle({ figi, interval }, cb);
   }
@@ -430,8 +442,24 @@ export default class OpenAPI {
    * @param cb функция для обработки новых данных по инструменту
    * @return функция для отмены подписки
    */
-  instrumentInfo({ figi }: { figi: string }, cb = console.log) {
+  instrumentInfo({ figi }: { figi: string }, cb: (x: InstrumentInfoStreaming, metaParams: InstrumentInfoStreamingMetaParams) => any = console.log) {
     return this._streaming.instrumentInfo({ figi }, cb);
+  }
+
+
+  /**
+   * Метод для обработки сообщений об ошибки от стриминга
+   * @example
+   * ```typescript
+   * api.onStreamingError(({ error }) => { console.log(error) });
+   * api.instrumentInfo({ figi: 'NOOOOOOO' }, (ob) => { console.log(ob.bids) });
+   * // logs:  Subscription instrument_info:subscribe. FIGI NOOOOOOO not found
+   * ```
+   * @param cb функция для обработки всех ошибок от стриминга
+   * @return функция для отмены подписки
+   */
+  onStreamingError(cb: (x: StreamingError, metaParams: InstrumentInfoStreamingMetaParams) => any) {
+    return this._streaming.onStreamingError(cb);
   }
 
   /**

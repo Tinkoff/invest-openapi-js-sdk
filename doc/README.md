@@ -1,6 +1,6 @@
-[@tinkoff/invest-openapi-js-sdk - v1.2.12](README.md) › [Globals](globals.md)
+[@tinkoff/invest-openapi-js-sdk](README.md) › [Globals](globals.md)
 
-# @tinkoff/invest-openapi-js-sdk - v1.2.12
+# @tinkoff/invest-openapi-js-sdk
 
 # Trading Open API - JS SDK
 
@@ -33,7 +33,7 @@ SDK для работы с OpenAPI Тинькофф Инвестиции, кот
 ```typescript
 import OpenAPI from '@tinkoff/invest-openapi-js-sdk';
 
-const apiURL = 'https://api-invest.tinkoff.ru/openapi';
+const apiURL = 'https://api-invest.tinkoff.ru/openapi/sandbox'; // Для Production-окружения будет https://api-invest.tinkoff.ru/openapi
 const socketURL = 'wss://api-invest.tinkoff.ru/openapi/md/v1/md-openapi/ws';
 const secretToken = 'xxx'; // токен для сандбокса
 const api = new OpenAPI({ apiURL, secretToken, socketURL });

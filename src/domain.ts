@@ -149,6 +149,7 @@ export type Operation = {
     payment: number;
     price?: number;
     quantity?: number;
+    quantityExecuted?: number;
     figi?: string;
     instrumentType?: InstrumentType;
     isMarginCall: boolean;
@@ -297,6 +298,7 @@ export type MarketInstrument = {
     isin?: string;
     minPriceIncrement?: number;
     lot: number;
+    minQuantity?: number;
     currency?: Currency;
     name: string;
     type: InstrumentType;

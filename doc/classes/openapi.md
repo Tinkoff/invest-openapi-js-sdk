@@ -1,4 +1,4 @@
-[@tinkoff/invest-openapi-js-sdk - v1.2.12](../README.md) › [Globals](../globals.md) › [OpenAPI](openapi.md)
+[@tinkoff/invest-openapi-js-sdk](../README.md) › [Globals](../globals.md) › [OpenAPI](openapi.md)
 
 # Class: OpenAPI
 
@@ -26,6 +26,7 @@
 * [instrumentPortfolio](openapi.md#instrumentportfolio)
 * [limitOrder](openapi.md#limitorder)
 * [marketOrder](openapi.md#marketorder)
+* [onStreamingError](openapi.md#onstreamingerror)
 * [operations](openapi.md#operations)
 * [orderbook](openapi.md#orderbook)
 * [orderbookGet](openapi.md#orderbookget)
@@ -116,17 +117,18 @@ Name | Type | Default | Description |
 `figi` | string | - | идентификатор инструмента |
 `interval` | "1min" &#124; "2min" &#124; "3min" &#124; "5min" &#124; "10min" &#124; "15min" &#124; "30min" &#124; "hour" &#124; "day" &#124; "week" &#124; "month" &#124; "2hour" &#124; "4hour" | "1min" | интервал для свечи |
 
-▪`Default value`  **cb**: *function*=  console.log
+▪`Default value`  **cb**: *function*= console.log
 
 функция для обработки новых данных по свечи
 
-▸ (`x`: [CandleStreaming](../globals.md#candlestreaming)): *any*
+▸ (`x`: [CandleStreaming](../globals.md#candlestreaming), `metaParams`: [CandleStreamingMetaParams](../globals.md#candlestreamingmetaparams)): *any*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `x` | [CandleStreaming](../globals.md#candlestreaming) |
+`metaParams` | [CandleStreamingMetaParams](../globals.md#candlestreamingmetaparams) |
 
 **Returns:** *(Anonymous function)*
 
@@ -187,7 +189,7 @@ ___
 
 ###  instrumentInfo
 
-▸ **instrumentInfo**(`__namedParameters`: object, `cb`: log): *(Anonymous function)*
+▸ **instrumentInfo**(`__namedParameters`: object, `cb`: function): *(Anonymous function)*
 
 Метод для подписки на данные по инструменту
 
@@ -201,9 +203,18 @@ Name | Type | Description |
 ------ | ------ | ------ |
 `figi` | string | идентификатор инструмента |
 
-▪`Default value`  **cb**: *log*=  console.log
+▪`Default value`  **cb**: *function*= console.log
 
 функция для обработки новых данных по инструменту
+
+▸ (`x`: [InstrumentInfoStreaming](../globals.md#instrumentinfostreaming), `metaParams`: [InstrumentInfoStreamingMetaParams](../globals.md#instrumentinfostreamingmetaparams)): *any*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`x` | [InstrumentInfoStreaming](../globals.md#instrumentinfostreaming) |
+`metaParams` | [InstrumentInfoStreamingMetaParams](../globals.md#instrumentinfostreamingmetaparams) |
 
 **Returns:** *(Anonymous function)*
 
@@ -268,6 +279,40 @@ Name | Type | Description |
 
 ___
 
+###  onStreamingError
+
+▸ **onStreamingError**(`cb`: function): *(Anonymous function)*
+
+Метод для обработки сообщений об ошибки от стриминга
+
+**`example`** 
+```typescript
+api.onStreamingError(({ error }) => { console.log(error) });
+api.instrumentInfo({ figi: 'NOOOOOOO' }, (ob) => { console.log(ob.bids) });
+// logs:  Subscription instrument_info:subscribe. FIGI NOOOOOOO not found
+```
+
+**Parameters:**
+
+▪ **cb**: *function*
+
+функция для обработки всех ошибок от стриминга
+
+▸ (`x`: [StreamingError](../globals.md#streamingerror), `metaParams`: [InstrumentInfoStreamingMetaParams](../globals.md#instrumentinfostreamingmetaparams)): *any*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`x` | [StreamingError](../globals.md#streamingerror) |
+`metaParams` | [InstrumentInfoStreamingMetaParams](../globals.md#instrumentinfostreamingmetaparams) |
+
+**Returns:** *(Anonymous function)*
+
+функция для отмены подписки
+
+___
+
 ###  operations
 
 ▸ **operations**(`__namedParameters`: object): *Promise‹[Operations](../globals.md#operations)›*
@@ -311,7 +356,7 @@ Name | Type | Default | Description |
 `depth` | 1 &#124; 2 &#124; 3 &#124; 4 &#124; 5 &#124; 6 &#124; 7 &#124; 8 &#124; 9 &#124; 10 | 3 | - |
 `figi` | string | - | идентификатор инструмента |
 
-▪`Default value`  **cb**: *function*=  console.log
+▪`Default value`  **cb**: *function*= console.log
 
 функция для обработки новых данных по стакану
 
