@@ -89,7 +89,7 @@ export default class OpenAPI {
    * Запрос к REST
    */
   private async makeRequest<Q, B, R>( url: string, { method = 'get', query, body }: RequestConfig<Q, B> = {}): Promise<R> {
-    let requestParams: Record<string, any> = { method, headers: new Headers(this.authHeaders) };
+    let requestParams: Record<string, any> = { method, headers: this.authHeaders };
     let requestUrl = this.apiURL + url + getQueryString(query || {});
 
     if (method === 'post') {
@@ -106,14 +106,14 @@ export default class OpenAPI {
           'Unauthorized! Try to use valid token. https://tinkoffcreditsystems.github.io/invest-openapi/auth/',
       };
     }
-    
+
     if (res.status === 429) {
       throw {
         status: 'Error',
         message:
           'Too Many Requests!',
       };
-    }    
+    }
 
     if (!res.ok) {
       throw await res.json();
