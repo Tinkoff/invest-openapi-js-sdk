@@ -201,13 +201,14 @@ export default class Streaming extends EventEmitter {
     if (!this._ws) {
       this.connect();
     }
-
+    let eventName = this.getEventName(type, params);
     const message = { event: `${type}:subscribe`, ...params };
-    this.enqueue(message);
-    this._subscribeMessages.push(message);
+    if (!this.listenerCount(eventName)) {
+      this.enqueue(message);
+      this._subscribeMessages.push(message);
+    }
 
     const handler = (x: any) => setImmediate(() => cb(x));
-    let eventName = this.getEventName(type, params);
 
     this.on(eventName, handler);
 
