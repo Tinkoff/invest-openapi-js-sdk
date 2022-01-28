@@ -9,12 +9,12 @@ SDK для работы с OpenAPI Тинькофф Инвестиции, кот
 
 Доступна по [ссылке](./doc/classes/openapi.md)
 
-[Swagger](https://tinkoffcreditsystems.github.io/invest-openapi/swagger-ui/)
+[Swagger](https://tinkoff.github.io/invest-openapi/swagger-ui/)
 
 
 ## Авторизация
 
-Более полную информацию можно просмотреть в [документации](https://tinkoffcreditsystems.github.io/invest-openapi/auth/)
+Более полную информацию можно просмотреть в [документации](https://tinkoff.github.io/invest-openapi/auth/)
 
 1. Перейдите в [настройки](https://www.tinkoff.ru/invest/settings/) блок "Токен для OpenAPI"
 2. Функция "Подтверждение сделок кодом" должна быть отключена
@@ -53,7 +53,7 @@ const api = new OpenAPI({ apiURL, secretToken, socketURL });
 
 Для использования _Sandbox_ необходимо передать в apiURL и в secretToken url
 эндпоинта с апи sandbox'а и токен для песочницы.
-Более подробно в [документации](https://tinkoffcreditsystems.github.io/invest-openapi/env/)
+Более подробно в [документации](https://tinkoff.github.io/invest-openapi/env/)
 
 ```typescript
 await api.sandboxClear(); // очищаем песочницу 
